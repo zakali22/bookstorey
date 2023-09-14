@@ -1,5 +1,5 @@
 const { default: slugify } = require('slugify')
-const { createRemoteFileNode } = require('gatsby-source-filesystem')
+const { createRemoteFileNode, createFilePath } = require('gatsby-source-filesystem')
 const BOOKS = require("./src/data/books.json")
 
 exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
@@ -28,6 +28,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
                 createNode({
                     ...book, 
                     authors: authors?.map(author => (slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}))),
+                    slug: slugify(book.title, {lower: true}),
                     id: createNodeId(`custom-book-id-${slugify(book.title, {lower: true})}`),
                     parent: null,
                     children: [],
@@ -59,8 +60,83 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
     })
 }
 
-exports.createPages = ({ actions }) => {
+exports.createPages = async ({ actions, graphql }) => {
+    const {createPage} = actions
     // Query the books data and create pages for each using a template
+    /** Books pages */
+    const booksData = await graphql(`
+        query BookPagesQuery {
+            allBook {
+                nodes {
+                    title
+                    id
+                    description
+                    categories
+                    slug
+                    authors {
+                        slug
+                        id
+                        name
+                    }
+                    cover {
+                        childImageSharp { gatsbyImageData }
+                    }
+                }
+            }
+        }
+    `)
+
+    booksData.data.allBook.nodes.forEach((book) => {
+        createPage({
+            path: `/books/${book.slug}`,
+            component: require.resolve("./src/templates/book.js"),
+            context: {
+                ...book,
+                meta: {
+                    description: `${book.name}`
+                }
+            }
+        })
+    })
+
+
+    /** Authors pages */
+    const authorsData = await graphql(`
+        query AllAuthors {
+            allAuthor {
+                nodes {
+                    slug
+                    name
+                    id
+                    books {
+                        title
+                        slug
+                        ratingsCount
+                        id
+                        description
+                        cover {
+                            childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `)
+
+    authorsData.data.allAuthor.nodes.forEach((author) => {
+        createPage({
+            path: `/author/${author.slug}`,
+            component: require.resolve("./src/templates/author.js"),
+            context: {
+                ...author,
+                meta: {
+                    description: `${author.name}`
+                }
+            }
+        })
+    })
 
 }
 
