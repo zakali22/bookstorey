@@ -1,6 +1,7 @@
 import * as React from "react"
 import {useStaticQuery, graphql, Link} from "gatsby"
 import {GatsbyImage, StaticImage, getImage} from "gatsby-plugin-image"
+import Container from "../../../gatsby-theme/src/components/Container"
 
 export default function AllBooks(){
     const data = useStaticQuery(graphql`
@@ -28,7 +29,8 @@ export default function AllBooks(){
     const {allBook} = data
 
     return (
-        <>
+        <section>
+            <Container>
             {
                 allBook.nodes.map(book => (
                     <Link to={`/books/${book.slug}`} key={book.id}>
@@ -42,7 +44,8 @@ export default function AllBooks(){
                     </Link>
                 ))
             }
-        </>
+            </Container>
+        </section>
     )
 
 }

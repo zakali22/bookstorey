@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "gatsby": "^5.12.4",
+        "gatsby-plugin-layout": "^4.12.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "sass": "^1.66.1"
