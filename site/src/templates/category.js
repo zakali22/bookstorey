@@ -30,11 +30,11 @@ export const query = graphql`
 
 export default function BookPage({data, pageContext, location}){
     const {numPagesPerCat, currentPage, category} = pageContext
-    console.log(data)
+    // console.log(data)
     const {allBook} = data
 
     React.useEffect(() => {
-        console.log(numPagesPerCat)
+        // console.log(numPagesPerCat)
     }, [])
 
     return (
