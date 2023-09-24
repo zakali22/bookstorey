@@ -7,7 +7,7 @@ export default function IndexPage() {
   React.useEffect(() => {
     const data = fetchData()
 
-    console.log(data)
+    // console.log(data)
   }, [])
 
 
@@ -15,7 +15,7 @@ export default function IndexPage() {
   function fetchData(){
     return CATEGORIES.data.map(category => {
         fetchBooks(category).then(books => {
-          console.log(category, books)
+          // console.log(category, books)
             if(books && books.length){
                 const booksDetails = books.map(({volumeInfo}) => {
                     return {
@@ -34,7 +34,7 @@ export default function IndexPage() {
                     }
                 })
 
-                console.log(booksDetails)
+                // console.log(booksDetails)
                 return booksDetails
             }
         })

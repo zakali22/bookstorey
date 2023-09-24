@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 
 export default function AuthorPage({pageContext}){
     const {name, id, books} = pageContext
-    console.log(pageContext)
+    // console.log(pageContext)
     return (
         <div>
             <h1>{name}</h1>
