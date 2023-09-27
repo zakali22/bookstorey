@@ -1,0 +1,25 @@
+@import "./variables.scss";
+
+.btn {
+    font-size: 16px;
+    cursor: pointer;
+    
+    @media(min-width: 768px){
+        font-size: 18px;
+    }
+
+    &--primary {
+        background-color: $blue;
+        color: $white;
+        padding: 7px 16px;
+        letter-spacing: 2px;
+        font-family: 'Lato';
+        font-weight: 400;
+        border: 2px solid $blue;
+
+        &:hover, &:focus {
+            background-color: $white;
+            color: $blue;
+        }
+    }
+}
