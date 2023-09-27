@@ -1,20 +1,24 @@
 import React from "react"
-import {GatsbyImage, StaticImage, getImage} from "gatsby-plugin-image"
+import "../styles/hero-images.scss"
 
+function Image({children}){
+    return (
+        <div className="hero-image-wrapper__item">
+            {children}
+        </div>
+    )
+}
 
-export default function ImageWrapper({type, sources}){
-    if(type === 'multiple-hero'){
+export default function ImageWrapper({type, children}){
+    if(type === 'multiple'){
         return (
-            <>
-                <div>
-                    <StaticImage src={sources[0]} width={128} height={167} />
-                    <StaticImage src={sources[1]} width={128} height={167} />
-                </div>
-                <div>
-                    <StaticImage src={sources[2]} width={128} height={167} />
-                    <StaticImage src={sources[3]} width={128} height={167} />
-                </div>
-            </>
+            <div className="hero-image-wrapper">
+                {children.map((child) => (
+                    <Image type="ceil">{child}</Image>
+                ))}
+            </div>
         )
+    } else {
+        return null
     }
 }
