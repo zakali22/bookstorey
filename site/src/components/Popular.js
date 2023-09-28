@@ -11,7 +11,6 @@ export default function Popular(){
     const data = useStaticQuery(graphql`
         query MyQuery {
             allBook(
-                limit: 5,
                 filter: {averageRating: {gte: 1}, ratingsCount: {gte: 30}}
                 sort: {averageRating: DESC}
             ) {
@@ -38,15 +37,14 @@ export default function Popular(){
     `);
 
     const allBooks = data.allBook.nodes
-    console.log(allBooks)
 
     return (
         <Section>
-            <h2>Popular</h2>
+            <h2 className="title">Popular</h2>
             <Carousel>
                 {
                     allBooks.map(book => (
-                        <Card book={book} image={<GatsbyImage image={getImage(book.cover)} alt={book.title} layout="fullWidth" />} />
+                        <Card book={book} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />
                     ))
                 }
             </Carousel>
