@@ -5,7 +5,7 @@ import "../styles/card.scss"
 
 export default function Card({book, image}){
     return (
-        <Link className="card" to={book.slug}>
+        <Link className="card" to={`/book/${book.slug}`}>
             <div className="card__image">
                 {image}
             </div>

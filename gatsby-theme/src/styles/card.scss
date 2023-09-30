@@ -21,10 +21,16 @@
         min-height: 200px;
         position: absolute;
         top: 0;
-        left: 20px;
-        border-top-right-radius: 75px;
-        border-top-left-radius: 75px;
+        left: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 20px;
         overflow: hidden;
+
+        @media(min-width: 768px){
+            left: 20px;
+            border-top-right-radius: 75px;
+            border-top-left-radius: 75px;
+        }
 
         img {
             // width: 128px;
@@ -51,15 +57,23 @@
     &__content {
         background: $blue;
         width: 100%;
-        padding: 15px 20px 25px;
-        padding-left: 168px;
-        height: calc(100% - 50px);
+        padding: 15px 16px 25px;
+        padding-left: 146px;
+        height: calc(100%);
         border-radius: 20px;
-        margin-top: 44px;
+        margin-top: 0;
 
         display: grid;
         grid-template-columns: 1fr;
         justify-items: start;
+
+        @media(min-width: 768px){
+            padding: 15px 20px 25px;
+            padding-left: 168px;
+            height: calc(100% - 50px);
+            border-radius: 20px;
+            margin-top: 44px;
+        }
 
         h3 {
             margin-top: 0;
@@ -68,8 +82,12 @@
 
         p {
             font-weight: 100;
-            font-size: 16px;
+            font-size: 14px;
             margin-top: 10px;
+            
+            @media(min-width: 768px){
+                font-size: 16px;
+            }
         }
 
         &-category {
@@ -82,8 +100,13 @@
             color: $blue;
             padding: 7px 15px;
             font-family: 'Lato';
+            font-size: 14px;
             font-weight: 400;
             border-radius: 15px;
+
+            @media(min-width: 768px){
+                font-size: 16px;
+            }
 
             span {
                 display: inline-block;
@@ -100,10 +123,15 @@
 
             .ratings {
                 svg {
-                    height: 16px;
-                    width: 17px;
+                    height: 13px;
+                    width: 14px;
                     margin-right: 5px;
                     stroke: $white;
+
+                    @media(min-width: 768px){
+                        height: 16px;
+                        width: 17px;
+                    }
 
                     path {
                         fill: none;

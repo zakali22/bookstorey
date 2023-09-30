@@ -39,8 +39,11 @@ export default function Popular(){
     const allBooks = data.allBook.nodes
 
     return (
-        <Section>
-            <h2 className="title">Popular</h2>
+        <Section className="section-carousel">
+            <div className="section-carousel__title">
+                <h2 className="title">Popular</h2>
+                <Link to="/popular" className="link"><span>See all</span></Link>
+            </div>
             <Carousel>
                 {
                     allBooks.map(book => (
