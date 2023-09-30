@@ -18,18 +18,21 @@
     
     &__image {
         background: $purple;
-        min-height: 200px;
+        min-height: 100%;
         position: absolute;
         top: 0;
         left: 0;
         border-top-right-radius: 0;
         border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
         overflow: hidden;
 
         @media(min-width: 768px){
+            min-height: 200px;
             left: 20px;
             border-top-right-radius: 75px;
             border-top-left-radius: 75px;
+            border-bottom-left-radius: 0
         }
 
         img {

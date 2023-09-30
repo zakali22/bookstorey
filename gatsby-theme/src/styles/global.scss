@@ -138,8 +138,12 @@ h3, .h3 {
 
     &__title {
         display: flex;
-        width: 40%;
+        width: 95%;
         justify-content: space-between;
         align-items: center;
+
+        @media(min-width: 992px){
+            width: 40%;
+        }
     }
 }
