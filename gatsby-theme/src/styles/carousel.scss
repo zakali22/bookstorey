@@ -1,0 +1,52 @@
+.slick-slide {
+    height: auto;
+
+    & > div {
+        height: 100%;
+    }
+}
+
+.slick-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.slick-arrow {
+    display: none;
+}
+
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    ul {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+
+        li, li button {
+            padding: 0;
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    button {
+        position: relative;
+        left: 0;
+        right: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.carousel-custom-controls {
+
+}
