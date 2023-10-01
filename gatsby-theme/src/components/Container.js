@@ -1,9 +1,9 @@
 import React from "react";
-import {containerWrapper} from "../styles/container.module.scss"
+import "../styles/container.scss"
 
-export default function Container({ children, className }){
+export default function Container({ children, className, fullwidth = false }){
     return (
-        <div className={`${containerWrapper} ${className}`}>
+        <div className={`container-wrapper ${className} ${fullwidth ? 'fullwidth' : ''}`}>
             {children}
         </div>
     )

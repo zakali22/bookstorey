@@ -3,7 +3,8 @@
 .nav {
     padding: 20px 0;
     color: $text-color;
-    z-index: 100;
+    position: relative;
+    z-index: 101;
     
     @media(min-width: 992px){
         padding: 30px 0;

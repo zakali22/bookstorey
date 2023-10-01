@@ -23,7 +23,7 @@ export default function HeroLayout({type, layout, left, right, backgroundColor})
     }
 
     return (
-        <Section className={`hero hero--bg-${backgroundColor} ${layout === 'landing' && 'hero--landing'}`}>
+        <Section className={`hero hero--bg-${backgroundColor} ${layout === 'landing' && 'hero--landing'}`} negativeMargin>
             {renderHero()}
         </Section>
     )

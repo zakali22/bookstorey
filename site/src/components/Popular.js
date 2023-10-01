@@ -39,8 +39,8 @@ export default function Popular(){
     const allBooks = data.allBook.nodes
 
     return (
-        <Section className="section-carousel section-carousel--no-margin-top">
-            <div className="section-carousel__title">
+        <Section negativeMargin>
+            <div className="section__title">
                 <h2 className="title">Popular</h2>
                 <Link to="/popular" className="link"><span>See all</span></Link>
             </div>
