@@ -5,7 +5,7 @@
     display: flex;
     align-items: flex-start;
     color: $white;
-    margin-right: 30px;
+    margin-right: 0;
     height: 100%;
     position: relative;
     text-decoration: none;
@@ -14,6 +14,10 @@
         .card__image::after {
             opacity: 0;            
         }
+    }
+
+    @media(min-width: 992px){
+        margin-right: 30px;
     }
     
     &__image {
@@ -141,6 +145,73 @@
                     }
                 }
                 
+            }
+        }
+    }
+
+    /** Styling without image displacement **/
+    &.card--no-displacement {
+        .card__image {
+            min-height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top-right-radius: 0;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        .card__content {
+            padding: 15px 16px 25px;
+            padding-left: 146px;
+            height: calc(100%);
+            border-radius: 20px;
+            margin-top: 0;
+        }
+    }
+
+
+    /** Grid carousel **/
+    &.card--complex {
+        
+        @media(min-width: 768px){
+            & {
+                margin-right: 8px;
+            }
+        }
+
+        @media(min-width: 992px){
+            & {
+                margin-bottom: 8px;
+                height: 98%;
+
+                .card__content {
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: max-content;
+                    gap: 10px;
+
+                    h3 {
+                        grid-column: 1 / span 1;
+                    }
+
+                    p {
+                        grid-column: 1 / span 1;
+                        grid-row: 2 / span 1;
+                    }
+
+                    &-category {
+                        grid-column: 2 / span 1;
+                        grid-row: 1 / span 1;
+                        align-self: start;
+                    }
+
+                    &-ratings {
+                        grid-column: 2 / span 1;
+                        grid-row: 2 / span 1;
+                        align-self: start;
+                        // margin-top: 0;
+                    }
+                }
             }
         }
     }

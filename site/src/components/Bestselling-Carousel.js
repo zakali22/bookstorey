@@ -7,13 +7,10 @@ import Card from "../../../gatsby-theme/src/components/Card";
 
 import Carousel from "./Carousel";
 
-export default function Popular(){
+export default function Bestselling(){
     const data = useStaticQuery(graphql`
-        query PopularQuery {
-            allBook(
-                filter: {averageRating: {gte: 1}, ratingsCount: {gte: 30}}
-                sort: {averageRating: DESC}
-            ) {
+        query BestsellingQuery {
+            allBook(filter: {ratingsCount: {gte: 100}}) {
                 nodes {
                     id
                     title
@@ -37,17 +34,17 @@ export default function Popular(){
     `);
 
     const allBooks = data.allBook.nodes
+    console.log(allBooks.length)
 
     return (
-        <Section className="section-carousel section-carousel--no-margin-top">
+        <Section className="section-carousel">
             <div className="section-carousel__title">
-                <h2 className="title">Popular</h2>
-                <Link to="/popular" className="link"><span>See all</span></Link>
+                <h2 className="title">Bestselling</h2>
             </div>
-            <Carousel>
+            <Carousel layout="grid">
                 {
                     allBooks.map(book => (
-                        <Card book={book} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />
+                        <Card book={book} layout="complex" hasImageDisplacement={false} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />
                     ))
                 }
             </Carousel>

@@ -19,9 +19,13 @@
 
 .slick-dots {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
+
+    @media(min-width: 768px){
+        justify-content: center;
+    }
 
     ul {
         margin: 0px;
@@ -47,6 +51,26 @@
     }
 }
 
-.carousel-custom-controls {
+.slick-grid {
+    .slick-slide {
 
+        @media(min-width: 768px){
+            .card {
+                margin-right: 8px;
+            }
+        }
+
+        @media(min-width: 992px){
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(2, 225px);
+    
+            .card {
+                margin-bottom: 8px;
+                height: 98%;
+
+                // @media(min-width: )
+            }
+        }
+    }
 }
