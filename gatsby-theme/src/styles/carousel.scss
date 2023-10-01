@@ -64,12 +64,33 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: repeat(2, 225px);
+
+            & > div {
+                width: 100%;
+
+                &:first-child {
+                    justify-self: end;
+                }
+            }
     
             .card {
                 margin-bottom: 8px;
                 height: 98%;
 
                 // @media(min-width: )
+            }
+        }
+
+        @media(min-width: 1200px){
+            & > div {
+                width: 85%;
+            }
+        }
+        
+
+        @media(min-width: 1400px){
+            & > div {
+                width: 75%;
             }
         }
     }
