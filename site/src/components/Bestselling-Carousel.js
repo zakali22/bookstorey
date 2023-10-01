@@ -37,8 +37,8 @@ export default function Bestselling(){
     console.log(allBooks.length)
 
     return (
-        <Section className="section-carousel">
-            <div className="section-carousel__title">
+        <Section>
+            <div className="section__title">
                 <h2 className="title">Bestselling</h2>
             </div>
             <Carousel layout="grid">

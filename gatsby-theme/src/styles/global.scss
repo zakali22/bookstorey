@@ -78,9 +78,8 @@ h3, .h3 {
 }
 
 .title {
-    @media(min-width: 768px){
-        margin-top: 0;
-    }
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .link {
@@ -119,12 +118,16 @@ h3, .h3 {
     }
 }
 
-.section-carousel {
+.section {
     margin-top: 40px;
     position: relative;
     z-index: 100;
 
-    &.section-carousel--no-margin-top {
+    &.section--no-margin-top {
+        margin-top: 0;
+    }
+
+    &.section--negative-margin-top {
         @media(min-width: 992px){
             margin-top: -55px;
         }
@@ -143,9 +146,11 @@ h3, .h3 {
         width: 95%;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 30px;
 
         @media(min-width: 992px){
             width: 40%;
+            margin-bottom: 50px;
         }
     }
 }

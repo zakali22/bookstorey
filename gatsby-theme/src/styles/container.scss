@@ -6,4 +6,9 @@
     @media(min-width: 992px){
         padding: 0 $container-h-padding;
     }
+
+    &.fullwidth {
+        padding: 0;
+    }
+
 }
