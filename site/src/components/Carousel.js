@@ -15,15 +15,17 @@ function Arrow({onClick, type}){
     )
 }
 
-export default function Carousel({children}){
+export default function Carousel({children, layout = 'default'}){
     const slideRef = React.useRef(null)
 
     var settings = {
         dots: true,
         arrows: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: layout === 'grid' ? 1 : 4,
+        rows: layout === 'grid' ? 2 : 1,
+        slidesPerRow: layout === 'grid' ? 2 : 1,
         prevArrow: null,
         nextArrow: null,
         appendDots: (dots) => (
@@ -37,19 +39,29 @@ export default function Carousel({children}){
             {
               breakpoint: 1500,
               settings: {
-                slidesToShow: 3
+                slidesToShow: layout === 'grid' ? 1 : 3,
               }
             },
             {
                 breakpoint: 1200,
                 settings: {
-                  slidesToShow: 2
+                  slidesToShow: layout === 'grid' ? 1 : 2,
+                }
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: layout === 'grid' ? 2 : 1,
+                    rows: 1,
+                    slidesPerRow: 1,
                 }
             },
             {
                 breakpoint: 768,
                 settings: {
-                  slidesToShow: 1
+                    slidesToShow: 1,
+                    rows: 1,
+                    slidesPerRow: 1,
                 }
             },
         ]
@@ -64,6 +76,6 @@ export default function Carousel({children}){
     }
 
     return (
-        <Slider ref={slideRef} {...settings}>{children}</Slider>
+        <Slider ref={slideRef} className={`${layout === 'grid' ? 'slick-grid' : ''}`} {...settings}>{children}</Slider>
     );
 }

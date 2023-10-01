@@ -124,16 +124,18 @@ h3, .h3 {
     position: relative;
     z-index: 100;
 
-    @media(min-width: 992px){
-        margin-top: -55px;
-    }
+    &.section-carousel--no-margin-top {
+        @media(min-width: 992px){
+            margin-top: -55px;
+        }
+        
+        @media(min-width: 1200px){
+            margin-top: -40px;
+        }
     
-    @media(min-width: 1200px){
-        margin-top: -40px;
-    }
-
-    @media(min-width: 1400px){
-        margin-top: -64px;
+        @media(min-width: 1400px){
+            margin-top: -64px;
+        }
     }
 
     &__title {
