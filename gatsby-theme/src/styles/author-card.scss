@@ -1,0 +1,71 @@
+@import "./variables.scss";
+
+.author-card {
+    display: flex;
+    background: $yellow;
+    margin-right: 130px;
+    text-decoration: none;
+
+    & > * {
+        flex: 1 0 50%;
+        max-width: 50%;
+    }
+
+    &__content {
+        padding: 0 0 20px 20px;
+        margin-right: 30px;
+        color: $blue;
+        border-left: 1px solid $light-grey;
+        border-bottom: 1px solid $light-grey;
+        height: max-content;
+
+        h3 {
+
+            span {
+                font-weight: normal;
+                display: block;
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+        }
+
+        p {
+            span {
+                display: block;
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+
+            width: 100%;
+            word-break: break-word;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    &__image {
+        position: relative;
+        height: 100%;
+        background: $purple;
+        overflow: hidden;
+        border-bottom-right-radius: 48%;
+        border-bottom-left-radius: 48%;
+    
+
+        &-wrapper {
+            width: 100%;
+            max-height: 500px;
+            // background: red;
+
+            & > * {
+                width: 100%;
+            }
+
+            img {
+                height: 500px !important;
+            }
+        }
+    }
+}

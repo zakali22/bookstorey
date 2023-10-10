@@ -15,7 +15,7 @@ function Arrow({onClick, type}){
     )
 }
 
-export default function Carousel({children, layout = 'default'}){
+export default function Carousel({children, layout = 'default', slidesToShow}){
     const slideRef = React.useRef(null)
 
     var settings = {
@@ -23,7 +23,7 @@ export default function Carousel({children, layout = 'default'}){
         arrows: true,
         infinite: false,
         speed: 500,
-        slidesToShow: layout === 'grid' ? 1 : 4,
+        slidesToShow: layout === 'grid' ? 1 : slidesToShow || 4,
         rows: layout === 'grid' ? 2 : 1,
         slidesPerRow: layout === 'grid' ? 2 : 1,
         prevArrow: null,
@@ -39,19 +39,19 @@ export default function Carousel({children, layout = 'default'}){
             {
               breakpoint: 1500,
               settings: {
-                slidesToShow: layout === 'grid' ? 1 : 3,
+                slidesToShow: layout === 'grid' ? 1 : slidesToShow || 3,
               }
             },
             {
                 breakpoint: 1200,
                 settings: {
-                  slidesToShow: layout === 'grid' ? 1 : 2,
+                  slidesToShow: layout === 'grid' ? 1 : slidesToShow || 2,
                 }
             },
             {
                 breakpoint: 992,
                 settings: {
-                    slidesToShow: layout === 'grid' ? 2 : 1,
+                    slidesToShow: layout === 'grid' ? 2 : slidesToShow || 1,
                     rows: 1,
                     slidesPerRow: 1,
                 }

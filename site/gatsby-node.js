@@ -48,6 +48,8 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
                         slug: slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}),
                         id: createNodeId(`custom-${author.toLowerCase()}`),
                         parent: null,
+                        bio: "",
+                        hasBio: false,
                         children: [],
                         internal: {
                             type: 'Author',
@@ -238,6 +240,76 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                     })
                     
                     return entries
+                }
+            },
+            cover: {
+                type: 'File',
+                resolve: async (source, args, context, info) => {
+                    const response = await fetch(`https://openlibrary.org/search/authors.json?q=${source.slug}`)
+                    if(!response.ok){
+                        reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
+                        return null
+                    }
+
+                    const { docs } = await response.json()
+
+                    if(docs.length){
+                        const response = await fetch(`https://openlibrary.org/authors/${docs[0].key}.json`)
+                        // console.log(docs[0].key)
+                        
+                        if(!response.ok){
+                            reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
+                            return null
+                        }
+
+
+                        const { photos } = await response.json()
+                        if(photos){
+                            if(photos.length){
+                                console.log(photos)
+                                return await createRemoteFileNode({
+                                    url: `https://covers.openlibrary.org/a/id/${photos[0]}-L.jpg`,
+                                    store,
+                                    cache,
+                                    createNode,
+                                    createNodeId
+                                })
+                            } else {
+                                return null
+                            }
+                        } else {
+                            return null
+                        }
+                    } else {
+                        return null
+                    }
+                }
+            },
+            bio: {
+                type: 'String',
+                resolve: async (source, args, context, info) => {
+                    const response = await fetch(`https://openlibrary.org/search/authors.json?q=${source.slug}`)
+                    if(!response.ok){
+                        reporter.warn(`Error loading ${authorObj.name} - ${response.status} ${response.statusText}`)
+                        return null
+                    }
+
+                    const { docs } = await response.json()
+                    if(docs.length){
+                        const response = await fetch(`https://openlibrary.org/authors/${docs[0].key}.json`)
+                        
+                        if(!response.ok){
+                            reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
+                            return null
+                        }
+
+                        const { bio } = await response.json()
+                        if(typeof bio === 'object' && bio.value.length > 0){
+                            return bio.value
+                        } else {
+                            return bio
+                        }
+                    }
                 }
             }
         }
