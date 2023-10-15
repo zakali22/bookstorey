@@ -18,6 +18,7 @@ body {
     font-weight: 400;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 } 
 
 h1, h2, .h1, .h2 {
@@ -152,5 +153,14 @@ h3, .h3 {
             width: 40%;
             margin-bottom: 50px;
         }
+
+        &.section__title--with-padding {
+            padding-left: $mobile-container-h-padding;
+    
+            @media(min-width: 992px){
+                padding-left: $container-h-padding;
+            }
+        }
     }
+
 }
