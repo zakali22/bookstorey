@@ -15,7 +15,7 @@ function Arrow({onClick, type}){
     )
 }
 
-export default function Carousel({children, layout = 'default', slidesToShow}){
+export default function Carousel({children, layout = 'default', slidesToShow, mobileSlidesToShow, hasBackground, backgroundColor}){
     const slideRef = React.useRef(null)
 
     var settings = {
@@ -76,6 +76,6 @@ export default function Carousel({children, layout = 'default', slidesToShow}){
     }
 
     return (
-        <Slider ref={slideRef} className={`${layout === 'grid' ? 'slick-grid' : ''}`} {...settings}>{children}</Slider>
+        <Slider ref={slideRef} className={`${layout === 'grid' ? 'slick-grid' : ''} ${hasBackground ? 'slick-background' : ''} ${backgroundColor && hasBackground ? `slick-background--${backgroundColor}` : ''}`} {...settings}>{children}</Slider>
     );
 }

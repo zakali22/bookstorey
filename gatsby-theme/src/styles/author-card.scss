@@ -2,10 +2,24 @@
 
 .author-card {
     display: flex;
-    background: $yellow;
-    margin-right: 130px;
+    padding: 0;
+    padding-left: 10px;
+    margin-right: 30px;
     text-decoration: none;
 
+    @media(min-width: 600px){
+        // padding: 0 30px;
+        padding-left: 30px;
+    }
+
+    @media(min-width: 1200px){
+        padding: 0 40px;
+    }
+
+    @media(min-width: 1400px){
+        padding: 0 60px;
+    }
+    
     & > * {
         flex: 1 0 50%;
         max-width: 50%;
@@ -13,6 +27,7 @@
 
     &__content {
         padding: 0 0 20px 20px;
+        margin-top: 30px;
         margin-right: 30px;
         color: $blue;
         border-left: 1px solid $light-grey;
@@ -49,22 +64,35 @@
         position: relative;
         height: 100%;
         background: $purple;
-        overflow: hidden;
-        border-bottom-right-radius: 48%;
-        border-bottom-left-radius: 48%;
+
+        @media(min-width: 600px){
+            overflow: hidden;
+            border-bottom-left-radius: 48%;
+        }
+        
+        @media(min-width: 1200px){
+            border-bottom-right-radius: 48%;
+        }
     
 
         &-wrapper {
             width: 100%;
-            max-height: 500px;
-            // background: red;
+            max-height: 400px;
+                
+            @media(min-width: 1200px){
+                max-height: 500px;
+            }
 
             & > * {
                 width: 100%;
             }
 
             img {
-                height: 500px !important;
+                height: 400px !important;
+                
+                @media(min-width: 1200px){
+                    height: 500px !important;
+                }
             }
         }
     }

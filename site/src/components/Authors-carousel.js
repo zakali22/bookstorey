@@ -34,13 +34,13 @@ export default function AuthorsCarousel(){
     console.log(allAuthorsWithBio)
 
     return (
-        <Section>
-            <div className="section__title">
+        <Section fullwidth>
+            <div className="section__title section__title--with-padding">
                 <h2 className="title">Get to know authors</h2>
             </div>
-            <Carousel slidesToShow={2}>
+            <Carousel mobileSlidesToShow={1} slidesToShow={2} hasBackground backgroundColor="yellow">
                 {
-                    allAuthorsWithBio.map(author => (
+                    allAuthorsWithBio.slice(0, 10).map(author => (
                         <AuthorCard author={author} image={<GatsbyImage image={getImage(author.cover)} width={628} height={1092} alt={author.name}  />}/>
                     ))
                 }
