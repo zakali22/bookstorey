@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+.container-wrapper {
+    padding: 0 $mobile-container-h-padding;
+
+    @media(min-width: 992px){
+        padding: 0 $container-h-padding;
+    }
+
+    &.fullwidth {
+        padding: 0;
+    }
+
+}
