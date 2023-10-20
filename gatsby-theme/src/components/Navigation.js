@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
 
 export default function Navigation(){
-    const mql = window.matchMedia("(max-width: 767px)")
+    const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
 
