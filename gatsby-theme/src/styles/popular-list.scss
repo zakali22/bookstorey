@@ -1,0 +1,14 @@
+.masonry-grid {
+    display: flex;
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+            height: auto !important;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}

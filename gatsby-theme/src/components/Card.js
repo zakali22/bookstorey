@@ -3,9 +3,9 @@ import { Link } from "gatsby"
 import RatingStar from "./RatingStar"
 import "../styles/card.scss"
 
-export default function Card({book, image, hasImageDisplacement = true, layout = 'simple'}){
+export default function Card({book, image, hasImageDisplacement = true, layout = 'simple', roundedCorners = true}){
     return (
-        <Link className={`card ${!hasImageDisplacement ? 'card--no-displacement' : ''} ${layout === 'complex' ? 'card--complex' : ''}`} to={`/books/${book.slug}`}>
+        <Link className={`card ${!hasImageDisplacement ? 'card--no-displacement' : ''} ${layout === 'complex' ? 'card--complex' : ''} ${roundedCorners ? 'card--with-rounded-corners' : ''}`} to={`/books/${book.slug}`}>
             <div className="card__image">
                 {image}
             </div>

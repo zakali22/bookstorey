@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\zaker\AppData\Roaming\npm\node_modules\yarn\lib\cli.js add gatsby-image
+  C:\Program Files\nodejs\node.exe C:\Users\zaker\AppData\Roaming\npm\node_modules\yarn\lib\cli.js add react-masonry-css
 
 PATH: 
   C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;%NVM_HOME%;%NVM_SYMLINK%;C:\Users\zaker\AppData\Local\Microsoft\WindowsApps;F:\Users\zaker\AppData\Local\Programs\Hyper\resources\bin;C:\Users\zaker\AppData\Local\Programs\Hyper\resources\bin;C:\Users\zaker\AppData\Local\GitHubDesktop\bin;C:\Users\zaker\.dotnet\tools;C:\Users\zaker\AppData\Roaming\npm;C:\Users\zaker\AppData\Roaming\nvm;C:\Program Files\nodejs
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\zaker\Documents\Projects\bookstorey\node_modules\@lmdb\lmdb-win32-x64\node.abi108.node'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\zaker\Documents\Projects\bookstorey\node_modules\@msgpackr-extract\msgpackr-extract-win32-x64\node.abi108.node'
 
 npm manifest: 
   {

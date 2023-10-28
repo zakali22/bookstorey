@@ -12,7 +12,7 @@ export default function Popular(){
         query PopularQuery {
             allBook(
                 filter: {averageRating: {gte: 1}, ratingsCount: {gte: 30}}
-                sort: {averageRating: DESC}
+                sort: {ratingsCount: DESC}
             ) {
                 nodes {
                     id
