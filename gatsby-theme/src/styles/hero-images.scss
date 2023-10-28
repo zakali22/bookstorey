@@ -102,7 +102,7 @@
 .hero-image-wrapper {
     .image__item {
         img {
-            filter: grayscale(1) !important;
+            filter: sepia(0.5) !important;
             object-position: top !important;
             object-fit: contain !important;
             width: auto;

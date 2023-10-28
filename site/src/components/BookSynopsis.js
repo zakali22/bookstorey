@@ -4,6 +4,7 @@ import SynopsisDescription from "../../../gatsby-theme/src/components/SynposisDe
 
 export default function BookSynopsis({ description }){
     // console.log(description)
+    if(!description?.length) return
     return (
         <Section>
             <div className="section__synopsis">

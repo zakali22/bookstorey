@@ -8,7 +8,7 @@ export default function SynopsisDescription({description}){
     const [descriptionLimit, setDescriptionLimit] = React.useState(CHAR_LIMIT)
     
     React.useEffect(() => {
-        const isLong = description.length > CHAR_LIMIT
+        const isLong = description?.length > CHAR_LIMIT
         setRenderRevealBtn(isLong)
 
     }, [description])
@@ -16,7 +16,7 @@ export default function SynopsisDescription({description}){
     if(renderRevealBtn){
         return (
             <div className="section__synopsis-wrapper">
-                <p>{description.substring(0, descriptionLimit)}...</p>
+                <p>{description.substring(0, descriptionLimit)}{descriptionLimit !== CHAR_LIMIT ? '' : '...'}</p>
                 <Button onClick={() => setDescriptionLimit(descriptionLimit !== CHAR_LIMIT ? CHAR_LIMIT : description.length)}>Read {descriptionLimit !== CHAR_LIMIT ? 'less' : 'more'}</Button>
             </div>
         )

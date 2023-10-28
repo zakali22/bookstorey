@@ -41,7 +41,7 @@
 
         li, li button {
             padding: 0;
-            width: 12px;
+            width: 8px;
             height: 18px;
 
             @media(min-width: 768px){
@@ -129,5 +129,12 @@
                 background-color: $yellow;
             }
         }
+    }
+}
+
+// Align start
+.slick-align-start {
+    .slick-track {
+        width: 100% !important;
     }
 }
