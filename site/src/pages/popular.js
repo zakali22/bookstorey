@@ -1,11 +1,16 @@
 import * as React from "react"
 import {graphql, useStaticQuery, Link} from "gatsby"
 import {GatsbyImage, StaticImage, getImage} from "gatsby-plugin-image"
+import Card from "../../../gatsby-theme/src/components/Card";
+import SingleHero from "../components/SingleHero";
+import PopularList from "../components/PopularList";
+import Button from "../../../gatsby-theme/src/components/Button"
+import CtaSection from "../components/CtaSection"
 
 export default function PopularPage(){
     const data = useStaticQuery(graphql`
         query PopularBooks {
-            allBook {
+            allBook(sort: {ratingsCount: DESC}, filter: {ratingsCount: {gte: 10}}) {
                 nodes {
                     id
                     title
@@ -56,31 +61,25 @@ export default function PopularPage(){
 
     return (
         <>
-            <div>
+            <SingleHero>Popular books</SingleHero>
+            <PopularList>
                 {
                     list.map(book => (
-                        <Link to={`/books/${book.slug}`} key={book.id}>
-                            <div>
-                                {book.cover !== null ? <GatsbyImage image={getImage(book.cover)} alt={book.title} /> : <StaticImage src='../images/no_cover_thumb.png' width={128} height={167} />}
-                                <h2>{book.title}</h2>
-                                <p>{book.description}</p>
-                                {book.categories.map(category => (<p>{category}</p>))}
-                                {book.authors.map(author => (<p>{author.name},{' '}</p>))}
-                            </div>
-                        </Link>
+                        <Card roundedCorners={false} book={book} hasImageDisplacement={false} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />
                     ))
                 }
-            </div>
+            </PopularList>
 
-            <div>
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}>
                 {
                     hasMore ? (
-                        <button onClick={handleLoadMore}>Load more</button>
+                        <Button onClick={handleLoadMore}>Load more</Button>
                     ) : (
                         <p>No more results</p>
                     )
                 }
             </div>
+            <CtaSection />
         </>
     )
 }

@@ -129,16 +129,19 @@ h3, .h3 {
     }
 
     &.section--negative-margin-top {
+        margin-top: #{($nav-height-desktop) * -1};
+        padding-top: #{($nav-height-desktop) + 20px};
+
         @media(min-width: 992px){
-            margin-top: -55px;
+            // margin-top: -55px;
         }
         
         @media(min-width: 1200px){
-            margin-top: -40px;
+            // margin-top: -40px;
         }
     
         @media(min-width: 1400px){
-            margin-top: -64px;
+
         }
     }
 

@@ -19,7 +19,7 @@ export default function LandingHero(){
 
     const rightHeroContent = () => {
         return (
-            <ImageWrapper type="multiple">
+            <ImageWrapper multiple>
                 <StaticImage src='../images/1984-hero.jpg' layout="constrained" width={317} height={500} alt="Hero image"/>
                 <StaticImage src='../images/count-of-mount-cristo.jpg' layout="constrained" width={317} height={500} alt="Hero image"/>
                 <StaticImage src='../images/quiet-on-the-western-front.jpg' layout="constrained" width={317} height={500} alt="Hero image"/>
@@ -29,6 +29,6 @@ export default function LandingHero(){
     }
 
     return (
-        <HeroLayout type="split" layout="landing" left={leftHeroContent()} right={rightHeroContent()} backgroundColor="yellow" />
+        <HeroLayout type="split" layout="landing" left={leftHeroContent()} right={rightHeroContent()} backgroundColor="yellow" negativeMargin />
     )
 }
