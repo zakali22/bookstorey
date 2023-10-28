@@ -10,19 +10,19 @@ function Image({children, type, direction = 'top'}){
     )
 }
 
-export default function ImageWrapper({type, children}){
+export default function ImageWrapper({type = 'ceil', children}){
     if(type === 'multiple'){
         return (
             <div className="hero-images-wrapper">
                 {children.map((child) => (
-                    <Image type="ceil">{child}</Image>
+                    <Image type={type}>{child}</Image>
                 ))}
             </div>
         )
     } else {
         return (
             <div className="hero-image-wrapper">
-                <Image type="ceil" direction="left">{children}</Image>
+                <Image type={type} direction="left">{children}</Image>
             </div> 
         )
     }

@@ -3,7 +3,7 @@ import classnames from "classnames"
 import Section from "./Section"
 import "../styles/hero.scss"
 
-export default function HeroLayout({type, layout, left, right, backgroundColor}){
+export default function HeroLayout({type, layout, center, left, right, backgroundColor}){
 
     const renderHero = () => {
         if(type === 'split'){
@@ -18,7 +18,11 @@ export default function HeroLayout({type, layout, left, right, backgroundColor})
                 </header>
             )
         } else {
-            return null
+            return (
+                <header className={`hero--${layout}`}>
+                    {center}
+                </header>
+            )
         }
     }
 

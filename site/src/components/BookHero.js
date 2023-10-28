@@ -14,7 +14,7 @@ export default function BookHero({book}){
             <div>
                 <h1>{book.title}</h1>
                 <p>By
-                    {book.authors.map((author) => <Link style={{marginLeft: "7px", textDecoration: "underline", color: "inherit"}} to={`/authors/${author.slug}`}>{author.name}</Link>)}
+                    {book.authors.map((author) => <Link style={{marginLeft: "7px", textDecoration: "underline", color: "inherit"}} to={`/author/${author.slug}`}>{author.name}</Link>)}
                 </p>
                 
             </div>

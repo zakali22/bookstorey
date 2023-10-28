@@ -118,12 +118,24 @@ exports.createPages = async ({ actions, graphql }) => {
                     slug
                     name
                     id
+                    bio
+                    cover {
+                        childImageSharp {
+                            gatsbyImageData
+                        }
+                    }
                     books {
-                        title
-                        slug
-                        ratingsCount
                         id
-                        description
+                        title
+                        categories
+                        averageRating
+                        ratingsCount
+                        slug
+                        authors {
+                            slug
+                            id
+                            name
+                        }
                         cover {
                             childImageSharp {
                                 gatsbyImageData

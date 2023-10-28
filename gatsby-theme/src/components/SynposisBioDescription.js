@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 
 const CHAR_LIMIT = 616;
-export default function SynopsisDescription({description}){
+export default function SynopsisBioDescription({description}){
     console.log(description)
     const [renderRevealBtn, setRenderRevealBtn] = React.useState(false)
     const [descriptionLimit, setDescriptionLimit] = React.useState(CHAR_LIMIT)
