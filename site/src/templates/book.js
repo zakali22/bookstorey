@@ -1,22 +1,46 @@
 import * as React from "react"
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
+import BookHero from "../components/BookHero"
+import Synopsis from "../components/BookSynopsis"
+import CtaSection from "../components/CtaSection"
+import RelatedBooks from "../components/RelatedBooks"
+import Authors from "../components/Authors"
 
-export default function BookPage({pageContext}){
-    const {title, id, description, categories, slug, cover, authors} = pageContext
+export const query = graphql`
+    query BookQuery($category: String) {
+        allBook(filter: {categories: {eq: $category}}) {
+            nodes {
+                id
+                title
+                categories
+                averageRating
+                ratingsCount
+                slug
+                authors {
+                    slug
+                    id
+                    name
+                }
+                cover {
+                    childImageSharp {
+                        gatsbyImageData
+                    }
+                }
+            }
+        }
+    }
+`
+
+export default function BookPage({data, pageContext}){
     // console.log(pageContext)
     return (
-        <div>
-            <div>
-                {cover !== null ? <GatsbyImage image={getImage(cover)} alt={title} /> : <StaticImage src='../images/no_cover_thumb.png' width={128} height={167} />}
-            </div>
-            <div>
-                <h1>{title}</h1>
-                <p>By - {authors.map(author => (<Link to={`/author/${author.slug}`}>{author.name},{' '}</Link>))}</p>
-
-                <Link to='/books'><p>Return to all books</p></Link>
-            </div>
-            
-        </div>
+        <>
+        <BookHero book={pageContext}/>
+        <Synopsis description={pageContext.description}/>
+        <CtaSection />
+        <RelatedBooks books={data.allBook.nodes}/>
+        <Authors authors={pageContext.authors} />
+        </>
     )
 }

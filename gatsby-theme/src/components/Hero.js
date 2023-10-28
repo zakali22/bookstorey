@@ -8,7 +8,7 @@ export default function HeroLayout({type, layout, left, right, backgroundColor})
     const renderHero = () => {
         if(type === 'split'){
             return (
-                <header className={`${type === 'split' && "hero-split"} ${layout === 'landing' && 'hero-split--landing'}`}>
+                <header className={`hero-split hero-split--${layout}`}>
                     <div className="hero-split__left">
                         {left}
                     </div>
@@ -23,7 +23,7 @@ export default function HeroLayout({type, layout, left, right, backgroundColor})
     }
 
     return (
-        <Section className={`hero hero--bg-${backgroundColor} ${layout === 'landing' && 'hero--landing'}`} negativeMargin>
+        <Section className={`hero hero--bg-${backgroundColor} hero--${layout}`} negativeMargin={layout === 'landing'}>
             {renderHero()}
         </Section>
     )

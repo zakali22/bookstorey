@@ -80,6 +80,12 @@ exports.createPages = async ({ actions, graphql }) => {
                         slug
                         id
                         name
+                        bio
+                        cover {
+                        childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
                     }
                     cover {
                         childImageSharp { gatsbyImageData }
@@ -95,6 +101,7 @@ exports.createPages = async ({ actions, graphql }) => {
             component: require.resolve("./src/templates/book.js"),
             context: {
                 ...book,
+                category: book.categories[0],
                 meta: {
                     description: `${book.name}`
                 }
