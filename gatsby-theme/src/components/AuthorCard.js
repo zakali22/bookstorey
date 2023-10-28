@@ -4,7 +4,7 @@ import "../styles/author-card.scss"
 
 export default function AuthorCard({author, image}){
     return (
-        <Link className={`author-card`} to={`/authors/${author.slug}`}>
+        <Link className={`author-card`} to={`/author/${author.slug}`}>
             <div className="author-card__content">
                 <h3>
                     <span>Name:</span>
