@@ -36,4 +36,18 @@
             color: $white;
         }
     }
+
+    &--tertiary {
+        background-color: #000;
+        color: $white;
+        font-size: 18px;
+        border: 1px solid #000;
+        padding: 4px 16px;
+        min-height: 20px;
+        
+        &:hover, &:focus {
+            background-color: $white;
+            color: $black;
+        }
+    }
 }

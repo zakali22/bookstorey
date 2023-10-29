@@ -188,3 +188,18 @@ h3, .h3 {
     }
 
 }
+
+
+/** Form **/
+form {
+    label {
+        display: flex;
+        align-items: stretch;
+    }
+
+    input {
+        font-size: 18px;
+        padding: 5px 7px;
+        min-height: 20px;
+    }
+}
