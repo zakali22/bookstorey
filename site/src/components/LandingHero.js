@@ -4,6 +4,7 @@ import {GatsbyImage, StaticImage, getImage} from "gatsby-plugin-image"
 import ImageWrapper from "../../../gatsby-theme/src/components/ImageWrapper"
 import HeroLayout from "../../../gatsby-theme/src/components/Hero"
 import Button from "../../../gatsby-theme/src/components/Button"
+import { Link } from "gatsby"
 
 export default function LandingHero(){
 
@@ -12,7 +13,7 @@ export default function LandingHero(){
             <div>
                 <h1>Explore the amazing world of books</h1>
                 <p>Our most popular and trending Bookstorey. Not sure what to read? </p>
-                <Button>Explore now</Button>
+                <Link to="/popular"><Button>Explore now</Button></Link>
             </div>
         )
     }
