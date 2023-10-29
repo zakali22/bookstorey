@@ -17,6 +17,7 @@ export default function PopularPage(){
                     categories
                     averageRating
                     ratingsCount
+                    slug
                     authors {
                         slug
                         id

@@ -60,6 +60,18 @@
             font-size: 45px;
         }
 
+        a {
+            text-decoration: none;
+
+            &:hover, &:focus {
+                color: inherit;
+            }
+
+            &:link, &:visited{
+                color: inherit;
+            }
+        }
+
         span {
             background-color: $blue;
             color: $white;

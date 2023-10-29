@@ -285,7 +285,7 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                         const { photos } = await response.json()
                         if(photos){
                             if(photos.length){
-                                console.log(photos)
+                                // console.log(photos)
                                 return await createRemoteFileNode({
                                     url: `https://covers.openlibrary.org/a/id/${photos[0]}-L.jpg`,
                                     store,
@@ -309,7 +309,7 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                 resolve: async (source, args, context, info) => {
                     const response = await fetch(`https://openlibrary.org/search/authors.json?q=${source.slug}`)
                     if(!response.ok){
-                        reporter.warn(`Error loading ${authorObj.name} - ${response.status} ${response.statusText}`)
+                        reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
                         return null
                     }
 
