@@ -1,0 +1,49 @@
+@import "./variables.scss";
+
+.tabs-section {
+
+    .slick-slide {
+        width: auto !important;
+        margin-right: 10px;
+    }
+
+    .slick-list {
+        z-index: 10;
+    }
+
+    .slick-dots {
+
+        @media(min-width: 992px){
+            position: absolute;
+            margin: 0;
+            top: -50%;
+            height: auto;
+            width: calc(100% + 100px);
+            padding: 0;
+            left: -50px;
+        }
+
+        ul {
+            width: 100% !important;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    .slick-active.slick-current {
+        a > button {
+            background: $blue;
+            color: $white;
+        }
+
+
+    }
+
+    a > button {
+        width: fit-content;
+        border: 1px solid $blue;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

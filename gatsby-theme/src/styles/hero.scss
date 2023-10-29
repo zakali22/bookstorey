@@ -183,6 +183,10 @@
         .hero-split__right {
             flex: 1 0 70%;
             text-align: center;
+
+            @media(min-width: 768px){
+                text-align: left;
+            }
         }
     }
 

@@ -15,7 +15,7 @@ function Arrow({onClick, type}){
     )
 }
 
-export default function Carousel({children, layout = 'default', slidesToShow, mobileSlidesToShow, hasBackground, backgroundColor, alignStart}){
+export default function Carousel({children, categoryIndex = null, maxWidth = '100%', layout = 'default', slidesToShow, mobileSlidesToShow, hasBackground, backgroundColor, alignStart}){
     const slideRef = React.useRef(null)
 
     var settings = {
@@ -51,7 +51,7 @@ export default function Carousel({children, layout = 'default', slidesToShow, mo
             {
                 breakpoint: 992,
                 settings: {
-                    slidesToShow: layout === 'grid' ? 2 : slidesToShow || 1,
+                    slidesToShow: layout === 'grid' ? 2 : mobileSlidesToShow || 1,
                     rows: 1,
                     slidesPerRow: 1,
                 }
@@ -59,7 +59,7 @@ export default function Carousel({children, layout = 'default', slidesToShow, mo
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: mobileSlidesToShow || 1,
                     rows: 1,
                     slidesPerRow: 1,
                 }
@@ -75,7 +75,16 @@ export default function Carousel({children, layout = 'default', slidesToShow, mo
         slideRef.current.slickNext()
     }
 
+    function slideToCategoryIndex(){
+        slideRef.current.slickGoTo(categoryIndex)
+    }
+
+    React.useEffect(() => {
+        if(!categoryIndex) return
+        slideToCategoryIndex()
+    }, [categoryIndex])
+
     return (
-        <Slider ref={slideRef} className={`${alignStart ? 'slick-align-start' : ''}  ${layout === 'grid' ? 'slick-grid' : ''} ${hasBackground ? 'slick-background' : ''} ${backgroundColor && hasBackground ? `slick-background--${backgroundColor}` : ''}`} {...settings}>{children}</Slider>
+        <Slider ref={slideRef} style={{maxWidth, marginLeft: 'auto', marginRight: 'auto'}} className={`${alignStart ? 'slick-align-start' : ''}  ${layout === 'grid' ? 'slick-grid' : ''} ${hasBackground ? 'slick-background' : ''} ${backgroundColor && hasBackground ? `slick-background--${backgroundColor}` : ''}`} {...settings}>{children}</Slider>
     );
 }

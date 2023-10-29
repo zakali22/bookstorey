@@ -47,7 +47,7 @@ export default function Navigation(){
             <nav className={nav}>
                 <Container className={navContainer}>
                     <div className={navLeft}>
-                        <Link to="/categories">Categories</Link>  
+                        <Link to="/categories/art">Categories</Link>  
                         <Link to="/popular">Popular</Link>
                     </div>
                     <div className={navLogo}>
