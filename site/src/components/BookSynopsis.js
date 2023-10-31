@@ -3,7 +3,7 @@ import Section from "../../../gatsby-theme/src/components/Section"
 import SynopsisDescription from "../../../gatsby-theme/src/components/SynposisBioDescription"
 
 export default function BookSynopsis({ description }){
-    // console.log(description)
+    // // console.log(description)
     if(!description?.length) return
     return (
         <Section>

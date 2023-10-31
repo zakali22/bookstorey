@@ -204,7 +204,7 @@ exports.createPages = async ({ actions, graphql }) => {
         }
     })
 
-    // console.log(remappedCategoryBooks)
+    // // console.log(remappedCategoryBooks)
 
     remappedCategoryBooks.forEach((categoryObj) => {
         const booksPerCategoryPage = 10
@@ -274,7 +274,7 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
 
                     if(docs.length){
                         const response = await fetch(`https://openlibrary.org/authors/${docs[0].key}.json`)
-                        // console.log(docs[0].key)
+                        // // console.log(docs[0].key)
                         
                         if(!response.ok){
                             reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
@@ -285,9 +285,9 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                         const { photos } = await response.json()
                         if(photos){
                             if(photos.length){
-                                // console.log(photos)
+                                // // console.log(photos)
                                 return await createRemoteFileNode({
-                                    url: `https://covers.openlibrary.org/a/id/${photos[0]}-L.jpg`,
+                                    url: `https://covers.openlibrary.org/a/olid/${docs[0].key}.jpg`,
                                     store,
                                     cache,
                                     createNode,
@@ -325,9 +325,13 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                         const { bio } = await response.json()
                         if(typeof bio === 'object' && bio.value.length > 0){
                             return bio.value
-                        } else {
+                        } else if(bio && bio.length > 0) {
                             return bio
+                        } else {
+                            return null
                         }
+                    } else {
+                        return null
                     }
                 }
             }

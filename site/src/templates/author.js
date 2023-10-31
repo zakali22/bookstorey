@@ -7,7 +7,7 @@ import AuthorBooks from "../components/AuthorBooks"
 import CtaSection from "../components/CtaSection"
 
 export default function AuthorPage({pageContext}){
-    // console.log(pageContext)
+    // // console.log(pageContext)
     return (
         <>
             <AuthorHero author={pageContext}/>

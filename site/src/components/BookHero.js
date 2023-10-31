@@ -7,7 +7,7 @@ import HeroLayout from "../../../gatsby-theme/src/components/Hero"
 import Button from "../../../gatsby-theme/src/components/Button"
 
 export default function BookHero({book}){
-    console.log(book)
+    // console.log(book)
 
     const leftHeroContent = () => {
         return (

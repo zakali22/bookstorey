@@ -33,7 +33,7 @@ export const query = graphql`
 `
 
 export default function BookPage({data, pageContext}){
-    // console.log(pageContext)
+    // // console.log(pageContext)
     return (
         <>
         <BookHero book={pageContext}/>

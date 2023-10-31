@@ -7,7 +7,7 @@ import Card from "../../../gatsby-theme/src/components/Card";
 import Carousel from "./Carousel";
 
 export default function RelatedBooks({books}){
-    console.log(books)
+    // console.log(books)
     return (
         <Section>
             <div className="section__title">

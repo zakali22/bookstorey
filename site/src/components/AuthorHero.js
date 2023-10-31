@@ -7,7 +7,7 @@ import HeroLayout from "../../../gatsby-theme/src/components/Hero"
 import Button from "../../../gatsby-theme/src/components/Button"
 
 export default function AuthorHero({author}){
-    console.log(author)
+    // // console.log(author)
 
     const rightHeroContent = () => {
         return (

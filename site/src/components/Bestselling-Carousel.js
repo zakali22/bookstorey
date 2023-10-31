@@ -34,7 +34,7 @@ export default function Bestselling(){
     `);
 
     const allBooks = data.allBook.nodes
-    console.log(allBooks.length)
+    // console.log(allBooks.length)
 
     return (
         <Section>

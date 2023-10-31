@@ -28,7 +28,7 @@ export default function AuthorsCarousel(){
 
     const allAuthors = data.allAuthor.nodes
     const allAuthorsWithBio = allAuthors.filter(authors => {
-        console.log(authors)
+        // console.log(authors)
         return authors.bio && authors.bio.length > 0 && authors.cover
     })
 
