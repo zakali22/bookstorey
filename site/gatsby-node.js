@@ -287,7 +287,7 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                             if(photos.length){
                                 // // console.log(photos)
                                 return await createRemoteFileNode({
-                                    url: `https://covers.openlibrary.org/a/olid/${docs[0].key}.jpg`,
+                                    url: `https://covers.openlibrary.org/a/olid/${docs[0].key}-L.jpg`,
                                     store,
                                     cache,
                                     createNode,
