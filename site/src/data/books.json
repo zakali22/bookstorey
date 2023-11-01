@@ -6899,27 +6899,6 @@
         "category": "philosophy",
         "data": [
             {
-                "ratingsCount": 4147,
-                "averageRating": 3.5,
-                "buyLink": false,
-                "authors": [
-                    "Christopher Hitchens"
-                ],
-                "categories": [
-                    "Philosophy"
-                ],
-                "description": "Whether you're a lifelong believer, a devout atheist, or someone who remains uncertain about the role of religion in our lives, this insightful manifesto will engage you with its provocative ideas. With a close and studied reading of the major religious texts, Christopher Hitchens documents the ways in which religion is a man-made wish, a cause of dangerous sexual repression, and a distortion of our origins in the cosmos. With eloquent clarity, Hitchens frames the argument for a more secular life based on science and reason, in which hell is replaced by the Hubble Telescope's awesome view of the universe, and Moses and the burning bush give way to the beauty and symmetry of the double helix. In the tradition of Bertrand Russell's Why I Am Not a Christian and Sam Harris's The End of Faith, Christopher Hitchens makes the ultimate case against religion.",
-                "imageLinks": {
-                    "smallThumbnail": "http://books.google.com/books/content?id=bOS9wTxSjsMC&printsec=frontcover&img=1&zoom=5&source=gbs_api",
-                    "thumbnail": "http://books.google.com/books/content?id=bOS9wTxSjsMC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-                },
-                "infoLink": "http://books.google.co.uk/books?id=bOS9wTxSjsMC&dq=subject:philosophy&hl=&source=gbs_api",
-                "pageCount": 320,
-                "publishedDate": "2007-05-01",
-                "publisher": "Twelve",
-                "title": "God Is Not Great"
-            },
-            {
                 "ratingsCount": 0,
                 "averageRating": 1,
                 "buyLink": false,

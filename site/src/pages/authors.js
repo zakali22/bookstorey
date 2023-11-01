@@ -5,7 +5,7 @@ import {GatsbyImage, StaticImage, getImage} from "gatsby-plugin-image"
 export default function Allauthors(){
     const data = useStaticQuery(graphql`
         query AllAuthors {
-            allAuthor(limit: 20) {
+            allAuthor {
                 nodes {
                     slug
                     name

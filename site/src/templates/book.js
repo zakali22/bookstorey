@@ -8,39 +8,37 @@ import RelatedBooks from "../components/RelatedBooks"
 import Authors from "../components/Authors"
 
 export const query = graphql`
-    query BookQuery($category: String) {
-        allBook(filter: {categories: {eq: $category}}) {
-            nodes {
-                id
-                title
-                categories
-                averageRating
-                ratingsCount
+    query BookQuery($slug: String!) {
+        book(slug: { eq: $slug }) {
+            id
+            title
+            categories
+            averageRating
+            ratingsCount
+            slug
+            authors {
                 slug
-                authors {
-                    slug
-                    id
-                    name
-                }
-                cover {
-                    childImageSharp {
-                        gatsbyImageData
-                    }
+                id
+                name
+            }
+            cover {
+                childImageSharp {
+                    gatsbyImageData
                 }
             }
         }
     }
 `
 
-export default function BookPage({data, pageContext}){
-    // // console.log(pageContext)
+export default function BookPage({data}){
+    const book = data.book
     return (
         <>
-        <BookHero book={pageContext}/>
-        <Synopsis description={pageContext.description}/>
+        <BookHero book={book}/>
+        <Synopsis description={book.description}/>
         <CtaSection />
-        <RelatedBooks books={data.allBook.nodes}/>
-        <Authors authors={pageContext.authors} />
+        <RelatedBooks bookCategory={book.categories[0]}/>
+        <Authors authors={book.authors} />
         </>
     )
 }

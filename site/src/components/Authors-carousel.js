@@ -9,7 +9,7 @@ import Carousel from "./Carousel";
 
 export default function AuthorsCarousel(){
     const data = useStaticQuery(graphql`
-        query AuthorQuery {
+        query AuthorCarouselQuery {
             allAuthor(filter: {books: {elemMatch: {averageRating: {gte: 4}}}}) {
                 nodes {
                     name
