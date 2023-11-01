@@ -155,6 +155,56 @@ exports.createPages = async ({ actions, graphql }) => {
             }
         })
     })
+
+
+    /**
+     * * Create Category pages
+    */
+
+    const categoryResult = await graphql(`
+        {
+            allBook {
+                edges {
+                    node {
+                        categories
+                    }
+                }
+            }
+        }
+    `).then(res => res.data)
+
+    if(categoryResult.errors){
+        console.error("Something went wrong with category query")
+    }
+
+    const categoryBooks = categoryResult?.allBook.edges
+
+    const remappedCategoryBooks = CATEGORIES.data.map((category) => {
+        const categoryBooksFound = categoryBooks.filter((edge) => edge.node.categories[0].toLowerCase() === category)
+
+        return {
+            category,
+            data: categoryBooksFound
+        }
+    })
+
+    remappedCategoryBooks.forEach((categoryObj) => {
+        const booksPerCategoryPage = 10
+        const numPagesPerCat = Math.ceil(categoryObj.data.length / booksPerCategoryPage)
+        Array.from({length: numPagesPerCat}).forEach((_, i) => {
+            createPage({
+                path: i === 0 ? `/categories/${categoryObj.category}` : `/categories/${categoryObj.category}/${i + 1}`,
+                component: require.resolve("./src/templates/category.js"),
+                context: {
+                    category: categoryObj.category.charAt(0).toUpperCase() + categoryObj.category.slice(1),
+                    limit: booksPerCategoryPage,
+                    skip: i * booksPerCategoryPage,
+                    numPagesPerCat,
+                    currentPage: i + 1
+                }
+            })
+        })
+    })
 }
 
 
