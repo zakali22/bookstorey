@@ -3,9 +3,9 @@ const { createRemoteFileNode, createFilePath } = require('gatsby-source-filesyst
 const BOOKS = require("./src/data/books.json")
 const CATEGORIES = require("./src/data/categories.json")
 
-exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
-    const { createNode, createTypes } = actions
-
+exports.createSchemaCustomization = ({ actions }) => {
+    const { createTypes } = actions;
+  
     /** Read docs on creating relationships https://www.gatsbyjs.com/docs/tutorial/creating-a-source-plugin/part-3/#add-a-foreign-key-relationship */
     /** Linking to an array of objects use elemMatch to access an object */
     createTypes(`
@@ -15,50 +15,75 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 
         type Book implements Node {
             authors: [Author!]! @link(from: "authors", by: "slug")
+            cover: File @link
         }
     `)
+}
 
+exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store, cache, reporter }) => {
+    const { createNode } = actions
 
     /** Books + authors node */
     BOOKS.forEach((bookNode, idx) => {
-        bookNode.data.forEach((book) => {
+        bookNode.data.forEach(async (book) => {
             const authors = book.authors
 
-            if(authors && authors.length > 0){
-                // Book node
-                createNode({
-                    ...book, 
-                    authors: authors?.map(author => (slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}))),
-                    slug: slugify(book.title, {lower: true, remove: /[*+~.()'"!:@]/g}),
-                    id: createNodeId(`custom-book-id-${slugify(book.title, {lower: true})}`),
-                    parent: null,
-                    children: [],
-                    internal: {
-                        type: 'Book',
-                        content: JSON.stringify(book),
-                        contentDigest: createContentDigest(book)
+            let image;
+            try {
+                    if(book.imageLinks){
+                        image = await createRemoteFileNode({
+                            url: book?.imageLinks?.thumbnail,
+                            store,
+                            cache,
+                            parentNodeId: createNodeId(`custom-book-image-id-${slugify(book.title, {lower: true})}`),
+                            createNode,
+                            createNodeId
+                        })
                     }
-                })
 
+                    // console.log(image)
+                    if(authors && authors.length > 0){
+                        createNode({
+                            ...book, 
+                            authors: authors?.map(author => (slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}))),
+                            slug: slugify(book.title, {lower: true, remove: /[*+~.()'"!:@]/g}),
+                            id: createNodeId(`custom-book-id-${slugify(book.title, {lower: true})}`),
+                            parent: null,
+                            children: [],
+                            cover: book.imageLinks && image?.id,
+                            averageRating: parseInt(book.averageRating),
+                            internal: {
+                                type: 'Book',
+                                content: JSON.stringify(book),
+                                contentDigest: createContentDigest(book)
+                            }
+                        })
 
-                // Author node
-                authors.forEach((author) => {
-                    createNode({
-                        name: author, 
-                        slug: slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}),
-                        id: createNodeId(`custom-${author.toLowerCase()}`),
-                        parent: null,
-                        bio: "",
-                        hasBio: false,
-                        children: [],
-                        internal: {
-                            type: 'Author',
-                            content: JSON.stringify(author),
-                            contentDigest: createContentDigest(author)
-                        }
-                    })
-                })
+                        // Author node
+                        authors.forEach((author) => {
+                            createNode({
+                                name: author, 
+                                slug: slugify(author, {lower: true, remove: /[*+~.()'"!:@]/g}),
+                                id: createNodeId(`custom-${author.toLowerCase()}`),
+                                parent: null,
+                                bio: "",
+                                hasBio: false,
+                                children: [],
+                                internal: {
+                                    type: 'Author',
+                                    content: JSON.stringify(author),
+                                    contentDigest: createContentDigest(author)
+                                }
+                            })
+                        })
+                    }
+                
+            } catch(e){
+                console.log(e)
             }
+
+
+           
         })
     })
 }
@@ -96,6 +121,7 @@ exports.createPages = async ({ actions, graphql }) => {
     `)
 
     booksData.data.allBook.nodes.forEach((book) => {
+        console.log(book.slug)
         createPage({
             path: `/books/${book.slug}`,
             component: require.resolve("./src/templates/book.js"),
@@ -229,24 +255,24 @@ exports.createPages = async ({ actions, graphql }) => {
 exports.createResolvers = ({ actions, store, cache, createNodeId, createResolvers, reporter }) => {
     const { createNode } = actions
     const resolvers = {
-        Book: {
-            cover: {
-                type: 'File',
-                resolve: async (bookObj) => {
-                    if(bookObj.imageLinks){
-                        return await createRemoteFileNode({
-                            url: bookObj.imageLinks.thumbnail,
-                            store,
-                            cache,
-                            createNode,
-                            createNodeId
-                        })
-                    } else {
-                        return null
-                    }
-                }
-            }
-        },
+        // Book: {
+        //     cover: {
+        //         type: 'File',
+        //         resolve: async (bookObj) => {
+        //             if(bookObj.imageLinks){
+        //                 return await createRemoteFileNode({
+        //                     url: bookObj.imageLinks.thumbnail,
+        //                     store,
+        //                     cache,
+        //                     createNode,
+        //                     createNodeId
+        //                 })
+        //             } else {
+        //                 return null
+        //             }
+        //         }
+        //     }
+        // },
         Author: {
             books: {
                 type: ["Book"],
