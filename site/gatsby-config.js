@@ -22,13 +22,15 @@ module.exports = {
       },
       __key: "images"
     }, 
+    /**
+     * * Removed pages option in the gatsby-source-filesystem
+    */
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "pages",
-        "path": "./src/pages/"
+        "path": "./src/data/"
       },
-      __key: "pages"
+      __key: "data"
     }
   ]
 };

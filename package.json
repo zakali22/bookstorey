@@ -2,7 +2,7 @@
     "private": true,
     "workspaces": ["site", "gatsby-theme"],
     "scripts": {
-        "develop": "yarn workspace site develop",
+        "develop": "yarn clean && yarn workspace site develop",
         "build": "yarn workspace site build",
         "clean": "yarn workspace site clean"
     }

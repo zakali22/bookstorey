@@ -37,7 +37,7 @@ export default function BookPage({data, pageContext, location}){
     const {allBook} = data
 
     React.useEffect(() => {
-        // // console.log(numPagesPerCat)
+        console.log(category, data)
     }, [])
 
     return (

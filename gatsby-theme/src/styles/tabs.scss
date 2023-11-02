@@ -3,8 +3,10 @@
 .tabs-section {
 
     .slick-slide {
-        width: auto !important;
-        margin-right: 10px;
+        @media(min-width: 768px){
+            // width: auto !important;
+            // margin-right: 10px;
+        }
     }
 
     .slick-list {
@@ -12,8 +14,9 @@
     }
 
     .slick-dots {
+        padding: 0;
 
-        @media(min-width: 992px){
+        @media(min-width: 1200px){
             position: absolute;
             margin: 0;
             top: -50%;
@@ -27,6 +30,14 @@
             width: 100% !important;
             opacity: 0;
             visibility: hidden;
+
+            & li, & button {
+                display: none;
+
+                @media(min-width: 768px){
+                    display: block;
+                }
+            }
         }
     }
 
@@ -40,10 +51,14 @@
     }
 
     a > button {
-        width: fit-content;
+        width: 100%;
+        text-overflow: ellipsis;
         border: 1px solid $blue;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        
+        @media(min-width: 768px){
+            // width: fit-content;
+        }
     }
 }

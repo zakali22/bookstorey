@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image"
 
 import Section from "../../../gatsby-theme/src/components/Section";
@@ -6,8 +7,35 @@ import Card from "../../../gatsby-theme/src/components/Card";
 
 import Carousel from "./Carousel";
 
-export default function RelatedBooks({books}){
-    // console.log(books)
+
+export default function RelatedBooks({bookCategory}){
+    const data = useStaticQuery(graphql`
+        query RelatedBooksQuery {
+            allBook {
+                nodes {
+                    id
+                    title
+                    categories
+                    averageRating
+                    ratingsCount
+                    slug
+                    authors {
+                        slug
+                        id
+                        name
+                    }
+                    cover {
+                        childImageSharp {
+                            gatsbyImageData
+                        }
+                    }
+                }
+            }
+        }
+    `)
+
+    const categoryBooks = data.allBook.nodes.filter((book) => book.categories[0] === bookCategory)
+
     return (
         <Section>
             <div className="section__title">
@@ -15,7 +43,7 @@ export default function RelatedBooks({books}){
             </div>
             <Carousel layout="grid">
                 {
-                    books.map(book => (
+                    categoryBooks.map(book => (
                         <Card book={book} layout="complex" hasImageDisplacement={false} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />
                     ))
                 }

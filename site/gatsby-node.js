@@ -14,7 +14,7 @@ exports.createSchemaCustomization = ({ actions }) => {
         }
 
         type Book implements Node {
-            authors: [Author!]! @link(from: "authors", by: "slug")
+            authors: [Author!] @link(from: "authors", by: "slug")
             cover: File @link
         }
     `)
@@ -89,148 +89,104 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 }
 
 exports.createPages = async ({ actions, graphql }) => {
+    /**
+     * * Create Book pages
+    */
     const {createPage} = actions
-    // Query the books data and create pages for each using a template
-    /** Books pages */
-    const booksData = await graphql(`
-        query BookPagesQuery {
-            allBook {
-                nodes {
-                    title
-                    id
-                    description
-                    categories
+
+    const bookResult = await graphql(`
+    {
+        allBook {
+            edges {
+                node {
                     slug
-                    authors {
-                        slug
-                        id
-                        name
-                        bio
-                        cover {
-                        childImageSharp {
-                                gatsbyImageData
-                            }
-                        }
-                    }
-                    cover {
-                        childImageSharp { gatsbyImageData }
-                    }
                 }
             }
         }
-    `)
+    }`).then(res => res.data )
 
-    booksData.data.allBook.nodes.forEach((book) => {
-        console.log(book.slug)
+    if(bookResult.errors){
+        console.error("Something went wrong with the books query")
+        return
+    }
+
+    bookResult.allBook.edges.forEach((edge) => {
+        const book = edge.node
+
         createPage({
             path: `/books/${book.slug}`,
             component: require.resolve("./src/templates/book.js"),
             context: {
-                ...book,
-                category: book.categories[0],
-                meta: {
-                    description: `${book.name}`
-                }
+                slug: book.slug
             }
         })
     })
 
 
-    /** Authors pages */
-    const authorsData = await graphql(`
-        query AllAuthors {
-            allAuthor {
-                nodes {
+    /**
+     * * Create Authors pages
+    */
+    const authorResult = await graphql(`
+    {
+        allAuthor {
+            edges {
+                node {
                     slug
-                    name
-                    id
-                    bio
-                    cover {
-                        childImageSharp {
-                            gatsbyImageData
-                        }
-                    }
-                    books {
-                        id
-                        title
-                        categories
-                        averageRating
-                        ratingsCount
-                        slug
-                        authors {
-                            slug
-                            id
-                            name
-                        }
-                        cover {
-                            childImageSharp {
-                                gatsbyImageData
-                            }
-                        }
-                    }
                 }
             }
         }
-    `)
+    }`).then(res => res.data )
 
-    authorsData.data.allAuthor.nodes.forEach((author) => {
+    if(authorResult.errors){
+        console.error("Something went wrong with the authors query")
+        return
+    }
+
+    console.log(authorResult.allAuthor.edges)
+
+    authorResult.allAuthor.edges.forEach((edge) => {
+        const author = edge.node
+
         createPage({
             path: `/author/${author.slug}`,
             component: require.resolve("./src/templates/author.js"),
             context: {
-                ...author,
-                meta: {
-                    description: `${author.name}`
-                }
+                slug: author.slug
             }
         })
     })
 
 
+    /**
+     * * Create Category pages
+    */
 
-    /** Categories pages */
-
-    // Loop over categories.json
-        // Query the books for that category
-        // For each of the category's loop over a page limit to generate a paginated path `${category} : ${category}/01
-
-    const categoriesList = await graphql(`
-        query AllCategoryBooks {
+    const categoryResult = await graphql(`
+        {
             allBook {
-                nodes {
-                    title
-                    categories
-                    averageRating
-                    ratingsCount
-                    cover {
-                        childImageSharp {
-                            gatsbyImageData
-                        }
-                    }
-                    description
-                    id
-                    slug
-                    authors {
-                        slug
-                        name
+                edges {
+                    node {
+                        categories
                     }
                 }
             }
         }
-    `)
+    `).then(res => res.data)
 
-    const categoryBooks = categoriesList?.data?.allBook.nodes
+    if(categoryResult.errors){
+        console.error("Something went wrong with category query")
+    }
+
+    const categoryBooks = categoryResult?.allBook.edges
 
     const remappedCategoryBooks = CATEGORIES.data.map((category) => {
-        const categoryBooksFound = categoryBooks.filter((categoryResultBook) => categoryResultBook.categories[0].toLowerCase() === category)
+        const categoryBooksFound = categoryBooks.filter((edge) => edge.node.categories[0].toLowerCase() === category)
 
         return {
             category,
             data: categoryBooksFound
         }
     })
-
-    // // console.log(remappedCategoryBooks)
 
     remappedCategoryBooks.forEach((categoryObj) => {
         const booksPerCategoryPage = 10
@@ -249,8 +205,8 @@ exports.createPages = async ({ actions, graphql }) => {
             })
         })
     })
-
 }
+
 
 exports.createResolvers = ({ actions, store, cache, createNodeId, createResolvers, reporter }) => {
     const { createNode } = actions

@@ -13,7 +13,7 @@ export default function Tabs({pathname, list}){
 
     return (
         <Section className="tabs-section">
-            <Carousel dotsClass="slick-dots" dots={true} slidesToShow={10} mobileSlidesToShow={5} maxWidth="1000px" categoryIndex={categoryIndex}>
+            <Carousel dotsClass="slick-dots" dots={true} slidesToShow={6} tabletSlidesToShow={5} mobileSlidesToShow={2} maxWidth="1200px" categoryIndex={categoryIndex}>
             {
                 list.map((categoryItem) => {
                     const categoryItemContent = categoryItem.charAt(0).toUpperCase() + categoryItem.slice(1).replace(/[^\w\s]/gi, ' ')
