@@ -3,7 +3,7 @@
     "workspaces": ["site", "gatsby-theme"],
     "scripts": {
         "develop": "yarn clean && yarn workspace site develop",
-        "build": "yarn workspace site build",
+        "build": "yarn clean && yarn workspace site build",
         "clean": "yarn workspace site clean"
     }
 }

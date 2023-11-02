@@ -110,6 +110,8 @@ exports.createPages = async ({ actions, graphql }) => {
         return
     }
 
+    console.log(bookResult.allBook.edges)
+
     bookResult.allBook.edges.forEach((edge) => {
         const book = edge.node
 
@@ -141,8 +143,6 @@ exports.createPages = async ({ actions, graphql }) => {
         console.error("Something went wrong with the authors query")
         return
     }
-
-    console.log(authorResult.allAuthor.edges)
 
     authorResult.allAuthor.edges.forEach((edge) => {
         const author = edge.node
