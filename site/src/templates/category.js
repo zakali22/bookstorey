@@ -7,43 +7,43 @@ import Tabs from "../components/Tabs";
 import CategoryList from "../components/CategoriesList";
 import Card from "../../../gatsby-theme/src/components/Card";
 
-// export const query = graphql`
-//     query AllCategoryBooks($skip: Int!, $limit: Int!, $category: String) {
-//         allBook(sort: {ratingsCount: DESC}, limit: $limit, skip: $skip, filter: {categories: {eq: $category}}) {
-//             nodes {
-//                 title
-//                 categories
-//                 averageRating
-//                 ratingsCount
-//                 description
-//                 id
-//                 slug
-//                 cover {
-//                     childImageSharp {
-//                         gatsbyImageData
-//                     }
-//                 }
-//                 authors {
-//                     slug
-//                     name
-//                 }
-//             }
-//         }
-//     }
-// `
+export const query = graphql`
+    query AllCategoryBooks($skip: Int!, $limit: Int!, $category: String) {
+        allBook(sort: {ratingsCount: DESC}, limit: $limit, skip: $skip, filter: {categories: {eq: $category}}) {
+            nodes {
+                title
+                categories
+                averageRating
+                ratingsCount
+                description
+                id
+                slug
+                cover {
+                    childImageSharp {
+                        gatsbyImageData
+                    }
+                }
+                authors {
+                    slug
+                    name
+                }
+            }
+        }
+    }
+`
 
 export default function BookPage({data, pageContext, location}){
-    // const {numPagesPerCat, currentPage, category} = pageContext
-    // const {allBook} = data
+    const {numPagesPerCat, currentPage, category} = pageContext
+    const {allBook} = data
 
-    // React.useEffect(() => {
-    //     // // console.log(numPagesPerCat)
-    // }, [])
+    React.useEffect(() => {
+        console.log(category, data)
+    }, [])
 
     return (
         <>
             <SingleHero>Browse categories</SingleHero>
-            {/* <Tabs list={CATEGORIES.data} pathname={location.pathname} />
+            <Tabs list={CATEGORIES.data} pathname={location.pathname} />
             <CategoryList>
                 {
                     allBook.nodes.map(book => (
@@ -58,7 +58,7 @@ export default function BookPage({data, pageContext, location}){
                         <Link key={i + 1} to={i === 0 ? `${location.origin}/categories/${category.toLowerCase()}` : `${i + 1}`}><button>{i + 1}</button></Link>
                     ))
                 }
-            </div> */}
+            </div>
         </>
     )
 }
