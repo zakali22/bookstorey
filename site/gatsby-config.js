@@ -14,22 +14,6 @@ module.exports = {
     "gatsby-plugin-sharp", 
     "gatsby-transformer-sharp", 
     "gatsby-theme",
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        "name": "images",
-        "path": `${__dirname}/src/images`
-      },
-      __key: "images"
-    }, 
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        "name": "src",
-        "path": `${__dirname}/src`
-      },
-      __key: "images"
-    }, 
     /**
      * * Removed pages option in the gatsby-source-filesystem
     */
