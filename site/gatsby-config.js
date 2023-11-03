@@ -14,6 +14,7 @@ module.exports = {
     "gatsby-plugin-sharp", 
     "gatsby-transformer-sharp", 
     "gatsby-theme",
+    "gatsby-transformer-json",
     /**
      * * Removed pages option in the gatsby-source-filesystem
     */
