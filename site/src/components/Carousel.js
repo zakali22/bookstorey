@@ -15,7 +15,7 @@ function Arrow({onClick, type}){
     )
 }
 
-export default function Carousel({children, categoryIndex = null, maxWidth = '100%', layout = 'default', slidesToShow, tabletSlidesToShow, mobileSlidesToShow, hasBackground, backgroundColor, alignStart}){
+export default function Carousel({children, categoryIndex = null, maxWidth = '100%', layout = 'default', slidesToShow = 4, desktopSlidesToShow, tabletSlidesToShow = 2, mobileSlidesToShow = 1, hasBackground, backgroundColor, alignStart}){
     const slideRef = React.useRef(null)
 
     var settings = {
@@ -28,7 +28,7 @@ export default function Carousel({children, categoryIndex = null, maxWidth = '10
         slidesPerRow: layout === 'grid' ? 2 : 1,
         prevArrow: null,
         nextArrow: null,
-        slidesToScroll: slidesToShow,
+        slidesToScroll: layout === 'grid' ? 1 : slidesToShow,
         appendDots: (dots) => (
             <div className="carousel-custom-controls">
                 <Arrow type="prev" onClick={slickPrev}/>
@@ -40,13 +40,19 @@ export default function Carousel({children, categoryIndex = null, maxWidth = '10
             {
               breakpoint: 1500,
               settings: {
-                slidesToShow: layout === 'grid' ? 1 : slidesToShow || 3,
+                slidesToShow: layout === 'grid' ? 1 : desktopSlidesToShow || slidesToShow || 3,
               }
+            },
+            {
+                breakpoint: 1400,
+                settings: {
+                  slidesToShow: layout === 'grid' ? 1 : desktopSlidesToShow || slidesToShow,
+                }
             },
             {
                 breakpoint: 1200,
                 settings: {
-                  slidesToShow: layout === 'grid' ? 1 : slidesToShow || 2,
+                  slidesToShow: layout === 'grid' ? 1 : 2,
                 }
             },
             {

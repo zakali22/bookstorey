@@ -37,6 +37,7 @@ export default function Popular(){
     `);
 
     const allBooks = data.allBook.nodes
+    console.log(allBooks)
 
     return (
         <Section negativeMargin>
@@ -44,7 +45,7 @@ export default function Popular(){
                 <h2 className="title">Popular</h2>
                 <Link to="/popular" className="link"><span>See all</span></Link>
             </div>
-            <Carousel>
+            <Carousel desktopSlidesToShow={3} tabletSlidesToShow={2}>
                 {
                     allBooks.map(book => (
                         <Card book={book} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />

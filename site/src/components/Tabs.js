@@ -9,8 +9,9 @@ import Button from "../../../gatsby-theme/src/components/Button";
 
 export default function Tabs({pathname, list}){
     const pathnameCategory = pathname.split("/")
-    const categoryIndex = list.findIndex(listItem => listItem === pathnameCategory[pathnameCategory.length - 2])
-
+    const pathnameCategoryIndex = pathnameCategory.length > 4 ? pathnameCategory[pathnameCategory.length - 3] : pathnameCategory[pathnameCategory.length - 2]
+    
+    const categoryIndex = list.findIndex(listItem => listItem === pathnameCategoryIndex)
     return (
         <Section className="tabs-section">
             <Carousel dotsClass="slick-dots" dots={true} slidesToShow={6} tabletSlidesToShow={5} mobileSlidesToShow={2} maxWidth="1200px" categoryIndex={categoryIndex}>

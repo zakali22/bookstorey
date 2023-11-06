@@ -6,6 +6,7 @@ import SingleHero from "../components/SingleHero";
 import Tabs from "../components/Tabs";
 import CategoryList from "../components/CategoriesList";
 import Card from "../../../gatsby-theme/src/components/Card";
+import Button from "../../../gatsby-theme/src/components/Button";
 
 export const query = graphql`
     query AllCategoryBooks($skip: Int!, $limit: Int!, $category: String) {
@@ -52,10 +53,10 @@ export default function BookPage({data, pageContext, location}){
                 }
             </CategoryList>
 
-            <div>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
                 {
                     Array.from({length: numPagesPerCat}).map((_, i) => (
-                        <Link key={i + 1} to={i === 0 ? `${location.origin}/categories/${category.toLowerCase()}` : `${i + 1}`}><button>{i + 1}</button></Link>
+                        <Link key={i + 1} to={i === 0 ? `${location.origin}/categories/${category.toLowerCase()}` : `${i + 1}`}><Button>{i + 1}</Button></Link>
                     ))
                 }
             </div>
