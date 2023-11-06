@@ -23,7 +23,7 @@ export const query = graphql`
             }
             cover {
                 childImageSharp {
-                    gatsbyImageData
+                    gatsbyImageData(layout: CONSTRAINED, width: 300)
                 }
             }
         }

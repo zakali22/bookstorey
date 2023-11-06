@@ -2,7 +2,7 @@ import React from "react"
 import "../styles/hero-images.scss"
 
 function Image({children, type, direction = 'top'}){
-    const imageBorders = type === 'ceil' ? (direction === 'left' ? 'image__item--ceil-left' : 'image__item--ceil') : 'image__item-circle' 
+    const imageBorders = type === 'ceil' ? (direction === 'left' ? 'image__item--ceil-left' : 'image__item--ceil') : type === 'circle' ? 'image__item-circle' : 'image__item-square' 
     return (
         <div className={`image__item ${imageBorders}`}>
             {children}

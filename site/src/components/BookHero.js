@@ -23,7 +23,7 @@ export default function BookHero({book}){
 
     const rightHeroContent = () => {
         return (
-            <ImageWrapper>
+            <ImageWrapper type="square">
                 <GatsbyImage image={getImage(book.cover)} alt={book.title} />
             </ImageWrapper>
         )
