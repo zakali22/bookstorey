@@ -14,7 +14,7 @@ export default function AuthorBooks({books: allBooks}){
             <div className="section__title">
                 <h2 className="title">Written by author</h2>
             </div>
-            <Carousel alignStart={allBooks.length === 1}>
+            <Carousel alignStart={allBooks.length === 1} desktopSlidesToShow={2} tabletSlidesToShow={2}>
                 {
                     allBooks.map(book => (
                         <Card book={book} image={<GatsbyImage image={getImage(book.cover)} width={128} height={192} alt={book.title} layout="fullWidth" />} />

@@ -23,7 +23,7 @@ export default function Carousel({children, categoryIndex = null, maxWidth = '10
         arrows: true,
         infinite: false,
         speed: 500,
-        slidesToShow: layout === 'grid' ? 1 : slidesToShow || 4,
+        slidesToShow: layout === 'grid' ? 1 : desktopSlidesToShow || slidesToShow || 4,
         rows: layout === 'grid' ? 2 : 1,
         slidesPerRow: layout === 'grid' ? 2 : 1,
         prevArrow: null,

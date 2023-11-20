@@ -1,9 +1,15 @@
 {
     "private": true,
-    "workspaces": ["site", "gatsby-theme"],
+    "workspaces": [
+        "site",
+        "gatsby-theme"
+    ],
     "scripts": {
         "develop": "yarn clean && yarn workspace site develop",
         "build": "yarn clean && yarn workspace site build",
         "clean": "yarn workspace site clean"
+    },
+    "dependencies": {
+        "node-fetch": "^2.7.0"
     }
 }
