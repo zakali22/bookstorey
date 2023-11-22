@@ -34,7 +34,7 @@ export default function Popular(){
     `);
 
     const allBooks = data.allBook.nodes
-    console.log(allBooks)
+    // console.log(allBooks)
 
     return (
         <Section negativeMargin>

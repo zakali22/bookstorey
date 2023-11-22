@@ -1,7 +1,6 @@
 const { default: slugify } = require('slugify')
 const { createRemoteFileNode, createFilePath } = require('gatsby-source-filesystem')
-const BOOKS = require("./src/data/books.json")
-const CATEGORIES = require("./src/data/categories.json")
+const CATEGORIES = require("./data/categories.json")
 const fetchBooks = require("./functions/fetch-books")
 
 exports.createSchemaCustomization = ({ actions }) => {

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image"
 import { Link, graphql } from "gatsby"
-import CATEGORIES from "../data/categories.json"
+import CATEGORIES from "../../data/categories.json"
 import SingleHero from "../components/SingleHero";
 import Tabs from "../components/Tabs";
 import CategoryList from "../components/CategoriesList";
@@ -38,7 +38,7 @@ export default function BookPage({data, pageContext, location}){
     const {allBook} = data
 
     React.useEffect(() => {
-        console.log(category, data)
+        // console.log(category, data)
     }, [])
 
     return (
