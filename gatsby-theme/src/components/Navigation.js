@@ -3,20 +3,28 @@ import Container from "./Container"
 import Logo from "./Logo"
 import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
+import netlifyIdentity from 'netlify-identity-widget';
 
 export default function Navigation(){
     const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
+    const [signedIn, setSignedIn] = React.useState(false)
 
     React.useEffect(() => {
+        window.netlifyIdentity = netlifyIdentity;
+        // You must run this once before trying to interact with the widget
+        netlifyIdentity.init();
+        setSignedIn(netlifyIdentity.currentUser())
+
         mql.addEventListener("change", () => {
             setIsMobile(mql.matches)
             if(!mql.matches) {
                 setMobileOpen(false)
             }
         })
-    }, [])
+    }, [signedIn])
+    
     
 
     if(isMobile){
@@ -34,7 +42,7 @@ export default function Navigation(){
                                 <Link to="/categories">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
                                 <Link to="/">About us</Link>
-                                <Link to="/">Sign in</Link>
+                                {signedIn ? <Link to="/account">Account</Link> : <Link to="/signin">Sign in</Link>}
                             </div>
                         )
                     }
@@ -55,7 +63,7 @@ export default function Navigation(){
                     </div>
                     <div className={navRight}>
                         <Link to="/">About us</Link>
-                        <Link to="/">Sign in</Link>
+                        {signedIn ? <Link to="/account">Account</Link> : <Link to="/signin">Sign in</Link>}
                     </div>
                 </Container>
             </nav>
