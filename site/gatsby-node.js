@@ -35,7 +35,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
     console.log(response)
 
      /** Books + authors node */
-     /** bookstorey_Books_aggregate.nodes.forEach(async (book) => {
+    bookstorey_Books_aggregate.nodes.forEach(async (book) => {
         const authors = book.authors
 
         console.log(book)
@@ -97,13 +97,13 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
     
     })
 
-*/    
+   
 }
 
  exports.createPages = async ({ actions, graphql }) => {
      /**
       * * Create Book pages
-    
+    */
      const {createPage} = actions
 
      const bookResult = await graphql(`
@@ -139,7 +139,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
      /**
       * * Create Authors pages
-     
+    */
      const authorResult = await graphql(`
      {
          allAuthor {
@@ -171,7 +171,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
      /**
       * * Create Category pages
-     
+    */
 
      const categoryResult = await graphql(`
          {
@@ -217,12 +217,10 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
              })
          })
      })
-     */
  }
 
 
  exports.createResolvers = ({ actions, store, cache, createNodeId, createResolvers, reporter }) => {
-    /*
      const { createNode } = actions
      const resolvers = {
           Book: {
@@ -337,5 +335,5 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
 
      createResolvers(resolvers)
-     */
+     
  }
