@@ -3,29 +3,23 @@ import Container from "./Container"
 import Logo from "./Logo"
 import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
-import netlifyIdentity from 'netlify-identity-widget';
+import { useAuth0 } from "@auth0/auth0-react";
+
+function LoginButton() {
+ const {
+  isAuthenticated,
+  loginWithRedirect,
+   } = useAuth0();
+
+   return !isAuthenticated && (
+    <button onClick={loginWithRedirect}>Signin</button>
+  );
+};
 
 export default function Navigation(){
     const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
-    const [signedIn, setSignedIn] = React.useState(false)
-
-    React.useEffect(() => {
-        window.netlifyIdentity = netlifyIdentity;
-        // You must run this once before trying to interact with the widget
-        netlifyIdentity.init();
-        setSignedIn(netlifyIdentity.currentUser())
-
-        mql.addEventListener("change", () => {
-            setIsMobile(mql.matches)
-            if(!mql.matches) {
-                setMobileOpen(false)
-            }
-        })
-    }, [signedIn])
-    
-    
 
     if(isMobile){
         return (
@@ -42,7 +36,7 @@ export default function Navigation(){
                                 <Link to="/categories">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
                                 <Link to="/">About us</Link>
-                                {signedIn ? <Link to="/account">Account</Link> : <Link to="/signin">Sign in</Link>}
+                                <LoginButton />
                             </div>
                         )
                     }
@@ -63,7 +57,7 @@ export default function Navigation(){
                     </div>
                     <div className={navRight}>
                         <Link to="/">About us</Link>
-                        {signedIn ? <Link to="/account">Account</Link> : <Link to="/signin">Sign in</Link>}
+                        <LoginButton />
                     </div>
                 </Container>
             </nav>

@@ -2,7 +2,7 @@ import * as React from "react"
 import {navigate} from "gatsby"
 import useNetlifyAuth from "../../utils/useNetlifyAuth"
 import netlifyIdentity from "netlify-identity-widget"
-import createHasuraAccount from "../../../functions/createHasuraAccount"
+import createHasuraAccount from "../../../../netlify/functions/createHasuraAccount"
 import fetch from "node-fetch"
 
 export default function SignIn(props){

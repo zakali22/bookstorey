@@ -4,13 +4,18 @@ exports.handler = async () => {
     const response = await query({
         query: `
             query {
-                Books {
-                    category
-                    data
+                bookstorey_Books_aggregate {
+                    nodes {
+                      books
+                      category
+                      id
+                    }
                 }
             }
         `
     })
+
+    // console.log(response)
 
     return {
         statusCode: 200,

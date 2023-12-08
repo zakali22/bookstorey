@@ -27,13 +27,6 @@ module.exports = {
         "path": `${__dirname}/data`
       },
       __key: "data"
-    },
-    {
-      resolve: 'gatsby-source-pg',
-      options: {
-        connectionString: 'postgres://zolebxyccqqzrl:e44190796fa2689b6987fe52568a2295ff19ad51fd4364585743481de593270e@ec2-54-73-196-88.eu-west-1.compute.amazonaws.com:5432/dbsiraip7b089f',
-        schema: 'public',
-      },
-    },
+    }
   ]
 };

@@ -1,17 +1,25 @@
-import * as React from "react"
-import Section from "../../../../gatsby-theme/src/components/Section"
-import { navigate } from "gatsby"
-import { Router } from "@reach/router"
-import SignIn from "./signin"
-import Profile from "../../components/Profile"
-import Landing from "../index"
-import PrivateRoute from "../../components/PrivateRoute"
+import React from "react";
+/* 👇 New code 👇 */ 
+import { Link } from "gatsby";
+import { useAuth0 } from "@auth0/auth0-react";
+/* 👇 Import the withAuthenticationRequired HOC 👇 */ 
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
-export default function Account(){
-    return (
-        <Router basepath="/account">    
-            <PrivateRoute path="/profile" component={Profile} default />
-            <SignIn path="/signin" />
-        </Router>
-    )
-}
+
+const Account = () => {
+/* 👇 Access user from the useAuth0 hook 👇 */
+ const { user } = useAuth0();
+  return (
+  <>
+   <nav>
+    {/* 👇 Link to homepage */} 👇
+    <Link to="/">Home</Link>
+    {/* 👇 Display users email */} 👇
+    <p>Email: {user.email}</p>
+  </nav>
+ </>
+ );
+};
+
+/* 👇 Wrap the component in the withAuthenticationRequired handler 👇 */
+export default withAuthenticationRequired(Account);
