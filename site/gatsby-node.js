@@ -24,7 +24,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store, cache, reporter }) => {
     const { createNode } = actions
-    const response = await fetch("/api/fetch-books", {
+    const response = await fetch("https://bookstorey.netlify.app/api/fetch-books", {
         headers: {
             'Content-Type': 'application/json'
         }
