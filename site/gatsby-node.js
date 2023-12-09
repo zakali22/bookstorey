@@ -24,7 +24,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store, cache, reporter }) => {
     const { createNode } = actions
-    const baseUrl = process.env.NODE_ENV === "production" ? '' : 'http://localhost:9999'
+    const baseUrl = process.env.NODE_ENV === "production" ? 'https://bookstorey.netlify.app/' : 'http://localhost:9999'
     console.log(baseUrl)
 
     /** Run netlify functions:serve to locally test serverless functions */
