@@ -24,8 +24,11 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store, cache, reporter }) => {
     const { createNode } = actions
+    const baseUrl = process.env.NODE_ENV === "production" ? 'https://bookstorey.netlify.app' : 'http://localhost:9999'
+    console.log(baseUrl)
+
     /** Run netlify functions:serve to locally test serverless functions */
-    const { bookstorey_Books_aggregate } = await fetch("http://localhost:9999/.netlify/functions/fetch-books", {
+    const { bookstorey_Books_aggregate } = await fetch(`${baseUrl}/.netlify/functions/fetch-books`, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -37,7 +40,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
         if(bookNodeBookList.length > 0){
             bookNodeBookList.forEach(async (bookId) => {
-                const {bookstorey_Book_by_pk: bookData} = await fetch(`http://localhost:9999/.netlify/functions/fetch-book-with-id?bookId=${bookId}`, {
+                const {bookstorey_Book_by_pk: bookData} = await fetch(`${baseUrl}/.netlify/functions/fetch-book-with-id?bookId=${bookId}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -73,7 +76,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
                 /* Author Node */
                 authors.forEach(async (authorId) => {
-                    const {bookstorey_Author_by_pk: authorData} = await fetch(`http://localhost:9999/.netlify/functions/fetch-author-with-id?authorId=${authorId}`, {
+                    const {bookstorey_Author_by_pk: authorData} = await fetch(`${baseUrl}/.netlify/functions/fetch-author-with-id?authorId=${authorId}`, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
