@@ -3,6 +3,6 @@ import { navigate } from "gatsby"
 
 export default function Categories(){
     React.useEffect(() => {
-        navigate("/categories/art")
+        // navigate("/categories/art")
     }, [])
 }

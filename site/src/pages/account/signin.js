@@ -6,28 +6,28 @@ import createHasuraAccount from "../../../../netlify/functions/createHasuraAccou
 import fetch from "node-fetch"
 
 export default function SignIn(props){
-    const [redirectToReferrer, setRedirectToReferrer] = React.useState(false)
+    // const [redirectToReferrer, setRedirectToReferrer] = React.useState(false)
 
-    React.useEffect(() => {
-        netlifyIdentity.on('init', (user) => {
-            console.log("Init")
-        })
+    // React.useEffect(() => {
+    //     netlifyIdentity.on('init', (user) => {
+    //         console.log("Init")
+    //     })
 
-        if(netlifyIdentity.currentUser()){
-            navigate('/account/profile')
-        }
-    }, [])
+    //     if(netlifyIdentity.currentUser()){
+    //         navigate('/account/profile')
+    //     }
+    // }, [])
 
-    const handleLogin = () => {
-        netlifyIdentity.open();
-        netlifyIdentity.on('login', async (user) => {
-            const userCreated = await (await createHasuraAccount.handler(user)).body
-            console.log(userCreated)
-            // navigate('/')
-        })
-    }
+    // const handleLogin = () => {
+    //     netlifyIdentity.open();
+    //     netlifyIdentity.on('login', async (user) => {
+    //         const userCreated = await (await createHasuraAccount.handler(user)).body
+    //         console.log(userCreated)
+    //         // navigate('/')
+    //     })
+    // }
 
-    return <button onClick={handleLogin}>Log in</button> 
+    return <button>Log in</button> 
 
 
 }

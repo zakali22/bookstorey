@@ -12,7 +12,7 @@ export default function Card({book, image, hasImageDisplacement = true, layout =
             <div className="card__content">
                 <h3>{book.title}</h3>
                 <p>By {book.authors[0].name}</p>
-                <div className="card__content-category"><span>{book.categories[0]}</span></div>
+                <div className="card__content-category"><span>{book.category}</span></div>
                 <div className="card__content-ratings">
                     <RatingStar rating={book.averageRating} />
                     <p>{book.ratingsCount} reviews</p>

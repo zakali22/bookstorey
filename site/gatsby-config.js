@@ -6,9 +6,6 @@ module.exports = {
     title: `Bookstorey`,
     siteUrl: `https://www.yourdomain.tld`
   },
-  flags: {
-    FAST_DEV: true,
-  },
   plugins: [
     "gatsby-plugin-sass", 
     "gatsby-plugin-image", 
@@ -18,15 +15,14 @@ module.exports = {
     "gatsby-transformer-sharp", 
     "gatsby-theme",
     "gatsby-transformer-json",
-    /**
-     * * Removed pages option in the gatsby-source-filesystem
-    */
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: `gatsby-source-filesystem`,
       options: {
-        "path": `${__dirname}/data`
+        // The unique name for each instance
+        name: `pages`,
+        // Path to the directory
+        path: `${__dirname}/src/pages/`,
       },
-      __key: "data"
-    }
+    },
   ]
 };
