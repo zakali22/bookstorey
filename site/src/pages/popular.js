@@ -8,61 +8,62 @@ import Button from "../../../gatsby-theme/src/components/Button"
 import CtaSection from "../components/CtaSection"
 
 export default function PopularPage(){
-    // const data = useStaticQuery(graphql`
-    //     query PopularBooks {
-    //         allBook(sort: {ratingsCount: DESC}, filter: {ratingsCount: {gte: 10}}) {
-    //             nodes {
-    //                 id
-    //                 title
-    //                 categories
-    //                 averageRating
-    //                 ratingsCount
-    //                 slug
-    //                 authors {
-    //                     slug
-    //                     id
-    //                     name
-    //                 }
-    //                 cover {
-    //                     childImageSharp {
-    //                         gatsbyImageData
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // `);
+    const data = useStaticQuery(graphql`
+        query PopularBooks {
+            allBook {
+                nodes {
+                    id
+                    title
+                    category
+                    averageRating
+                    ratingsCount
+                    slug
+                    authors {
+                        slug
+                        id
+                        name
+                    }
+                    cover {
+                        childImageSharp {
+                            gatsbyImageData(height: 192, width: 128)
+                        }
+                    }
+                }
+            }
+        }
 
-    // const allBooks = data.allBook.nodes
-    // const [list, setList] = React.useState([...allBooks.slice(0, 10)])
+    `);
 
-    // const [loadMore, setLoadMore] = React.useState(false)
+    const allBooks = data.allBook.nodes
+    const [list, setList] = React.useState([...allBooks.slice(0, 10)])
 
-    // const [hasMore, setHasMore] = React.useState(false)
+    const [loadMore, setLoadMore] = React.useState(false)
 
-    // function handleLoadMore(){
-    //     setLoadMore(true)
-    // }
+    const [hasMore, setHasMore] = React.useState(false)
 
-    // React.useEffect(() => {
-    //     if(loadMore && hasMore){
-    //         const currentLength = list.length
-    //         const isMore = currentLength < allBooks.length
-    //         const nextResults = isMore ? [...allBooks.slice(currentLength, currentLength + 10)] : []
-    //         setList([...list, ...nextResults])
-    //         setLoadMore(false)
-    //     }
-    // }, [loadMore, hasMore])
+    function handleLoadMore(){
+        setLoadMore(true)
+    }
+
+    React.useEffect(() => {
+        if(loadMore && hasMore){
+            const currentLength = list.length
+            const isMore = currentLength < allBooks.length
+            const nextResults = isMore ? [...allBooks.slice(currentLength, currentLength + 10)] : []
+            setList([...list, ...nextResults])
+            setLoadMore(false)
+        }
+    }, [loadMore, hasMore])
 
 
-    // React.useEffect(() => {
-    //     const isMore = list.length < allBooks.length
-    //     setHasMore(isMore)
-    // }, [list])
+    React.useEffect(() => {
+        const isMore = list.length < allBooks.length
+        setHasMore(isMore)
+    }, [list])
 
     return (
         <>
-            {/* <SingleHero>Popular books</SingleHero>
+            <SingleHero>Popular books</SingleHero>
             <PopularList>
                 {
                     list.map(book => (
@@ -79,7 +80,7 @@ export default function PopularPage(){
                         <p>No more results</p>
                     )
                 }
-            </div> */}
+            </div>
             <CtaSection />
         </>
     )

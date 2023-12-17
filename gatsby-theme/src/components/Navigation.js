@@ -33,7 +33,7 @@ export default function Navigation(){
                     </button>
                     { mobileMenuOpen && (
                             <div className={navMobileWrapper}>
-                                <Link to="/categories">Categories</Link>  
+                                <Link to="/categories/art">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
                                 <Link to="/">About us</Link>
                                 <LoginButton />
@@ -49,7 +49,7 @@ export default function Navigation(){
             <nav className={nav}>
                 <Container className={navContainer}>
                     <div className={navLeft}>
-                        <Link to="/categories">Categories</Link>  
+                        <Link to="/categories/art">Categories</Link>  
                         <Link to="/popular">Popular</Link>
                     </div>
                     <div className={navLogo}>
