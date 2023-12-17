@@ -1,25 +1,22 @@
-import React from "react";
-/* 👇 New code 👇 */ 
-import { Link } from "gatsby";
-import { useAuth0 } from "@auth0/auth0-react";
-/* 👇 Import the withAuthenticationRequired HOC 👇 */ 
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import * as React from "react"
+import {Router} from "@reach/router"
+import Settings from "./settings"
+import Favourites from "./favourites"
+import AccountLanding from "../../components/Account/AccountLanding"
+import Redirect from "./redirect"
+import { login, isAuthenticated, getUserInfo, logout } from "../../utils/auth"
 
+export default function AccountRouter(){
+  if(localStorage.getItem("isLoggedIn") === "false"){
+    login()
+    return <Redirect />
+  }
 
-const Account = () => {
-/* 👇 Access user from the useAuth0 hook 👇 */
- const { user } = useAuth0();
   return (
-  <>
-   <nav>
-    {/* 👇 Link to homepage */} 👇
-    <Link to="/">Home</Link>
-    {/* 👇 Display users email */} 👇
-    <p>Email: {user.email}</p>
-  </nav>
- </>
- );
-};
-
-/* 👇 Wrap the component in the withAuthenticationRequired handler 👇 */
-export default withAuthenticationRequired(Account);
+    <Router>
+      <Settings path="/account/settings"/>
+      <Favourites path="/account/favourites"/>
+      <AccountLanding path="/account" user={getUserInfo()} logout={() => logout()}/>
+    </Router>
+  )
+}
