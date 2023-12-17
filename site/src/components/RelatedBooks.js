@@ -19,11 +19,6 @@ export default function RelatedBooks({bookCategory}){
                     averageRating
                     ratingsCount
                     slug
-                    authors {
-                        slug
-                        id
-                        name
-                    }
                     cover {
                         childImageSharp {
                             gatsbyImageData

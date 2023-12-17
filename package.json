@@ -5,7 +5,7 @@
         "gatsby-theme"
     ],
     "scripts": {
-        "develop": "yarn clean && yarn workspace site develop",
+        "develop": "yarn workspace site develop",
         "build": "yarn clean && yarn workspace site build",
         "clean": "yarn workspace site clean"
     }

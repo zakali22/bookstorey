@@ -10,7 +10,7 @@ import Carousel from "./Carousel";
 export default function AuthorsCarousel(){
     const data = useStaticQuery(graphql`
         query AuthorCarouselQuery {
-            allAuthor(filter: {books: {elemMatch: {averageRating: {gte: 4}}}}) {
+            allAuthor {
                 nodes {
                     name
                     id
@@ -27,10 +27,12 @@ export default function AuthorsCarousel(){
     `);
 
     const allAuthors = data.allAuthor.nodes
+    console.log(allAuthors)
     const allAuthorsWithBio = allAuthors.filter(authors => {
         // console.log(authors)
         return authors.bio && authors.bio.length > 0 && authors.cover
     })
+    // console.log(allAuthorsWithBio)
 
     if(!allAuthorsWithBio.length) return
 

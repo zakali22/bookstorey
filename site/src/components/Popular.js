@@ -10,7 +10,7 @@ import Carousel from "./Carousel";
 export default function Popular(){
     const data = useStaticQuery(graphql`
         query PopularQuery {
-            allBook(sort: {ratingsCount: DESC}, filter: {ratingsCount: {gte: 10}}) {
+            allBook {
                 nodes {
                     id
                     title
@@ -18,11 +18,6 @@ export default function Popular(){
                     averageRating
                     ratingsCount
                     slug
-                    authors {
-                        slug
-                        id
-                        name
-                    }
                     cover {
                         childImageSharp {
                             gatsbyImageData

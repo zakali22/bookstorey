@@ -15,15 +15,16 @@ export const query = graphql`
             category
             averageRating
             ratingsCount
+            description
             slug
             authors {
-                slug
                 id
                 name
+                slug
             }
             cover {
                 childImageSharp {
-                    gatsbyImageData(layout: CONSTRAINED, width: 300)
+                    gatsbyImageData
                 }
             }
         }

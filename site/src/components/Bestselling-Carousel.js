@@ -10,7 +10,7 @@ import Carousel from "./Carousel";
 export default function Bestselling(){
     const data = useStaticQuery(graphql`
         query BestsellingQuery {
-            allBook(filter: {ratingsCount: {gte: 50}}) {
+            allBook {
                 nodes {
                     id
                     title
@@ -18,11 +18,6 @@ export default function Bestselling(){
                     averageRating
                     ratingsCount
                     slug
-                    authors {
-                        slug
-                        id
-                        name
-                    }
                     cover {
                         childImageSharp {
                             gatsbyImageData

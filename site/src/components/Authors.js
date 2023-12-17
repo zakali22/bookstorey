@@ -8,6 +8,8 @@ import AuthorCard from "../../../gatsby-theme/src/components/AuthorCard";
 import Carousel from "./Carousel";
 
 export default function Authors({authors: AllAuthors}){
+    console.log(AllAuthors)
+
     const allAuthorsWithBio = AllAuthors.filter(authors => {
         return authors.bio && authors.bio.length > 0
     })

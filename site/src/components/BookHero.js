@@ -9,13 +9,17 @@ import Button from "../../../gatsby-theme/src/components/Button"
 export default function BookHero({book}){
     // console.log(book)
 
+    console.log(book)
+
     const leftHeroContent = () => {
         return (
             <div>
                 <h1>{book.title}</h1>
+                {book.authors && book.authors[0] &&
                 <p>By
                     {book.authors.map((author) => <Link style={{marginLeft: "7px", textDecoration: "underline", color: "inherit"}} to={`/author/${author.slug}`}>{author.name}</Link>)}
                 </p>
+                }
                 
             </div>
         )
