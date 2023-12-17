@@ -1,7 +1,7 @@
 [build]
   command = "yarn workspace site clean & yarn workspace site build"
   Functions = "netlify/functions/"
-  publish = "site"
+  publish = "site/public"
 
 [dev]
   command = "yarn develop"
