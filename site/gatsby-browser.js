@@ -23,6 +23,7 @@ class SessionCheck extends React.Component {
 
   render() {
     return (
+        /** Render regardless of loading state - refactor to remove loading state */
         <React.Fragment>{this.props.children}</React.Fragment>
     );
   }
