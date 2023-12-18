@@ -22,11 +22,6 @@ class SessionCheck extends React.Component {
 
 
   render() {
-    if(this.state.loading){
-        return
-    }
-
-
     return (
       this.state.loading === false && (
         <React.Fragment>{this.props.children}</React.Fragment>
