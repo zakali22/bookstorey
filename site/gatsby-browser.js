@@ -18,9 +18,15 @@ class SessionCheck extends React.Component {
 
   componentDidMount() {
     checkSession(this.handleCheckSession);
-  }
+  };
+
 
   render() {
+    if(this.state.loading){
+        return
+    }
+
+
     return (
       this.state.loading === false && (
         <React.Fragment>{this.props.children}</React.Fragment>
