@@ -3,7 +3,7 @@ import {Router} from "@reach/router"
 import Settings from "./settings"
 import Favourites from "./favourites"
 import AccountLanding from "../../components/Account/AccountLanding"
-import Redirect from "./redirect"
+import Redirect from "../../components/Account/Redirect"
 import { login, isAuthenticated, getUserInfo, logout } from "../../utils/auth"
 
 export default function AccountRouter(){

@@ -15,11 +15,11 @@ const tokens = {
 // Only instantiate Auth0 if we’re in the browser.
 const auth0 = isBrowser
   ? new auth0js.WebAuth({
-      domain: "dev-en4d7gc6egik0rbq.us.auth0.com",
-      clientID: "2Yd7XIiEYjsMGSZu5J5JP7E1GsawQSTi",
-      redirectUri: "http://localhost:8888/account/callback",
-      responseType: 'token id_token',
-      scope: 'openid profile email'
+        domain: process.env.GATSBY_AUTH0_DOMAIN, // Use GATSBY_ as a prefix
+        clientID: process.env.GATSBY_AUTH0_CLIENTID,
+        redirectUri: process.env.GATSBY_AUTH0_CALLBACK,
+        responseType: 'token id_token',
+        scope: 'openid profile email'
     })
   : {};
 
@@ -40,16 +40,10 @@ export const logout = () => {
 
 const setSession = callback => (err, authResult) => {
     if (!isBrowser) {
+        callback()
         return;
     }
 
-    // if (localStorage.getItem("isLoggedIn") === "true" && err.error === 'login_required') {
-    //     console.error(err);
-    //     callback()
-    //     return
-    // }
-
-    console.log(authResult)
     if (authResult && authResult.accessToken && authResult.idToken) {
         let expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
         tokens.accessToken = authResult.accessToken;
@@ -92,7 +86,6 @@ export const isAuthenticated = () => {
         return;
     }
 
-    console.log(localStorage)
     return localStorage.getItem('isLoggedIn') === 'true';
 };
 
