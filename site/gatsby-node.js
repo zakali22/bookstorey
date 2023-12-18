@@ -178,14 +178,14 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
         }
     })
     .then(response => response.json())
-    .then(({ bookstorey_Books_aggregate }) => {
+    .then(async ({ bookstorey_Books_aggregate }) => {
         /** Books + authors node */
-        bookstorey_Books_aggregate.nodes.forEach(async (bookNode) => {
+        await Promise.all(bookstorey_Books_aggregate.nodes.map(async (bookNode) => {
             const bookNodeBookList = bookNode.books
             
             if(bookNodeBookList.length > 0){
                 // console.log(bookNode.category)
-                bookNodeBookList.forEach(async (bookId) => {
+                await Promise.all(bookNodeBookList.map(async (bookId) => {
                     const bookResponse = await fetch(`${baseUrl}/.netlify/functions/fetch-book-with-id?bookId=${bookId}`, {
                         headers: {
                             'Content-Type': 'application/json'
@@ -230,7 +230,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
     
     
                             /* Author Node */
-                            authors.forEach(async (authorId) => {
+                            await Promise.all(authors.map(async (authorId) => {
                                 const authorResponse = await fetch(`${baseUrl}/.netlify/functions/fetch-author-with-id?authorId=${authorId}`, {
                                     headers: {
                                         'Content-Type': 'application/json'
@@ -314,12 +314,15 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                 })
             
                                 
-                            })
+                            }))
+                            
                         }
                     })
-                })
+                }))
+                
             }
-        })
+        }))
+        
     })
     
 }
