@@ -16,10 +16,27 @@ module.exports = {
     "gatsby-plugin-image", 
     "gatsby-plugin-sitemap", 
     "gatsby-transformer-remark", 
-    "gatsby-plugin-sharp", 
     "gatsby-transformer-sharp", 
     "gatsby-theme",
     "gatsby-transformer-json",
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          formats: [`auto`, `webp`],
+          placeholder: `dominantColor`,
+          quality: 50,
+          breakpoints: [750, 1080, 1366, 1920],
+          backgroundColor: `transparent`,
+          tracedSVGOptions: {},
+          blurredOptions: {},
+          jpgOptions: {},
+          pngOptions: {},
+          webpOptions: {},
+          avifOptions: {},
+        }
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
