@@ -39,7 +39,7 @@ export const logout = () => {
     localStorage.setItem('isLoggedIn', false);
     profile = false;
 
-    auth0.logout({ returnTo: "http://localhost:8888" });
+    auth0.logout({ returnTo: "https://bookstorey.netlify.app" });
 };
 
 const setSession = callback => (err, authResult) => {
