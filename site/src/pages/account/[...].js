@@ -7,7 +7,7 @@ import Redirect from "../../components/Account/Redirect"
 import { login, isAuthenticated, getUserInfo, logout } from "../../utils/auth"
 
 export default function AccountRouter(){
-  if(localStorage.getItem("isLoggedIn") === "false"){
+  if(!isAuthenticated()){
     login()
     return <Redirect />
   }

@@ -32,6 +32,10 @@ const auth0 = isBrowser
 };
 
 export const logout = () => {
+    if (!isBrowser) {
+        return;
+    }
+    
     localStorage.setItem('isLoggedIn', false);
     profile = false;
 
