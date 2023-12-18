@@ -1,21 +1,36 @@
-// import React from 'react';
-// import { Auth0Provider } from '@auth0/auth0-react';
-// import { navigate } from 'gatsby';
+import React from 'react';
+import { checkSession } from './src/utils/auth';
 
-// const onRedirectCallback = (appState) => {
-//  // Use Gatsby's navigate method to replace the url
-//  navigate(appState?.returnTo || '/', { replace: true });
-// };
+class SessionCheck extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
 
-// export const wrapRootElement = ({ element }) => {
-//  return (
-//   <Auth0Provider
-//    domain={process.env.AUTH0_DOMAIN}
-//    clientId={process.env.AUTH0_CLIENTID}
-//    redirectUri={window.location.origin}
-//    onRedirectCallback={onRedirectCallback}
-//    >
-//     {element}
-//  </Auth0Provider>
-//  );
-// };
+  handleCheckSession = () => {
+    this.setState({ loading: false }, () => {
+
+        console.log(this.state.loading)
+    });
+  };
+
+  componentDidMount() {
+    checkSession(this.handleCheckSession);
+  }
+
+  render() {
+    return (
+      this.state.loading === false && (
+        <React.Fragment>{this.props.children}</React.Fragment>
+      )
+    );
+  }
+}
+
+export const wrapRootElement = ({ element }) => (
+  <SessionCheck>
+    {element}
+  </SessionCheck>
+);
