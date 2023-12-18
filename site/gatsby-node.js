@@ -141,24 +141,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createResolvers = ({ actions, store, cache, createNodeId, createResolvers, reporter }) => {
     const { createNode } = actions
     const resolvers = {
-         Book: {
-             cover: {
-                 type: 'File',
-                 resolve: async (bookObj) => {
-                     if(bookObj.imageLink){
-                         return await createRemoteFileNode({
-                             url: bookObj.imageLink.trim(),
-                             store,
-                             cache,
-                             createNode,
-                             createNodeId
-                         })
-                     } else {
-                         return null
-                     }
-                 }
-             }
-         },
         Author: {
             books: {
                 type: ["Book"],
@@ -171,76 +153,6 @@ exports.createResolvers = ({ actions, store, cache, createNodeId, createResolver
                     })
                    
                     return entries
-                }
-            },
-            cover: {
-                type: 'File',
-                resolve: async (source, args, context, info) => {
-                    const response = await fetch(new URL(`https:openlibrary.org/search/authors.json?q=${source.slug}`))
-
-                    if(!response.ok){
-                        reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
-                        return null
-                    }
-                    
-                    const { docs } = await response.json()
-
-
-                    if(docs.length){
-                        const response = await fetch(new URL(`https:openlibrary.org/authors/${docs[0].key}.json`))
-                       
-                        if(!response.ok){
-                            reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
-                            return null
-                        }
-
-
-                        const { photos } = await response.json()
-                        if(photos){
-                            if(photos.length){
-                                return await createRemoteFileNode({
-                                    url: `https://covers.openlibrary.org/a/olid/${docs[0].key}-L.jpg`,
-                                    store,
-                                    cache,
-                                    createNode,
-                                    createNodeId
-                                })
-                            } else {
-                                return null
-                            }
-                        } else {
-                            return null
-                        }
-                    } else {
-                        return null
-                    }
-                }
-            },
-            bio: {
-                type: 'String',
-                resolve: async (source, args, context, info) => {
-                    const response = await fetch(new URL(`https://openlibrary.org/search/authors.json?q=${source.slug}`))
-                    if(!response.ok){
-                        reporter.warn(`Error loading ${authorObj.name} - ${response.status} ${response.statusText}`)
-                        return null
-                    }
-
-                    const { docs } = await response.json()
-                    if(docs.length){
-                        const response = await fetch(new URL(`https://openlibrary.org/authors/${docs[0].key}.json`))
-                        
-                        if(!response.ok){
-                            reporter.warn(`Error loading ${source.name} - ${response.status} ${response.statusText}`)
-                            return null
-                        }
-
-                        const { bio } = await response.json()
-                        if(typeof bio === 'object' && bio.value.length > 0){
-                            return bio.value
-                        } else {
-                            return bio
-                        }
-                    }
                 }
             }
         }
@@ -285,6 +197,19 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                         // console.log(bookData)
                         if(bookData){
                             const authors = bookData.authors
+
+                            let image;
+                            if(bookData.imageLink){
+                                image = await createRemoteFileNode({
+                                    url: bookData.imageLink.trim(),
+                                    parentNodeId: createNodeId(`book-image-${slugify(bookData.title, {lower: true, remove: /[*+~.()'"!:@]/g})}`),
+                                    store,
+                                    cache,
+                                    createNode,
+                                    createNodeId,
+                                    reporter
+                                })
+                            }
                             
                             /* Book Node */
                             createNode({
@@ -294,7 +219,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                 id: bookData.id,
                                 parent: null,
                                 children: [],
-                                // cover: bookData.imageLink && image?.id,
+                                cover: image?.id,
                                 averageRating: parseInt(bookData.averageRating),
                                 internal: {
                                     type: 'Book',
@@ -312,16 +237,72 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                     }
                                 })
                                 .then(response => response.json())
-                                .then(({bookstorey_Author_by_pk: authorData}) => {
+                                .then(async ({bookstorey_Author_by_pk: authorData}) => {
             
                                     if(authorData){
+                                        const slug = slugify(authorData.name, {lower: true, remove: /[*+~.()'"!:@]/g})
+
+                                        /** Fetch image */
+                                        const response = await fetch(new URL(`https:openlibrary.org/search/authors.json?q=${slug}`))
+                                        let image;
+                                        let bio;
+
+                                        if(!response.ok){
+                                            reporter.warn(`Error loading ${authorData.name} - ${response.status} ${response.statusText}`)
+                                            image = null
+                                            bio = null
+                                        }
+
+                                        const { docs } = await response.json()
+
+                                        if(docs.length){
+                                            const authorDetailResponse = await fetch(new URL(`https:openlibrary.org/authors/${docs[0].key}.json`))
+                                        
+                                            if(!authorDetailResponse.ok){
+                                                reporter.warn(`Error loading ${authorData.name} - ${authorDetailResponse.status} ${authorDetailResponse.statusText}`)
+                                                image = null
+                                                bio = null
+                                            }
+
+                                            const { photos, bio: bioData } = await authorDetailResponse.json()
+
+                                            /** Photos */
+                                            if(photos){
+                                                if(photos.length){
+                                                    image = await createRemoteFileNode({
+                                                        url: `https://covers.openlibrary.org/a/olid/${docs[0].key}-L.jpg`,
+                                                        store,
+                                                        cache,
+                                                        createNode,
+                                                        createNodeId
+                                                    })
+                                                } else {
+                                                    image = null
+                                                }
+                                            } else {
+                                                image = null
+                                            }
+
+                                            /** Bio */
+                                            if(typeof bioData === 'object' && bioData.value.length > 0){
+                                                bio = bioData.value
+                                            } else {
+                                                bio = bioData
+                                            }
+                                        } else {
+                                            image = null
+                                            bio = null
+                                        }
+         
+
                                         createNode({
                                             name: authorData.name, 
-                                            slug: slugify(authorData.name, {lower: true, remove: /[*+~.()'"!:@]/g}),
+                                            slug,
                                             id: authorData.id,
                                             parent: null,
-                                            bio: "",
+                                            bio,
                                             hasBio: false,
+                                            cover: image?.id,
                                             children: [],
                                             internal: {
                                                 type: 'Author',
@@ -336,10 +317,6 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                             })
                         }
                     })
-    
-                    
-    
-    
                 })
             }
         })
