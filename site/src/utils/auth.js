@@ -102,7 +102,5 @@ export const getAccessToken = () => {
 };
 
 export const getUserInfo = () => {
-    if (profile) {
-        return profile;
-    }
+    console.log(auth0)
 };

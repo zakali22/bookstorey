@@ -3,20 +3,31 @@ import Container from "./Container"
 import Logo from "./Logo"
 import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
-import { useAuth0 } from "@auth0/auth0-react";
+import { AuthContext } from "../../../site/src/utils/authContext"
+import AccountProfileImage from "./AccountProfileImage"
 
-function LoginButton() {
- const {
-  isAuthenticated,
-  loginWithRedirect,
-   } = useAuth0();
+const LoginButton = () => {
+    const {loginWithRedirect} = React.useContext(AuthContext)
 
-   return !isAuthenticated && (
-    <button onClick={loginWithRedirect}>Signin</button>
-  );
+    return <button onClick={() => loginWithRedirect()}>Log In</button>;
 };
 
-export default function Navigation(){
+function AccountProfile(){
+    const {user, isAuthenticated} = React.useContext(AuthContext)
+
+    console.log(user)
+    return (
+        <>
+            {isAuthenticated ? (
+                <AccountProfileImage image={user.picture} name={user.nickname}/>
+            ) : (
+                <LoginButton />
+            )}
+        </>
+    )
+}
+
+export default function Navigation({auth}){
     const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
@@ -36,7 +47,7 @@ export default function Navigation(){
                                 <Link to="/categories/art">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
                                 <Link to="/">About us</Link>
-                                <LoginButton />
+                                <AccountProfile />
                             </div>
                         )
                     }
@@ -57,7 +68,7 @@ export default function Navigation(){
                     </div>
                     <div className={navRight}>
                         <Link to="/">About us</Link>
-                        <LoginButton />
+                        <AccountProfile />
                     </div>
                 </Container>
             </nav>
