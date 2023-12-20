@@ -5,7 +5,7 @@ import AuthContextWrapper from "./src/components/AuthContextProviderComp"
 
 const onRedirectCallback = (appState) => {
   // Use Gatsby's navigate method to replace the url
-  navigate("http://localhost:8888/account/callback", { replace: true });
+  navigate("http://localhost:8888/account/", { replace: true });
 };
 
 export const wrapRootElement = ({ element }) => {
@@ -13,8 +13,12 @@ export const wrapRootElement = ({ element }) => {
     <Auth0Provider
       domain={process.env.GATSBY_AUTH0_DOMAIN}
       clientId={process.env.GATSBY_AUTH0_CLIENTID}
-      redirectUri="http://localhost:8888/account/callback"
       onRedirectCallback={onRedirectCallback}
+      authorizationParams={{
+        redirect_uri: "http://localhost:8888/account/",
+        audience: "https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/", 
+        scope: "read:current_user update:current_user_metadata"
+      }}
     >
       <AuthContextWrapper>
         {element}

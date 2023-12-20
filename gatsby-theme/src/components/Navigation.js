@@ -3,23 +3,26 @@ import Container from "./Container"
 import Logo from "./Logo"
 import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
+import Button from "./Button"
 import { AuthContext } from "../../../site/src/utils/authContext"
 import AccountProfileImage from "./AccountProfileImage"
 
 const LoginButton = () => {
     const {loginWithRedirect} = React.useContext(AuthContext)
 
-    return <button onClick={() => loginWithRedirect()}>Log In</button>;
+    return <Button onClick={() => loginWithRedirect()}>Log In</Button>;
 };
 
 function AccountProfile(){
-    const {user, isAuthenticated} = React.useContext(AuthContext)
+    const {userData, isAuthenticated} = React.useContext(AuthContext)
 
-    console.log(user)
+    console.log(userData && userData.picture)
     return (
         <>
-            {isAuthenticated ? (
-                <AccountProfileImage image={user.picture} name={user.nickname}/>
+            {isAuthenticated && userData && userData.picture ? (
+                <Link to="/account">
+                    <AccountProfileImage image={userData.picture} name={userData.nickname} isNav/>
+                </Link>
             ) : (
                 <LoginButton />
             )}

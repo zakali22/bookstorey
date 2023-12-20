@@ -1,0 +1,17 @@
+@import "./variables.scss";
+
+.subnav {
+    display: flex;
+    flex-direction: column;
+    // border-right: 1px solid $blue;
+    flex: 1 0 20%;
+
+    a {
+        background: #F2F2F2;
+        padding: 20px;
+        font-size: 20px;
+        color: $blue;
+        text-decoration: none;
+
+    }
+}

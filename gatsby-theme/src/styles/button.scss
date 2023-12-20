@@ -26,7 +26,7 @@
     &--secondary {
         background-color: $white;
         color: $blue;
-        border: 2px solid $white;
+        border: 2px solid $blue;
         font-size: 20px;
         border-radius: 7px;
         line-height: 1.2;
@@ -48,6 +48,29 @@
         &:hover, &:focus {
             background-color: $white;
             color: $black;
+        }
+    }
+
+    /** Colors **/
+    &--blue {
+        background-color: $blue;
+        color: $white;
+        border: 2px solid $blue;
+
+        &:hover, &:focus {
+            background-color: $white;
+            color: $blue;
+        }
+    }
+
+    &--red {
+        background-color: $red;
+        color: $white;
+        border: 2px solid $red;
+
+        &:hover, &:focus {
+            background-color: $white;
+            color: $red;
         }
     }
 }

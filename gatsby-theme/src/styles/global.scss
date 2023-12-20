@@ -119,6 +119,10 @@ h3, .h3 {
     }
 }
 
+main {
+    min-height: calc(100vh - #{($nav-height-desktop + $footer-height-desktop)})
+}
+
 .section {
     margin-top: 40px;
     position: relative;
@@ -129,7 +133,7 @@ h3, .h3 {
     }
 
     &.section--negative-margin-top {
-        margin-top: #{($nav-height-desktop) * -1};
+        margin-top: #{($nav-height-desktop + 10px) * -1};
         padding-top: #{($nav-height-desktop) + 20px};
 
         @media(min-width: 992px){
