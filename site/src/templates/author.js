@@ -12,7 +12,7 @@ export const query = graphql`
             slug
             name
             id
-            bio
+            bioData
             cover {
                 childImageSharp {
                     gatsbyImageData
@@ -47,7 +47,7 @@ export default function AuthorPage({data}){
     return (
         <>
             <AuthorHero author={author}/>
-            <Bio bio={author.bio}/>
+            <Bio bioData={author.bioData}/>
             {author.books && <AuthorBooks books={author.books} />}
             <CtaSection />
         </>

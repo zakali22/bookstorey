@@ -10,12 +10,12 @@ import Carousel from "./Carousel";
 export default function AuthorsCarousel(){
     const data = useStaticQuery(graphql`
         query AuthorCarouselQuery {
-            allAuthor(filter: {bio: {ne: null}}) {
+            allAuthor(filter: {bioData: {ne: null}}) {
                 nodes {
                     name
                     id
                     slug
-                    bio
+                    bioData
                     cover {
                         childImageSharp {
                             gatsbyImageData
@@ -30,7 +30,7 @@ export default function AuthorsCarousel(){
     // console.log(allAuthors)
     const allAuthorsWithBio = allAuthors.filter(authors => {
         console.log(authors)
-        return authors.bio && authors.bio.length > 0 && authors.cover
+        return authors.bioData && authors.bioData.length > 0 && authors.cover
     })
 
     if(!allAuthorsWithBio.length) return

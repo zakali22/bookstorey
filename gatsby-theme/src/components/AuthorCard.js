@@ -12,7 +12,7 @@ export default function AuthorCard({author, image}){
                 </h3>
                 <p>
                     <span>About the author</span>
-                    {author.bio}
+                    {author.bioData}
                 </p>
             </div>
             <div className="author-card__image">

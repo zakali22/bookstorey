@@ -11,7 +11,7 @@ export default function Authors({authors: AllAuthors}){
     console.log(AllAuthors)
 
     const allAuthorsWithBio = AllAuthors.filter(authors => {
-        return authors.bio && authors.bio.length > 0
+        return authors.bioData && authors.bioData.length > 0
     })
 
     if(!allAuthorsWithBio.length) return

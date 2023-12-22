@@ -284,10 +284,10 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             }
 
                                             /** Bio */
-                                            if(typeof authorData.bio === 'object' && authorData.bio.value.length > 0){
-                                                bioData = authorData.bio.value
+                                            if(typeof authorData.bioData === 'object' && authorData.bioData.value.length > 0){
+                                                bioData = authorData.bioData.value
                                             } else {
-                                                bioData = authorData.bio
+                                                bioData = authorData.bioData
                                             }
                                         } else {
                                             image = null
