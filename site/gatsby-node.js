@@ -361,7 +361,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         module: {
           rules: [
             {
-              test: "@auth0/auth0-react",
+              test: /@auth0\/auth0-react/,
               use: loaders.null(),
             },
           ],
