@@ -245,12 +245,12 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                         /** Fetch image */
                                         const response = await fetch(new URL(`https:openlibrary.org/search/authors.json?q=${slug}`))
                                         let image;
-                                        let bio;
+                                        let bioData;
 
                                         if(!response.ok){
                                             reporter.warn(`Error loading ${authorData.name} - ${response.status} ${response.statusText}`)
                                             image = null
-                                            bio = null
+                                            bioData = null
                                         }
 
                                         const { docs } = await response.json()
@@ -261,14 +261,14 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             if(!authorDetailResponse.ok){
                                                 reporter.warn(`Error loading ${authorData.name} - ${authorDetailResponse.status} ${authorDetailResponse.statusText}`)
                                                 image = null
-                                                bio = null
+                                                bioData = null
                                             }
 
-                                            const { photos, bio: bioData } = await authorDetailResponse.json()
+                                            const authorData = await authorDetailResponse.json()
 
                                             /** Photos */
-                                            if(photos){
-                                                if(photos.length){
+                                            if(authorData.photos){
+                                                if(authorData.photos.length){
                                                     image = await createRemoteFileNode({
                                                         url: `https://covers.openlibrary.org/a/olid/${docs[0].key}-L.jpg`,
                                                         store,
@@ -284,14 +284,14 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             }
 
                                             /** Bio */
-                                            if(typeof bioData === 'object' && bioData.value.length > 0){
-                                                bio = bioData.value
+                                            if(typeof authorData.bio === 'object' && authorData.bio.value.length > 0){
+                                                bioData = authorData.bio.value
                                             } else {
-                                                bio = bioData
+                                                bioData = authorData.bio
                                             }
                                         } else {
                                             image = null
-                                            bio = null
+                                            bioData = null
                                         }
          
 
@@ -300,7 +300,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             slug,
                                             id: authorData.id,
                                             parent: null,
-                                            bio,
+                                            bioData,
                                             hasBio: false,
                                             cover: image?.id,
                                             children: [],
@@ -335,7 +335,7 @@ exports.createSchemaCustomization = ({ actions }) => {
             id: ID!
             name: String!
             slug: String!
-            bio: String
+            bioData: String
             hasBio: Boolean
             books: [Book!]
             cover: File @link
