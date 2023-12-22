@@ -253,9 +253,9 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             bioData = null
                                         }
 
-                                        const { docs } = await response.json()
+                                        const authorResponse = await response.json()
 
-                                        if(docs.length){
+                                        if(authorResponse.docs && docs.length){
                                             const authorDetailResponse = await fetch(new URL(`https:openlibrary.org/authors/${docs[0].key}.json`))
                                         
                                             if(!authorDetailResponse.ok){
