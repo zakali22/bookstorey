@@ -17,7 +17,7 @@ export const wrapRootElement = ({ element }) => {
       authorizationParams={{
         redirect_uri: "http://localhost:8888/account/",
         audience: "https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/", 
-        scope: "read:current_user update:current_user_metadata"
+        scope: "read:current_user update:current_user_metadata update:users update:users_app_metadata"
       }}
     >
       <AuthContextWrapper>

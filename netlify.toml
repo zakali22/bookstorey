@@ -5,3 +5,8 @@
 
 [dev]
   command = "yarn develop"
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
