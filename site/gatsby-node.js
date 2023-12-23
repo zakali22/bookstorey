@@ -255,8 +255,8 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
 
                                         const authorResponse = await response.json()
 
-                                        if(authorResponse.docs && docs.length){
-                                            const authorDetailResponse = await fetch(new URL(`https:openlibrary.org/authors/${docs[0].key}.json`))
+                                        if(authorResponse.docs && authorResponse.docs.length){
+                                            const authorDetailResponse = await fetch(new URL(`https:openlibrary.org/authors/${authorResponse.docs[0].key}.json`))
                                         
                                             if(!authorDetailResponse.ok){
                                                 reporter.warn(`Error loading ${authorData.name} - ${authorDetailResponse.status} ${authorDetailResponse.statusText}`)
@@ -270,7 +270,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, store
                                             if(authorData.photos){
                                                 if(authorData.photos.length){
                                                     image = await createRemoteFileNode({
-                                                        url: `https://covers.openlibrary.org/a/olid/${docs[0].key}-L.jpg`,
+                                                        url: `https://covers.openlibrary.org/a/olid/${authorResponse.docs[0].key}-L.jpg`,
                                                         store,
                                                         cache,
                                                         createNode,
