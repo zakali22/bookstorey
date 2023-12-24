@@ -35,9 +35,11 @@ export const Auth0Provider = ({
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
 
+  let auth0FromHook = null;
+
   useEffect(() => {
     const initAuth0 = async () => {
-      const auth0FromHook = await createAuth0Client({
+      auth0FromHook = await createAuth0Client({
         domain,
         clientId,
         authorizationParams: {
@@ -101,6 +103,36 @@ export const Auth0Provider = ({
     setIsAuthenticated(true)
   }
 
+  const updateUser = async () => {
+    if(Object.keys(auth0Client).length === 0) return 
+
+    try {
+      const accessToken = await auth0Client.getTokenSilently({
+        authorizationParams: {
+          audience: "https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/",
+          scope: "read:current_user update:current_user_metadata update:users update:users_app_metadata"
+        }
+      })
+  
+      // const userDetailsByIdUrl = `https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/users/${user.sub}`;
+    
+      const metadataResponse = await fetch("https://bookstorey.netlify.app/.netlify/functions/fetch-user", {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      const response = await metadataResponse.json();
+  
+      console.log(response)
+    } catch (error){
+      console.error(error)
+    }
+    
+  }
+
+  updateUser()
 
   return (
     <Auth0Context.Provider

@@ -1,23 +1,18 @@
-const auth = require("@netlify/auth0")
+const { withAuth0 } = require("@netlify/auth0")
 
-exports.handler = auth.withAuth0(async (req, ctx) => {
+exports.handler = withAuth0(async (event, context) => {
 
-    if (req.method === "POST") {
-        const res = ctx.json({ message: 'you posted!' });
-    
-        res.headers.set("Access-Control-Allow-Origin", "*");
-        res.headers.append("Access-Control-Allow-Headers", "*");
-        res.headers.append("Access-Control-Allow-Methods", "*");
-    
-        return res;
-      } else if (req.method === "OPTIONS") {
-        const res = new Response();
-    
-        res.headers.set("Access-Control-Allow-Origin", "*");
-        res.headers.append("Access-Control-Allow-Headers", "*");
-        res.headers.append("Access-Control-Allow-Methods", "*");
-    
-        return res;
+    return {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "http://localhost:8888/",
+            "Vary": "Origin",
+            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+            "Access-Control-Allow-Methods": "GET, HEAD, POST, PATCH, DELETE",
+            "Access-Control-Allow-Credentials": true,
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: JSON.stringify("Hello world")
     }
 
 
