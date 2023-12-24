@@ -10,3 +10,4 @@
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "http://localhost:8888"
+    Access-Control-Allow-Headers = "Content-Type, Accept, authorization"
