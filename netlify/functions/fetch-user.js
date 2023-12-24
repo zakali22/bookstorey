@@ -23,6 +23,13 @@ exports.handler = async (event, context) => {
             headers,
             body: JSON.stringify("Post response")
         }
+    } else if(event.httpMethod === 'GET'){
+        console.log("POST", headers)
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify("GET response")
+        }
     }
 
 
