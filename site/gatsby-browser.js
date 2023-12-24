@@ -1,28 +1,28 @@
-import React from 'react';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { navigate } from 'gatsby';
-import AuthContextWrapper from "./src/components/AuthContextProviderComp"
+import React from "react"
+import { Auth0Provider } from "./src/utils/auth"
+import { navigate } from "gatsby"
 
 const onRedirectCallback = (appState) => {
-  // Use Gatsby's navigate method to replace the url
-  navigate("http://localhost:8888/account/", { replace: true });
-};
+  window.history.replaceState(
+    {},
+    document.title,
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  )
+}
 
-export const wrapRootElement = ({ element }) => {
-  return (
-    <Auth0Provider
-      domain={process.env.GATSBY_AUTH0_DOMAIN}
-      clientId={process.env.GATSBY_AUTH0_CLIENTID}
-      onRedirectCallback={onRedirectCallback}
-      authorizationParams={{
-        redirect_uri: "http://localhost:8888/account/",
-        audience: "https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/", 
-        scope: "read:current_user update:current_user_metadata update:users update:users_app_metadata"
-      }}
-    >
-      <AuthContextWrapper>
-        {element}
-      </AuthContextWrapper>
-    </Auth0Provider>
-  );
-};
+const Auth0Domain = process.env.GATSBY_AUTH0_DOMAIN
+const Auth0ClientID = process.env.GATSBY_AUTH0_CLIENTID
+const Auth0Audience = process.env.GATSBY_AUTH0_AUDIENCE
+export const wrapRootElement = ({ element }) => (
+  <Auth0Provider
+    domain={Auth0Domain}
+    clientId={Auth0ClientID}
+    redirect_uri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+    audience={Auth0Audience}
+  >
+    {element}
+  </Auth0Provider>
+)

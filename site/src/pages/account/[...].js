@@ -3,11 +3,11 @@ import {Router} from "@reach/router"
 import AccountSettings from "../../components/Account/AccountSettings"
 import Favourites from "../../components/Account/Favourites"
 import Redirect from "../../components/Account/Redirect"
-import { useAuth0 } from "@auth0/auth0-react";
-import { AuthContext } from "../../utils/authContext"
+import { useAuth0  } from "../../utils/auth"
 import { Link } from "gatsby";
 import Section from "../../../../gatsby-theme/src/components/Section";
 import SubNav from "../../../../gatsby-theme/src/components/SubNav";
+import { ProtectedRoute } from "../../components/ProtectedRoute"
 
 function NavLink({partial = true, ...props}){
   return (
@@ -20,21 +20,23 @@ function NavLink({partial = true, ...props}){
 
 function AccountWrapper({children}){
   return (
-    <Section className="section--account">
-      <SubNav>
-        <NavLink to="/account" partial={false}>Settings</NavLink>
-        <NavLink to="/account/favourites">Favourites</NavLink>
-      </SubNav>
-      <div className="account-wrapper">
-        {children}
-      </div>
-    </Section>
+    <ProtectedRoute>
+      <Section className="section--account">
+        <SubNav>
+          <NavLink to="/account" partial={false}>Settings</NavLink>
+          <NavLink to="/account/favourites">Favourites</NavLink>
+        </SubNav>
+        <div className="account-wrapper">
+          {children}
+        </div>
+      </Section>
+    </ProtectedRoute>
   )
 }
 
 function AccountRouter(){
   const [loading, setLoading] = React.useState(true)
-  const {userData: user, isLoading} = React.useContext(AuthContext)
+  const { loading: isLoading, isAuthenticated, loginWithRedirect } = useAuth0()
 
   React.useEffect(() => {
     if(isLoading) return
