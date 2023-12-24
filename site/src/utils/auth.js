@@ -117,8 +117,10 @@ export const Auth0Provider = ({
       // const userDetailsByIdUrl = `https://dev-en4d7gc6egik0rbq.us.auth0.com/api/v2/users/${user.sub}`;
     
       const metadataResponse = await fetch("https://bookstorey.netlify.app/.netlify/functions/fetch-user", {
-        method: 'PATCH',
         headers: {
+          "Access-Control-Request-Headers": "Content-Type, Accept",
+          "Access-Control-Request-Method": "GET",
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${accessToken}`,
         },
       });
