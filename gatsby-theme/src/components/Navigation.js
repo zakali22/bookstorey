@@ -10,7 +10,7 @@ import AccountProfileImage from "./AccountProfileImage"
 const LoginButton = () => {
     const { loginWithRedirect, getTokenSilently } = useAuth0()
 
-    return <Button onClick={() => loginWithRedirect({ appState: `${window.location.pathname}` })}>Log In</Button>;
+    return <Button onClick={() => loginWithRedirect()}>Log In</Button>;
 };
 
 function AccountProfile(){

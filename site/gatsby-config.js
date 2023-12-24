@@ -11,6 +11,9 @@ module.exports = {
     title: `Bookstorey`,
     siteUrl: `https://www.yourdomain.tld`
   },
+  flags: {
+    DEV_SSR: true
+  },
   plugins: [
     "gatsby-plugin-sass", 
     "gatsby-plugin-image", 
