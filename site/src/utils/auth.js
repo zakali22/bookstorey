@@ -118,8 +118,8 @@ export const Auth0Provider = ({
     
       const metadataResponse = await fetch("https://bookstorey.netlify.app/.netlify/functions/fetch-user", {
         headers: {
-          "Access-Control-Request-Headers": "Content-Type, Accept",
-          "Access-Control-Request-Method": "GET",
+          "Access-Control-Request-Headers": "Content-Type, Accept, authorization",
+          "Access-Control-Request-Method": "PUT, GET, HEAD, POST, DELETE, OPTIONS, PATCH",
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${accessToken}`,
         },

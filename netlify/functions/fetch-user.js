@@ -3,8 +3,8 @@
 exports.handler = async (event, context) => {
     const headers = {
         "Access-Control-Allow-Origin": "http://localhost:8888",
-        "Access-Control-Allow-Headers": "Content-Type, Accept",
-        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Accept, authorization",
+        "Access-Control-Allow-Methods": "PUT, GET, HEAD, POST, DELETE, OPTIONS, PATCH",
         "Access-Control-Allow-Credentials": true,
         "Content-Type": "application/x-www-form-urlencoded"
     }
