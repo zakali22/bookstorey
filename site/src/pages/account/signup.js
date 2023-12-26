@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link, navigate } from "gatsby"
-import SignUpForm from "../../../../gatsby-theme/src/components/SignupForm"
+import SignUpForm from "../../../../gatsby-theme/src/components/SignUpForm"
 import { useAuth } from "../../utils/auth"
 import Section from "../../../../gatsby-theme/src/components/Section"
 
