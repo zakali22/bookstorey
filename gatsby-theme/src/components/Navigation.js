@@ -4,35 +4,30 @@ import Logo from "./Logo"
 import { Link } from "gatsby"
 import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
 import Button from "./Button"
-import { useAuth0 } from "../../../site/src/utils/auth"
 import AccountProfileImage from "./AccountProfileImage"
-
-const LoginButton = () => {
-    const { loginWithRedirect, getTokenSilently } = useAuth0()
-
-    return <Button onClick={() => loginWithRedirect()}>Log In</Button>;
-};
+import {useAuth} from "../../../site/src/utils/auth"
 
 function AccountProfile(){
-    const { user, isAuthenticated, loading, getTokenSilently } = useAuth0()
-    
-    console.log(isAuthenticated, loading)
+    const { currentUser } = useAuth()
 
     return (
         <>
-            {!isAuthenticated && !loading && (
-                <LoginButton />
+            {!currentUser && (
+                <Link to="/account/signin">
+                    <Button>Sign In</Button>
+                </Link>
             )}
-            {isAuthenticated && !loading && (
+            {currentUser && (
                 <Link to="/account">
-                    <AccountProfileImage image={user.picture} name={user.nickname} isNav/>
+                    Account
+                    {/* <AccountProfileImage image={user.picture} name={user.nickname} isNav/> */}
                 </Link>
             )}
         </>
     )
 }
 
-export default function Navigation({auth}){
+export default function Navigation(){
     const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)

@@ -3,11 +3,11 @@ import {Router} from "@reach/router"
 import AccountSettings from "../../components/Account/AccountSettings"
 import Favourites from "../../components/Account/Favourites"
 import Redirect from "../../components/Account/Redirect"
-import { useAuth0  } from "../../utils/auth"
 import { Link } from "gatsby";
 import Section from "../../../../gatsby-theme/src/components/Section";
 import SubNav from "../../../../gatsby-theme/src/components/SubNav";
 import { ProtectedRoute } from "../../components/ProtectedRoute"
+import { useAuth } from "../../utils/auth"
 
 function NavLink({partial = true, ...props}){
   return (
@@ -35,19 +35,6 @@ function AccountWrapper({children}){
 }
 
 function AccountRouter(){
-  const [loading, setLoading] = React.useState(true)
-  const { loading: isLoading, isAuthenticated, loginWithRedirect } = useAuth0()
-
-  React.useEffect(() => {
-    if(isLoading) return
-
-    setLoading(false)
-  }, [isLoading])
-
-  if(loading){
-    return <Redirect toText="account" />
-  }
-
   return (
     <Router>
       <AccountWrapper path="/account">

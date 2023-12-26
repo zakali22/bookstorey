@@ -1,11 +1,11 @@
 import * as React from "react"
 import { Link, navigate } from "gatsby"
-import SignInForm from "../../../../gatsby-theme/src/components/SignInForm"
+import SignUpForm from "../../../../gatsby-theme/src/components/SignupForm"
 import { useAuth } from "../../utils/auth"
 import Section from "../../../../gatsby-theme/src/components/Section"
 
 export default function SignIn(props){
-    const { currentUser, login } = useAuth()
+    const { signUp, currentUser } = useAuth()
     const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState(null)
 
@@ -14,11 +14,11 @@ export default function SignIn(props){
         return
     }
 
-    async function handleOnSubmit({email, password}){
+    async function handleOnSubmit({name, email, password}){
         try {
             setIsLoading(true)
-            await login(email, password)
-            navigate("/account")
+            await signUp(name, email, password)
+            navigate("/account/signin")
         } catch(e){
             setIsLoading(false)
             setError(e)
@@ -30,8 +30,8 @@ export default function SignIn(props){
         <Section>
             {isLoading && <p>Loading....</p>}
             {error && <p>Error occured</p>}
-            <SignInForm onSubmit={handleOnSubmit} isLoading={isLoading} />
-            <p>Need an account? <Link to="/account/signup">Sign up</Link></p>
+            <SignUpForm onSubmit={handleOnSubmit} isLoading={isLoading} />
+            <p>Already have an account? <Link to="/account/signin">Sign in</Link></p>
         </Section>
     )
 }

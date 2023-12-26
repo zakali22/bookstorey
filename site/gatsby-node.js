@@ -368,7 +368,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         module: {
           rules: [
             {
-              test: /auth0-spa-js/,
+              test: /firebaseui/,
               use: loaders.null(),
             },
           ],
