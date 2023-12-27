@@ -2,6 +2,7 @@ import * as React from "react"
 import { useAuth, uploadProfileImage } from "../../utils/auth";
 import Button from "../../../../gatsby-theme/src/components/Button";
 import AccountProfileImage from "../../../../gatsby-theme/src/components/AccountProfileImage";
+import toast from "react-hot-toast";
 
 export default function ProfileImageComp(){
     const { currentUser, logout, isLoading } = useAuth()
@@ -19,12 +20,11 @@ export default function ProfileImageComp(){
     function handleSubmit(){
         console.log(photo)
         if(!photo) {
-            setError("Image is required. Please upload an image to submit.")
+            toast.error("Image is required. Please upload an image to submit.")
             return
         }
 
         uploadProfileImage(photo, currentUser, setLoadingPhoto);
-        setError(null)
     }
 
     React.useEffect(() => {
@@ -38,7 +38,6 @@ export default function ProfileImageComp(){
 
     return (
         <>
-            {error && <p>{error}</p>}
             <AccountProfileImage image={photoURL} name={currentUser.name} />
             <input type="file" onChange={handleChange} style={{maxWidth: "50%", marginBottom: "20px"}}/>
             <Button type="secondary" onClick={handleSubmit}>Upload picture</Button>

@@ -3,6 +3,8 @@ import { Link, navigate } from "gatsby"
 import SignInForm from "../../../../gatsby-theme/src/components/SignInForm"
 import { useAuth } from "../../utils/auth"
 import Section from "../../../../gatsby-theme/src/components/Section"
+import toast from "react-hot-toast";
+
 
 export default function SignIn(props){
     const { currentUser, login } = useAuth()
@@ -21,7 +23,9 @@ export default function SignIn(props){
             navigate("/account")
         } catch(e){
             setIsLoading(false)
-            setError(e)
+            if(e.code === 'auth/invalid-credential'){
+                toast.error("Invalid credentials provided. Please try again")
+            }
         }
         setIsLoading(false)
     }
@@ -29,7 +33,6 @@ export default function SignIn(props){
     return (
         <Section>
             {isLoading && <p>Loading....</p>}
-            {error && <p>Error occured</p>}
             <SignInForm onSubmit={handleOnSubmit} isLoading={isLoading} />
             <p>Need an account? <Link to="/account/signup">Sign up</Link></p>
         </Section>
