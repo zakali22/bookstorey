@@ -4,12 +4,13 @@ import Redirect from "./Redirect"
 import { Link } from "@reach/router";
 import AccountProfileImage from "../../../../gatsby-theme/src/components/AccountProfileImage";
 import InputSwitch from "../../../../gatsby-theme/src/components/InputSwitch";
-import { useAuth0 } from "../../utils/auth";
+import { useAuth } from "../../utils/auth";
+import ProfileImageComp from "./ProfileImageComp";
 
 function AccountLanding() {
-    const { user: userData, loading, isAuthenticated, logout } = useAuth0()
+    const { currentUser, logout, isLoading } = useAuth()
 
-    console.log(userData)
+    if(isLoading) return <p>Loading....</p>
 
     return (
         <div className="account-profile account-profile--settings">
@@ -19,12 +20,12 @@ function AccountLanding() {
                     <form action="" className="account-profile__form">
                         <label htmlFor="full-name">
                             Full name
-                            <input name="full-name" id="full-name" defaultValue={userData.name} disabled />
+                            <input name="full-name" id="full-name" defaultValue={currentUser.displayName} disabled />
                         </label>
 
                         <label htmlFor="email-address">
                             Email address
-                            <input name="email-address" id="email-address" defaultValue={userData.email} disabled />
+                            <input name="email-address" id="email-address" defaultValue={currentUser.email} disabled />
                         </label>
                     </form>
                     <div className="account-profile__actions">
@@ -47,14 +48,13 @@ function AccountLanding() {
                     <div className="account-profile__actions">
                         <Button type="secondary" backgroundColor='red' onClick={(e) => {
                             e.preventDefault()
-                            logout({returnTo: "http://localhost:8888"})
+                            logout()
                         }}>Logout</Button>
                     </div>
                 </div>
                 <div>
                     <div className="account-profile__image">
-                        <AccountProfileImage image={userData.picture} name={userData.name} />
-                        <Button type="secondary">Upload picture</Button>
+                        <ProfileImageComp />
                     </div>
                 </div>
             </div>

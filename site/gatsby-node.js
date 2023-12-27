@@ -3,6 +3,7 @@ const { createRemoteFileNode, createFilePath } = require('gatsby-source-filesyst
 const CATEGORIES = require("./data/categories.json")
 const fetch = require('node-fetch')
 const sanitizeUri = require('sanitize-filename')
+const webpack = require("webpack")
 //  const fetchBooks = require("../netlify/functions/fetch-books")
 //  const fetchGoogleBooks = require("../netlify/functions/fetch-google-books")
 
@@ -355,24 +356,24 @@ exports.createSchemaCustomization = ({ actions }) => {
     `)
 }
 
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-    if (["build-html", "develop-html"].includes(stage)) {
-      /*
-       * During the build step, `auth0-spa-js` will break because it relies on
-       * browser-specific APIs. Fortunately, we don’t need it during the build.
-       * Using Webpack’s null loader, we’re able to effectively ignore `auth0-spa-js`
-       * during the build. (See `src/utils/auth.js` to see how we prevent this
-       * from breaking the app.)
-       */
-      actions.setWebpackConfig({
-        module: {
-          rules: [
-            {
-              test: /auth0-spa-js/,
-              use: loaders.null(),
-            },
-          ],
+exports.onCreateWebpackConfig = async ({ actions}) => {
+    actions.setWebpackConfig({
+      plugins: [
+        new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
+          resource.request = resource.request.replace(/^node:/, "");
+        })
+      ],
+      resolve: {
+        fallback: {
+          util: require.resolve(`util/`),
+          url: require.resolve(`url/`),
+          assert: require.resolve(`assert/`),
+          crypto: require.resolve(`crypto-browserify`),
+          os: require.resolve(`os-browserify/browser`),
+          https: require.resolve(`https-browserify`),
+          http: require.resolve(`stream-http`),
+          stream: require.resolve(`stream-browserify`),
         },
-      })
-    }
+      },
+    })
   }
