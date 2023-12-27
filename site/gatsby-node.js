@@ -3,6 +3,7 @@ const { createRemoteFileNode, createFilePath } = require('gatsby-source-filesyst
 const CATEGORIES = require("./data/categories.json")
 const fetch = require('node-fetch')
 const sanitizeUri = require('sanitize-filename')
+const webpack = require("webpack")
 //  const fetchBooks = require("../netlify/functions/fetch-books")
 //  const fetchGoogleBooks = require("../netlify/functions/fetch-google-books")
 
@@ -354,3 +355,20 @@ exports.createSchemaCustomization = ({ actions }) => {
         }
     `)
 }
+
+exports.onCreateWebpackConfig = async ({ actions}) => {
+    actions.setWebpackConfig({
+      plugins: [
+        new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
+          resource.request = resource.request.replace(/^node:/, "");
+        })
+      ],
+      resolve: {
+        fallback: {
+            events: false,
+            stream: false,
+            util: false
+        },
+      },
+    })
+  }
