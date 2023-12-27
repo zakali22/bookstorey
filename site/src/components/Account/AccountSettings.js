@@ -10,7 +10,7 @@ import { validateEmail } from "../../utils/validateEmail";
 import toast from "react-hot-toast";
 
 function AccountLanding() {
-    const { currentUser, logout, isLoading, updateUserProfile, reauthenticate } = useAuth()
+    const { currentUser, logout, isLoading, updateUserDisplayName, updateUserEmail } = useAuth()
     const [isEditMode, setIsEditMode] = React.useState(false)
     const [name, setName] = React.useState(currentUser.displayName)
     const [email, setEmail] = React.useState(currentUser.email)
@@ -35,14 +35,26 @@ function AccountLanding() {
             toast.error("Email is not valid. Please try again")
             return
         }
-
-        console.log({name, email})
-
         
         try {
-            await updateUserProfile(name, email)
-            logout()
-            toast.error("Please verify the new email and login again.")
+            // await updateUserProfile(name.trim(), email.trim())
+            if(currentUser.displayName !== name) {
+                try {
+                    await updateUserDisplayName(name.trim())
+                } catch(e){
+                    toast.error(e.message)
+                }
+            }
+            if(currentUser.email !== email){
+                try {
+                    await updateUserEmail(email.trim())
+                } catch(e){
+                    toast.error(e.message)
+                }
+                
+                logout()
+                toast.error("Please verify the new email and login again.")
+            }
         } catch(e){
             console.log(e.code)
             if(e.code === "auth/requires-recent-login"){

@@ -69,16 +69,18 @@ export default function AuthContextWrapper({children}){
         // return reauthenticateWithCredential(auth.currentUser, credential).then(() => console.log("Reauthenticated user"))
     }
 
-    const updateUserProfile = async (name, email) => {
-        if(email && auth.currentUser.email !== email){
-            return verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
-                updateProfile(auth.currentUser, {
-                    displayName: name
-                }).then(() => {
-                    toast.success("Profile is updated")
-                })
-            })
-        }
+    const updateUserDisplayName = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        }).then(() => {
+            toast.success("Profile is updated")
+        })
+    }
+
+    const updateUserEmail = (email) => {
+        verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
+            toast.success("Email is updated")
+        })
     }
 
     useEffect(() => {
@@ -91,7 +93,7 @@ export default function AuthContextWrapper({children}){
         return unsubscribe
     }, [])
 
-    const value = { auth, currentUser, signUp, login, logout, isLoading, updateUserProfile, reauthenticate: reauthenticateUserCredentials }
+    const value = { auth, currentUser, signUp, login, logout, isLoading, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials }
 
     return (
         <AuthContext.Provider value={value}>
