@@ -356,18 +356,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     `)
 }
 
-exports.onCreateWebpackConfig = async ({ actions}) => {
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
     actions.setWebpackConfig({
-      plugins: [
-        new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
-          resource.request = resource.request.replace(/^node:/, "");
-        })
-      ],
       resolve: {
         fallback: {
-            events: false,
-            stream: false,
-            util: false
+          util: require.resolve(`util/`),
+          url: require.resolve(`url/`),
+          assert: require.resolve(`assert/`),
+          crypto: require.resolve(`crypto-browserify`),
+          os: require.resolve(`os-browserify/browser`),
+          https: require.resolve(`https-browserify`),
+          http: require.resolve(`stream-http`),
+          stream: require.resolve(`stream-browserify`),
         },
       },
     })
