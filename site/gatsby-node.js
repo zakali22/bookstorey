@@ -356,8 +356,13 @@ exports.createSchemaCustomization = ({ actions }) => {
     `)
 }
 
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
+exports.onCreateWebpackConfig = async ({ actions}) => {
     actions.setWebpackConfig({
+      plugins: [
+        new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
+          resource.request = resource.request.replace(/^node:/, "");
+        })
+      ],
       resolve: {
         fallback: {
           util: require.resolve(`util/`),
