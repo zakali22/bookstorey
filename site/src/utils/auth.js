@@ -1,7 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from "react"
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, verifyBeforeUpdateEmail, deleteUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext()
 const firebaseConfig = {
@@ -54,11 +55,36 @@ export default function AuthContextWrapper({children}){
     }
 
     const login = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password).then(() => {
+            console.log(password)
+        })
     }
 
     const logout = () => {
         return signOut(auth)
+    }
+
+    const reauthenticateUserCredentials = (e) => {
+        // const credential = EmailAuthProvider.credential(auth.currentUser.email, )
+        // return reauthenticateWithCredential(auth.currentUser, credential).then(() => console.log("Reauthenticated user"))
+    }
+
+    const updateUserDisplayName = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        }).then(() => {
+            toast.success("Profile is updated")
+        })
+    }
+
+    const updateUserEmail = (email) => {
+        verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
+            toast.success("Email is updated")
+        })
+    }
+
+    const deleteProfile = () => {
+        return deleteUser(auth.currentUser)
     }
 
     useEffect(() => {
@@ -71,7 +97,7 @@ export default function AuthContextWrapper({children}){
         return unsubscribe
     }, [])
 
-    const value = { auth, currentUser, signUp, login, logout, isLoading }
+    const value = { auth, currentUser, signUp, login, logout, isLoading, deleteProfile, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials }
 
     return (
         <AuthContext.Provider value={value}>

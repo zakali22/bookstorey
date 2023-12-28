@@ -2,9 +2,9 @@ import React from "react";
 import "../styles/account-profile.scss"
 import Button from "./Button";
 import { validateEmail } from "../utils/validateEmail";
+import toast from "react-hot-toast";
 
 export default function SignUpForm({ onSubmit, isLoading }) {
-    const [errors, setErrors] = React.useState([])
 
     async function handleOnSubmit(e){
         e.preventDefault()
@@ -15,14 +15,12 @@ export default function SignUpForm({ onSubmit, isLoading }) {
         const email = formData.get("email")
 
         if(password != confirmPassword){
-            setErrors([...errors, "Passwords do not match"])
-            console.log("Passwords dont match")
+            toast.error("Passwords dont match")
             return 
         }
 
         if(!validateEmail(email)){
-            setErrors([...errors, "Email is not valid"])
-            console.log("Email is not valid")
+            toast.error("Email is not valid")
             return
         }
 
@@ -40,9 +38,6 @@ export default function SignUpForm({ onSubmit, isLoading }) {
 
     return (
         <>
-            {errors && errors.length > 0 && ( /** Style and use as notification */
-                errors.map(error => <p>{error}</p>)
-            )}
             <form onSubmit={handleOnSubmit} className="account-profile__form" name="signup-form">
                 <label htmlFor="name">
                     Name
