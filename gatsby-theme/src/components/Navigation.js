@@ -32,6 +32,14 @@ export default function Navigation(){
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
 
+    React.useEffect(() => {
+        if(typeof window !== 'undefined'){
+            window.addEventListener("resize", function(e){
+                setIsMobile(window.matchMedia("(max-width: 767px)").matches)
+            })
+        }
+    }, [])
+
     if(isMobile){
         return (
             <nav className={`${nav} ${navMobile} ${mobileMenuOpen ? navMobileOpen : ''}`}>
