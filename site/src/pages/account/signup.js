@@ -3,11 +3,11 @@ import { Link, navigate } from "gatsby"
 import SignUpForm from "../../../../gatsby-theme/src/components/SignUpForm"
 import { useAuth } from "../../utils/auth"
 import Section from "../../../../gatsby-theme/src/components/Section"
+import toast from "react-hot-toast";
 
 export default function SignIn(props){
     const { signUp, currentUser } = useAuth()
     const [isLoading, setIsLoading] = React.useState(false)
-    const [error, setError] = React.useState(null)
 
     if(currentUser){
         navigate("/account")
@@ -21,7 +21,7 @@ export default function SignIn(props){
             navigate("/account/signin")
         } catch(e){
             setIsLoading(false)
-            setError(e)
+            toast.error(e.code)
         }
         setIsLoading(false)
     }
@@ -29,7 +29,6 @@ export default function SignIn(props){
     return (
         <Section>
             {isLoading && <p>Loading....</p>}
-            {error && <p>Error occured</p>}
             <SignUpForm onSubmit={handleOnSubmit} isLoading={isLoading} />
             <p>Already have an account? <Link to="/account/signin">Sign in</Link></p>
         </Section>

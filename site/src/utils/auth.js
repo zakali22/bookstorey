@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from "react"
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, verifyBeforeUpdateEmail, applyActionCode ,EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, verifyBeforeUpdateEmail, deleteUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import toast from "react-hot-toast";
 
@@ -83,6 +83,10 @@ export default function AuthContextWrapper({children}){
         })
     }
 
+    const deleteProfile = () => {
+        return deleteUser(auth.currentUser)
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             console.log(user)
@@ -93,7 +97,7 @@ export default function AuthContextWrapper({children}){
         return unsubscribe
     }, [])
 
-    const value = { auth, currentUser, signUp, login, logout, isLoading, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials }
+    const value = { auth, currentUser, signUp, login, logout, isLoading, deleteProfile, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials }
 
     return (
         <AuthContext.Provider value={value}>

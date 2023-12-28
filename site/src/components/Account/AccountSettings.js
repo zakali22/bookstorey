@@ -1,20 +1,20 @@
 import * as React from "react"
 import Button from "../../../../gatsby-theme/src/components/Button";
-import Redirect from "./Redirect"
-import { Link } from "@reach/router";
-import AccountProfileImage from "../../../../gatsby-theme/src/components/AccountProfileImage";
 import InputSwitch from "../../../../gatsby-theme/src/components/InputSwitch";
 import { useAuth } from "../../utils/auth";
+import { navigate } from "gatsby"
 import ProfileImageComp from "./ProfileImageComp";
 import { validateEmail } from "../../utils/validateEmail";
 import toast from "react-hot-toast";
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import Modal from "../../../../gatsby-theme/src/components/Modal";
 
 function AccountLanding() {
-    const { currentUser, logout, isLoading, updateUserDisplayName, updateUserEmail } = useAuth()
+    const { currentUser, logout, isLoading, updateUserDisplayName, updateUserEmail, deleteProfile } = useAuth()
     const [isEditMode, setIsEditMode] = React.useState(false)
     const [name, setName] = React.useState(currentUser.displayName)
     const [email, setEmail] = React.useState(currentUser.email)
-    const [errors, setErrors] = React.useState([])
+    const modal = useModal("modal-cmp")
 
     if (isLoading) return <p>Loading....</p>
 
@@ -37,7 +37,6 @@ function AccountLanding() {
         }
         
         try {
-            // await updateUserProfile(name.trim(), email.trim())
             if(currentUser.displayName !== name) {
                 try {
                     await updateUserDisplayName(name.trim())
@@ -69,9 +68,36 @@ function AccountLanding() {
     function handleCancel(){
         setName(currentUser.displayName)
         setEmail(currentUser.email)
-        setErrors([])
 
         setIsEditMode(false)
+    }
+
+    async function handleDeleteConfirm(){
+        try {
+            await deleteProfile()
+            NiceModal.remove(Modal)
+            navigate("/account/signup")
+            toast.success("Profile deleted")
+        } catch(e){
+            console.log(e.code)
+            if(e.code === "auth/requires-recent-login"){
+                NiceModal.remove(Modal)
+                logout()
+                toast.error("Re-authentication required")
+            }
+        }
+    }
+
+    function modalContent(){
+        return (
+            <>
+            <h3>Are you sure want to delete your profile?</h3>
+            <div className="account-profile__actions">
+                <Button buttonType="submit" type="secondary" backgroundColor="red" onClick={handleDeleteConfirm}>Yes, delete profile</Button>
+                <Button type="secondary" onClick={() => NiceModal.remove(Modal)}>Cancel</Button>
+            </div>
+            </>
+        )
     }
     
 
@@ -105,7 +131,7 @@ function AccountLanding() {
                             <div className="account-profile__actions">
                                 <Button type="secondary" onClick={() => setIsEditMode(true)}>Edit details</Button>
                                 {/* <Button type="secondary">Reset password</Button> */}
-                                <Button type="secondary" backgroundColor='red'>Delete account</Button>
+                                <Button type="secondary" backgroundColor='red' onClick={() => NiceModal.show(Modal, { children: modalContent() })}>Delete account</Button>
                             </div>
                             <div className="account-profile__theme">
                                 <h3>Theme</h3>
@@ -129,6 +155,8 @@ function AccountLanding() {
                     </div>
                 </div>
             </div>
+            
+            <Modal id="modal-cmp" />
         </div>
     )
 }
