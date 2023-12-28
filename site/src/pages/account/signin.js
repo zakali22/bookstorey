@@ -31,7 +31,7 @@ export default function SignIn(props){
     }
 
     return (
-        <Section>
+        <Section className="section--account-form-page">
             {isLoading && <p>Loading....</p>}
             <SignInForm onSubmit={handleOnSubmit} isLoading={isLoading} />
             <p>Need an account? <Link to="/account/signup">Sign up</Link></p>

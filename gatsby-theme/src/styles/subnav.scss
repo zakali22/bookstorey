@@ -2,9 +2,15 @@
 
 .subnav {
     display: flex;
-    flex-direction: column;
-    // border-right: 1px solid $blue;
-    flex: 1 0 20%;
+    flex-direction: row;
+    margin-bottom: 30px;
+    flex: 1 0 100%;
+    
+    @media(min-width: 992px){
+        flex: 1 0 20%;
+        flex-direction: column;
+        margin-bottom: 0;
+    }
 
     a {
         background: #F2F2F2;

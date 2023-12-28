@@ -1,12 +1,19 @@
 @import "./variables.scss";
 
 .account-wrapper {
-    flex: 1 0 80%;
+    flex: 1 0 100%;
+
+    @media(min-width: 992px){
+        flex: 1 0 80%;
+    }
 }
 
 .account-profile {
-    padding: 0 100px 50px;
     color: $blue;
+    
+    @media(min-width: 992px){
+        padding: 0 100px 50px;
+    }
 
     h2 {
         margin-top: 0;
@@ -14,6 +21,11 @@
 
     &__wrapper {
         display: flex;
+        flex-direction: column-reverse;
+
+        @media(min-width: 1200px){
+            flex-direction: row;
+        }
         
         & > div {
             flex: 1;
@@ -62,7 +74,12 @@
     &__image {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        margin-bottom: 50px;
+
+        @media(min-width: 1200px){
+            align-items: center;
+        }
 
         & > div:first-child {
             margin-bottom: 20px;
@@ -114,6 +131,23 @@
 .section--account {
     .container-wrapper {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        
+        @media(min-width: 992px){
+            flex-direction: row;
+        }
+    }
+}
+
+.section--account-form-page {
+    max-width: 100%;
+    margin: 0 auto;
+
+    @media(min-width: 992px){
+        max-width: 70%;
+    }
+    
+    @media(min-width: 1400px){
+        max-width: 50%;
     }
 }
