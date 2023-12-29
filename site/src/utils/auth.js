@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, verifyBeforeUpdateEmail, deleteUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { getDatabase, ref as dbRef, set, onValue, update, push, child } from "firebase/database";
+import { getDatabase, ref as dbRef, set, onValue, update, push, child, remove, get } from "firebase/database";
 import toast from "react-hot-toast";
 
 const AuthContext = createContext()
@@ -64,6 +64,30 @@ export const addBookToFavourites = async (bookId, title) => {
     updates['users/' + auth.currentUser.uid + '/favourites' + '/' + newFavouritesKey] = bookId
     
     return update(dbRef(database), updates)
+}
+
+export const removeBookFromFavourites = async (bookId) => {
+    const favouritesRef = dbRef(database, 'users/' + auth.currentUser.uid)
+
+    return new Promise((resolve, reject) => {
+        get(child(dbRef(database), 'users/' + auth.currentUser.uid + '/favourites')).then((snapshot) => {
+            if(snapshot.exists()){
+                const favouriteIdRef = Object.entries(snapshot.val()).find((fav) => fav[1] === bookId)
+                if(favouriteIdRef){
+                    const favouritesValueKey = favouriteIdRef[0]
+                    const updates = {}
+    
+                    updates['users/' + auth.currentUser.uid + '/favourites' + '/' + favouritesValueKey] = null
+                    const response = update(dbRef(database), updates)
+                    resolve(response)
+                } else {
+                    reject()
+                }
+            } else {
+                reject("No data available")
+            }
+        })
+    })
 }
 
 export default function AuthContextWrapper({ children }) {
@@ -128,29 +152,6 @@ export default function AuthContextWrapper({ children }) {
     const deleteProfile = () => {
         return deleteUser(auth.currentUser)
     }
-
-    // const fetchFavouriteBook = async (bookId) => {
-    //     return await fetch(`https://bookstorey.netlify.app/.netlify/functions/fetch-book-with-id?bookId=${bookId}`, {
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then(response => response.json()).then(({bookstorey_Book_by_pk}) => bookstorey_Book_by_pk)
-    // }
-
-
-    // const fetchFavouritesData = async () => {
-    //     /** Fetch book data using netlify function */
-    //     try {
-    //         const favouritesResponse = await fetchFavouritesList()
-    //         return await Promise.all(favouritesResponse.map(async (bookId) => {
-    //             return await fetchFavouriteBook(bookId)
-    //         }))
-    //     } catch(e){
-    //         console.error(e)
-    //         return
-    //     }
-    // }
-
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
