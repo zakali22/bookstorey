@@ -1,14 +1,14 @@
 import * as React from "react"
 import Button from "../../../../gatsby-theme/src/components/Button";
 import Redirect from "./Redirect"
-import { useAuth } from "../../utils/auth";
+import { useAuth, fetchFavouritesList } from "../../utils/auth";
 import { graphql, useStaticQuery } from "gatsby";
 import Card from "../../../../gatsby-theme/src/components/Card";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Masonry from 'react-masonry-css'
 
 function Favourites() {
-    const { fetchFavouritesList } = useAuth()
+    // const { fetchFavouritesList } = useAuth()
     const [favourites, setFavourites] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(false)
     const data = useStaticQuery(graphql`
@@ -39,8 +39,8 @@ function Favourites() {
         const init = async () => {
             setIsLoading(true)
             try {
-                const response = await fetchFavouritesList()
-                const filteredBooks = data.allBook.nodes.filter(book => response.indexOf(book.id) != -1)
+                const favouritesListResponse = await fetchFavouritesList()
+                const filteredBooks = data.allBook.nodes.filter(book => Object.values(favouritesListResponse).indexOf(book.id) != -1)
                 setFavourites(filteredBooks)
             } catch(e){
                 console.error(e)

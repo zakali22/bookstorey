@@ -6,6 +6,7 @@ import Synopsis from "../components/BookSynopsis"
 import CtaSection from "../components/CtaSection"
 import RelatedBooks from "../components/RelatedBooks"
 import Authors from "../components/Authors"
+import AddToFavourites from "../components/AddToFavourites"
 
 export const query = graphql`
     query BookQuery($slug: String!) {
@@ -36,6 +37,7 @@ export default function BookPage({data}){
     return (
         <>
         <BookHero book={book}/>
+        <AddToFavourites bookId={book.id} title={book.title}/>
         <Synopsis description={book.description}/>
         <CtaSection />
         <RelatedBooks bookCategory={book.category}/>

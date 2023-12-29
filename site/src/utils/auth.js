@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, verifyBeforeUpdateEmail, deleteUser } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { getDatabase, ref as dbRef, set, onValue, update } from "firebase/database";
+import { getDatabase, ref as dbRef, set, onValue, update, push, child } from "firebase/database";
 import toast from "react-hot-toast";
 
 const AuthContext = createContext()
@@ -56,6 +56,14 @@ export const fetchFavouritesList = async () => {
             }
         })    
     })
+}
+
+export const addBookToFavourites = async (bookId, title) => {
+    const newFavouritesKey = push(child(dbRef(database), 'users/' + auth.currentUser.uid + '/favourites')).key
+    const updates = {}
+    updates['users/' + auth.currentUser.uid + '/favourites' + '/' + newFavouritesKey] = bookId
+    
+    return update(dbRef(database), updates)
 }
 
 export default function AuthContextWrapper({ children }) {

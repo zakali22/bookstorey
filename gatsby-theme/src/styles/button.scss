@@ -20,6 +20,12 @@
         &:hover, &:focus {
             background-color: $white;
             color: $blue;
+
+            .btn__icon {
+                svg {
+                    fill: $blue;
+                }
+            }
         }
     }
 
@@ -31,9 +37,21 @@
         border-radius: 7px;
         line-height: 1.2;
 
+        .btn__icon {
+            svg {
+                fill: $blue;
+            }
+        }
+
         &:hover, &:focus {
             background-color: $blue;
             color: $white;
+
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
         }
     }
 
@@ -44,10 +62,17 @@
         border: 1px solid #000;
         padding: 4px 16px;
         min-height: 20px;
-        
+
         &:hover, &:focus {
             background-color: $white;
             color: $black;
+
+            .btn__icon {
+                svg {
+                    fill: $black;
+                }
+            }
+            
         }
     }
 
@@ -60,6 +85,12 @@
         &:hover, &:focus {
             background-color: $white;
             color: $blue;
+
+            .btn__icon {
+                svg {
+                    fill: $blue;
+                }
+            }
         }
     }
 
@@ -71,6 +102,30 @@
         &:hover, &:focus {
             background-color: $white;
             color: $red;
+
+            .btn__icon {
+                svg {
+                    fill: $red;
+                }
+            }
+        }
+    }
+
+
+    /** Icon **/
+    &.btn--has-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        margin-right: 15px;
+
+        svg {
+            fill: $white;
         }
     }
 }
