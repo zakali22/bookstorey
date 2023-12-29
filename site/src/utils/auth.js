@@ -44,6 +44,20 @@ export const uploadProfileImage = async (file, currentUser, setLoading) => {
     })
 }
 
+export const fetchFavouritesList = async () => {
+    const favouritesRef = dbRef(database, 'users/' + auth.currentUser.uid)
+
+    return new Promise((resolve, reject) => {
+        onValue(favouritesRef, (snapshot) => {
+            if (snapshot.val() && snapshot.val().favourites) {
+                resolve(snapshot.val().favourites)
+            } else {
+                reject()
+            }
+        })    
+    })
+}
+
 export default function AuthContextWrapper({ children }) {
     const [currentUser, setCurrentUser] = React.useState()
     const [isLoading, setIsLoading] = React.useState(true)
@@ -107,23 +121,28 @@ export default function AuthContextWrapper({ children }) {
         return deleteUser(auth.currentUser)
     }
 
-    const fetchFavourites = async () => {
-        const favouritesRef = dbRef(database, 'users/' + currentUser.uid)
+    // const fetchFavouriteBook = async (bookId) => {
+    //     return await fetch(`https://bookstorey.netlify.app/.netlify/functions/fetch-book-with-id?bookId=${bookId}`, {
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(response => response.json()).then(({bookstorey_Book_by_pk}) => bookstorey_Book_by_pk)
+    // }
 
-        return new Promise((resolve, reject) => {
-            onValue(favouritesRef, (snapshot) => {
-                if (snapshot.val() && snapshot.val().favourites) {
-                    resolve(snapshot.val().favourites)
-                } else {
-                    reject()
-                }
-            })    
-        })
-    }
 
-    const addToFavourites = () => {
+    // const fetchFavouritesData = async () => {
+    //     /** Fetch book data using netlify function */
+    //     try {
+    //         const favouritesResponse = await fetchFavouritesList()
+    //         return await Promise.all(favouritesResponse.map(async (bookId) => {
+    //             return await fetchFavouriteBook(bookId)
+    //         }))
+    //     } catch(e){
+    //         console.error(e)
+    //         return
+    //     }
+    // }
 
-    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -135,7 +154,7 @@ export default function AuthContextWrapper({ children }) {
         return unsubscribe
     }, [])
 
-    const value = { auth, currentUser, signUp, login, logout, isLoading, deleteProfile, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials, fetchFavourites }
+    const value = { auth, currentUser, signUp, login, logout, isLoading, deleteProfile, updateUserDisplayName, updateUserEmail, reauthenticate: reauthenticateUserCredentials, fetchFavouritesList }
 
     return (
         <AuthContext.Provider value={value}>
