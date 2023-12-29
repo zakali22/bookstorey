@@ -1,15 +1,24 @@
 import * as React from "react"
+import { navigate } from "gatsby"
 import Button from "../../../gatsby-theme/src/components/Button"
 import Section from "../../../gatsby-theme/src/components/Section"
-import { fetchFavouritesList, addBookToFavourites } from "../utils/auth"
+import { fetchFavouritesList, addBookToFavourites, useAuth } from "../utils/auth"
 import toast from "react-hot-toast"
 
 export default function AddToFavourites({ bookId, title }) {
+    const {currentUser} = useAuth()
     const [isFavourited, setIsFavourited] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
 
     const handleAddToFavourites = async() => {
+        if(!currentUser){
+            toast.error("Please sign in to add to favourites")
+            navigate("/account/signin")
+            return
+        }
+
         setIsLoading(true)
+
         try {
             await addBookToFavourites(bookId, title)
             toast.success(`Book: ${title} was added to favourites`)
