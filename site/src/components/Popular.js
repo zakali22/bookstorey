@@ -10,7 +10,11 @@ import Carousel from "./Carousel";
 export default function Popular(){
     const data = useStaticQuery(graphql`
         query PopularQuery {
-            allBook {
+            allBook(
+                filter: {ratingsCount: {gte: 5}}
+                sort: {averageRating: DESC}
+                limit: 10
+            ) {
                 nodes {
                     id
                     title

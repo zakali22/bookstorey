@@ -10,7 +10,7 @@ import CtaSection from "../components/CtaSection"
 export default function PopularPage(){
     const data = useStaticQuery(graphql`
         query PopularBooks {
-            allBook {
+            allBook(filter: {ratingsCount: {gte: 3}}, sort: {averageRating: DESC}) {
                 nodes {
                     id
                     title
