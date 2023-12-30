@@ -194,6 +194,15 @@ main {
 }
 
 
+.dark-mode {
+    background: $blue !important;
+    color: $white !important;
+
+    h1, h2, h3, p {
+        color: $white !important;
+    }
+}
+
 /** Form **/
 form {
     label {
@@ -206,4 +215,18 @@ form {
         padding: 5px 7px;
         min-height: 20px;
     }
+
+    .dark-mode & {
+        label, input:disabled{
+            color: $white;
+        }
+
+        input {
+            border-color: $white;
+        }
+    }
+}
+
+.dark-mode input[type="file"] {
+    color: $white;
 }

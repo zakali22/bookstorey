@@ -253,4 +253,21 @@
         }
     }
 
+    /** Dark mode **/
+    &.dark-mode {
+        
+        .card__content {
+            background: $purple !important;
+            
+            h3 {
+                color: $blue !important;
+            }
+
+            .card__content-category {
+                background: $blue !important;
+                color: $white;
+            }
+        }
+    }
+
 }

@@ -4,12 +4,14 @@ import "slick-carousel/slick/slick-theme.css";
 import "../../../gatsby-theme/src/styles/carousel.scss";
 
 import Slider from "react-slick";
+import { useTheme } from "../utils/theme";
 
 function Arrow({onClick, type}){
+    const {darkMode} = useTheme()
     return (
         <button onClick={onClick} style={{marginLeft: type === 'next' ? '12px' : '0', marginRight: type === 'prev' ? '12px' : '0'}}>
             <svg width="14" height="24" viewBox="0 0 22 34" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform: type === 'prev' ? 'scaleX(-1)' : 'scaleX(1)' }}>
-                <path d="M3.74007 33.6668C2.90007 33.6668 2.06007 33.2501 1.64007 32.8334C0.380068 31.5834 0.380068 29.5001 1.64007 28.2501L12.9801 17.0001L1.64007 5.75008C0.380068 4.50008 0.380068 2.41675 1.64007 1.16675C2.90007 -0.0832521 5.00007 -0.0832521 6.26007 1.16675L20.1201 14.5001C21.3801 15.7501 21.3801 17.8334 20.1201 19.0834L6.26007 32.4168C5.42007 33.2501 4.58007 33.6668 3.74007 33.6668Z" fill="#191177"/>
+                <path d="M3.74007 33.6668C2.90007 33.6668 2.06007 33.2501 1.64007 32.8334C0.380068 31.5834 0.380068 29.5001 1.64007 28.2501L12.9801 17.0001L1.64007 5.75008C0.380068 4.50008 0.380068 2.41675 1.64007 1.16675C2.90007 -0.0832521 5.00007 -0.0832521 6.26007 1.16675L20.1201 14.5001C21.3801 15.7501 21.3801 17.8334 20.1201 19.0834L6.26007 32.4168C5.42007 33.2501 4.58007 33.6668 3.74007 33.6668Z" fill={darkMode ? '#fff' : '#191177'}/>
             </svg>
         </button>
     )
@@ -17,6 +19,7 @@ function Arrow({onClick, type}){
 
 export default function Carousel({children, categoryIndex = null, maxWidth = '100%', layout = 'default', slidesToShow = 4, desktopSlidesToShow, tabletSlidesToShow = 2, mobileSlidesToShow = 1, hasBackground, backgroundColor, alignStart}){
     const slideRef = React.useRef(null)
+    const {darkMode} = useTheme()
 
     var settings = {
         dots: true,
@@ -32,7 +35,7 @@ export default function Carousel({children, categoryIndex = null, maxWidth = '10
         appendDots: (dots) => (
             <div className="carousel-custom-controls">
                 <Arrow type="prev" onClick={slickPrev}/>
-                <ul>{dots}</ul>
+                <ul className={`${darkMode ? 'dark-mode' : ''}`}>{dots}</ul>
                 <Arrow type="next" onClick={slickNext}/>
           </div>
         ),

@@ -8,6 +8,7 @@ import { validateEmail } from "../../utils/validateEmail";
 import toast from "react-hot-toast";
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import Modal from "../../../../gatsby-theme/src/components/Modal";
+import { useTheme } from "../../utils/theme";
 
 function AccountLanding() {
     const { currentUser, logout, isLoading, updateUserDisplayName, updateUserEmail, deleteProfile } = useAuth()
@@ -15,6 +16,7 @@ function AccountLanding() {
     const [name, setName] = React.useState(currentUser.displayName)
     const [email, setEmail] = React.useState(currentUser.email)
     const modal = useModal("modal-cmp")
+    const {darkMode, setDarkMode} = useTheme()
 
     if (isLoading) return <p>Loading....</p>
 
@@ -99,6 +101,11 @@ function AccountLanding() {
             </>
         )
     }
+
+    function handleDarkMode(e){
+        console.log(e)
+        setDarkMode(!darkMode)
+    }
     
 
     return (
@@ -135,8 +142,8 @@ function AccountLanding() {
                             </div>
                             <div className="account-profile__theme">
                                 <h3>Theme</h3>
-                                <form action="" className="account-profile__form">
-                                    <InputSwitch text="Dark mode" />
+                                <form className="account-profile__form">
+                                    <InputSwitch text="Dark mode" onChange={handleDarkMode} />
                                 </form>
                             </div>
                         </>

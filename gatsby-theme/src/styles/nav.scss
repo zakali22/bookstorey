@@ -70,6 +70,13 @@
             &:link, &:visited{
                 color: inherit;
             }
+
+            &.dark-mode {
+                span {
+                    background: $white;
+                    color: $blue;
+                }
+            }
         }
 
         span {

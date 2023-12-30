@@ -29,4 +29,10 @@
             color: $blue;
         }
     }
+
+    &.dark-mode {
+        .modal__content {
+            background: $blue;
+        }
+    }
 }

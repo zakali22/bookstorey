@@ -5,6 +5,12 @@
     display: inline-block;
     width: 200px;
     height: 34px;
+
+    &.dark-mode {
+      .slider {
+        border: 1px solid $white !important;
+      }
+    }
   }
   
   .switch input { 

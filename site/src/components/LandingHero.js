@@ -30,6 +30,6 @@ export default function LandingHero(){
     }
 
     return (
-        <HeroLayout type="split" layout="landing" left={leftHeroContent()} right={rightHeroContent()} backgroundColor="yellow" negativeMargin />
+        <HeroLayout  type="split" layout="landing" left={leftHeroContent()} right={rightHeroContent()} backgroundColor="yellow" negativeMargin />
     )
 }

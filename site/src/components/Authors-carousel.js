@@ -36,7 +36,7 @@ export default function AuthorsCarousel(){
     if(!allAuthorsWithBio.length) return
 
     return (
-        <Section fullwidth>
+        <Section fullwidth className="section--authors">
             <div className="section__title section__title--with-padding">
                 <h2 className="title">Get to know authors</h2>
             </div>
