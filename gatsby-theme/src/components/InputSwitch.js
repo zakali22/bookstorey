@@ -11,6 +11,10 @@ export default function InputSwitch({text, color, defaultCheck = false, onChange
         onChange()
     }
 
+    React.useEffect(() => {
+        setIsChecked(darkMode)
+    }, [darkMode])
+
     return (
         <label htmlFor="switch" className={`switch ${darkMode ? 'dark-mode': ''}`}>
             {text}

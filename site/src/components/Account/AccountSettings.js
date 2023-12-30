@@ -104,7 +104,8 @@ function AccountLanding() {
 
     function handleDarkMode(e){
         console.log(e)
-        setDarkMode(!darkMode)
+        setDarkMode()
+        // Save to localStorage
     }
     
 
