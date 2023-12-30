@@ -10,7 +10,11 @@ import Carousel from "./Carousel";
 export default function Bestselling(){
     const data = useStaticQuery(graphql`
         query BestsellingQuery {
-            allBook {
+            allBook(
+                filter: {ratingsCount: {gte: 4}}
+                sort: {averageRating: ASC}
+                limit: 10
+            ) {
                 nodes {
                     id
                     title
