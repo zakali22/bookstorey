@@ -39,7 +39,7 @@ export default function ProfileImageComp(){
     return (
         <>
             <AccountProfileImage image={photoURL} name={currentUser.name} />
-            <input type="file" onChange={handleChange} style={{maxWidth: "50%", marginBottom: "20px"}}/>
+            <input type="file" onChange={handleChange} />
             <Button type="secondary" onClick={handleSubmit}>Upload picture</Button>
         </>
     )

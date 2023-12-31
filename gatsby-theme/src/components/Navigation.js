@@ -10,12 +10,13 @@ import {useTheme} from "../../../site/src/utils/theme"
 
 function AccountProfile(){
     const { currentUser } = useAuth()
+    const {darkMode} = useTheme()
 
     return (
         <>
             {!currentUser && (
                 <Link to="/account/signin">
-                    <Button>Sign In</Button>
+                    <Button inverted>Sign In</Button>
                 </Link>
             )}
             {currentUser && (
@@ -56,7 +57,7 @@ export default function Navigation(){
                             <div className="nav-mobile-wrapper">
                                 <Link to="/categories/art">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
-                                <Link to="/">About us</Link>
+                                {/* <Link to="/">About us</Link> */}
                                 <AccountProfile />
                             </div>
                         )
@@ -77,7 +78,7 @@ export default function Navigation(){
                         <Logo darkMode={darkMode}/>
                     </div>
                     <div className="nav-right">
-                        <Link to="/">About us</Link>
+                        {/* <Link to="/">About us</Link> */}
                         <AccountProfile />
                     </div>
                 </Container>

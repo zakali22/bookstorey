@@ -59,8 +59,8 @@ function Favourites() {
             if(favourites.length > 0){
                 const breakpointColumnsObj = {
                     default: 3,
-                    1200: 2,
-                    700: 1,
+                    1600: 2,
+                    1200: 1,
                 };
 
                 return (

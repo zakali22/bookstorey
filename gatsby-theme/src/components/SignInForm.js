@@ -1,8 +1,10 @@
 import React from "react";
 import "../styles/account-profile.scss"
 import Button from "./Button";
+import {useTheme} from "../../../site/src/utils/theme"
 
 export default function SignInForm({ onSubmit, isLoading }) {
+    const {darkMode} = useTheme()
 
     function handleOnSubmit(e){
         e.preventDefault()
@@ -26,7 +28,7 @@ export default function SignInForm({ onSubmit, isLoading }) {
                 <input name="password" id="password"  type="password" />
             </label>
 
-            <Button buttonType="submit" disabled={isLoading}>Signin</Button>
+            <Button buttonType="submit" inverted={darkMode} disabled={isLoading}>Signin</Button>
         </form>
     )
 }

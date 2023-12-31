@@ -225,10 +225,19 @@
     /** Dark mode **/
     &.dark-mode {
         margin-top: 0;
+        background: $blue;
         
         h1, p {
             color: $white;
         }        
+
+        a {
+            color: $white !important;
+
+            &:hover, &:focus {
+                color: inherit !important;
+            }
+        }
     }
 
 }

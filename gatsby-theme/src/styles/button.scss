@@ -27,6 +27,30 @@
                 }
             }
         }
+
+        &.btn.inverted {
+            background: $white;
+            color: $blue;
+            border-color: $blue;
+
+            .btn__icon {
+                svg {
+                    fill: $blue;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $blue;
+                color: $white;
+                border-color: $blue;
+    
+                .btn__icon {
+                    svg {
+                        fill: $white;
+                    }
+                }
+            }
+        }
     }
 
     &--secondary {
@@ -57,6 +81,29 @@
                 }
             }
         }
+
+        &.btn.inverted {
+            background-color: $blue;
+            color: $white;
+            border-color: $white;
+            
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $white;
+                color: $blue;
+    
+                .btn__icon {
+                    svg {
+                        fill: $blue;
+                    }
+                }
+            }
+        }
     }
 
     &--tertiary {
@@ -71,6 +118,13 @@
             font-size: 18px;
         }
 
+        
+        .btn__icon {
+            svg {
+                fill: $white;
+            }
+        }
+
         &:hover, &:focus {
             background-color: $white;
             color: $black;
@@ -81,6 +135,31 @@
                 }
             }
             
+        }
+
+        &.btn.inverted {
+            background-color: $white;
+            color: $black;
+            border-color: $white;
+
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $black;
+                color: $white;
+    
+                .btn__icon {
+                    svg {
+                        fill: $white;
+                    }
+                }
+                
+            }
+
         }
     }
 
@@ -140,14 +219,38 @@
 
     /** Dark mode **/
     &.dark-mode {
-        background: $white !important;
-        border: 1px solid $blue !important;
-        color: $blue !important;
+        background: $white;
+        border: 1px solid $white;
+        color: $blue;
 
         &:hover, &:focus {
-            background: $blue !important;
-            border: 1px solid $white !important;
-            color: $white !important;
+            background: $blue;
+            border-color: $white;
+            color: $white;
+        }
+
+        &.btn.inverted {
+            background: $blue;
+            color: $white;
+            border-color: $white;
+
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $white;
+                color: $blue;
+                border-color: $white;
+    
+                .btn__icon {
+                    svg {
+                        fill: $blue;
+                    }
+                }
+            }
         }
     }
 }

@@ -17,11 +17,11 @@
     }
 
     &-left, &-right {
-        a:first-child {
-            margin-right: 30px;
+        a:last-child {
+            margin-left: 30px;
 
             @media(min-width: 992px){
-                margin-right: 50px;
+                margin-left: 50px;
             }
         }
 
@@ -124,6 +124,11 @@
                     transform-origin: bottom left;
                 }
             }
+
+            &.dark-mode {
+                border: 1px solid $white;
+                border-top: none;
+            }
         }
 
         &.dark-mode {
@@ -209,6 +214,16 @@
                     opacity: 1;
                 }
             }
+        }
+    }
+
+    &.dark-mode {
+        .nav-mobile-wrapper {
+            border: 1px solid $white;
+            border-top: none;
+            width: calc(100% + 2px);
+            margin-left: -21px;
+            margin-right: -21px;
         }
     }
 }

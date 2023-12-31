@@ -3,8 +3,12 @@ import "../styles/footer.scss"
 import Container from "./Container"
 import Button from "./Button"
 import { Link } from "gatsby"
+import {useTheme} from "../../../site/src/utils/theme"
+import {useAuth} from "../../../site/src/utils/auth"
 
 export default function Footer(){
+    const {darkMode} = useTheme()
+    const {currentUser} = useAuth()
 
     return (
         <footer className="footer">
@@ -15,7 +19,7 @@ export default function Footer(){
                         <form>
                             <label>
                                 <input />
-                                <Button type="tertiary">Sign me up</Button>
+                                <Button type="tertiary" inverted={darkMode}>Sign me up</Button>
                             </label>
                         </form>
                     </div>
@@ -29,14 +33,20 @@ export default function Footer(){
                                 <ul>
                                     <li><Link to="/popular">Popular</Link></li>
                                     <li><Link to="/categories">Categories</Link></li>
-                                    <li>About us</li>
+                                    {/* <li>About us</li> */}
                                 </ul>
                             </div>
                             <div>
                                 <h4>User</h4>
                                 <ul>
-                                    <li>Registration</li>
-                                    <li>Account</li>
+                                    {!currentUser && (
+                                        <>
+                                            <li><Link to="/account/signup">Registration</Link></li>
+                                            <li><Link to="/account/signin">Sign in</Link></li>
+                                        </>
+                                    )}
+                                    {currentUser && <li><Link to="/account">Account</Link></li>}
+                                    
                                 </ul>
                             </div>
                         </div>

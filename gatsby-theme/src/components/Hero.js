@@ -10,7 +10,7 @@ export default function HeroLayout({type, layout, center, left, right, backgroun
     const renderHero = () => {
         if(type === 'split'){
             return (
-                <header className={`hero-split hero-split--${layout} ${darkMode ? 'dark-mode' : ''}`}>
+                <header className={`hero-split hero-split--${layout}`}>
                     <div className="hero-split__left">
                         {left}
                     </div>
@@ -21,7 +21,7 @@ export default function HeroLayout({type, layout, center, left, right, backgroun
             )
         } else {
             return (
-                <header className={`hero--${layout} ${darkMode ? 'dark-mode' : ''}`}>
+                <header className={`hero--${layout}`}>
                     {center}
                 </header>
             )

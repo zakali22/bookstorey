@@ -195,11 +195,11 @@ main {
 
 
 .dark-mode {
-    background: $blue !important;
-    color: $white !important;
+    background: $blue;
+    color: $white;
 
     h1, h2, h3, p {
-        color: $white !important;
+        color: $white;
     }
 }
 
