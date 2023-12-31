@@ -24,10 +24,19 @@ export default function Footer(){
         })
         .then(() => {
             setFormSubmitted(true)
+            if(typeof window !== 'undefined'){
+                window.localStorage.setItem("formSubmitted", true)
+            }
             toast.success("Form successfully submitted")
         })
         .catch((error) => alert(error));
     }
+
+    useEffect(() => {
+        if(typeof window !== 'undefined'){
+            setDarkMode(window.localStorage.getItem("formSubmitted") === "true" ? true : false)
+        }
+    }, [])
 
     return (
         <footer className="footer">
