@@ -3,8 +3,10 @@ import "../styles/account-profile.scss"
 import Button from "./Button";
 import { validateEmail } from "../utils/validateEmail";
 import toast from "react-hot-toast";
+import {useTheme} from "../../../site/src/utils/theme"
 
 export default function SignUpForm({ onSubmit, isLoading }) {
+    const {darkMode} = useTheme()
 
     async function handleOnSubmit(e){
         e.preventDefault()
@@ -59,7 +61,7 @@ export default function SignUpForm({ onSubmit, isLoading }) {
                     <input name="confirm-password" id="confirm-password"  type="password" required />
                 </label>
 
-                <Button buttonType="submit" disabled={isLoading}>Signup</Button>
+                <Button buttonType="submit" inverted={darkMode} disabled={isLoading}>Signup</Button>
             </form>
         </>
     )

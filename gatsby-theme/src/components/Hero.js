@@ -2,8 +2,10 @@ import React from "react"
 import classnames from "classnames"
 import Section from "./Section"
 import "../styles/hero.scss"
+import {useTheme} from "../../../site/src/utils/theme"
 
 export default function HeroLayout({type, layout, center, left, right, backgroundColor, negativeMargin}){
+    const {darkMode} = useTheme()
 
     const renderHero = () => {
         if(type === 'split'){

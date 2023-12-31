@@ -36,7 +36,7 @@ export default function Bestselling(){
     console.log(allBooks.length)
 
     return (
-        <Section>
+        <Section className="section--bestselling">
             <div className="section__title">
                 <h2 className="title">Bestselling</h2>
             </div>

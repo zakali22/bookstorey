@@ -32,7 +32,7 @@ export default function RelatedBooks({bookCategory}){
     const categoryBooks = data.allBook.nodes.filter((book) => book.category === bookCategory)
 
     return (
-        <Section>
+        <Section className="section--related-books">
             <div className="section__title">
                 <h2 className="title">Similar books</h2>
             </div>

@@ -43,8 +43,9 @@
 
     .slick-active.slick-current {
         a > button {
-            background: $blue;
-            color: $white;
+            background: $blue !important;
+            color: $white !important;
+            border-color: $white !important;
         }
 
 

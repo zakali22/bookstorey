@@ -27,15 +27,43 @@
                 }
             }
         }
+
+        &.btn.inverted {
+            background: $white;
+            color: $blue;
+            border-color: $blue;
+
+            .btn__icon {
+                svg {
+                    fill: $blue;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $blue;
+                color: $white;
+                border-color: $blue;
+    
+                .btn__icon {
+                    svg {
+                        fill: $white;
+                    }
+                }
+            }
+        }
     }
 
     &--secondary {
         background-color: $white;
         color: $blue;
         border: 2px solid $blue;
-        font-size: 20px;
         border-radius: 7px;
         line-height: 1.2;
+        font-size: 16px;
+        
+        @media(min-width: 768px){
+            font-size: 20px;
+        }
 
         .btn__icon {
             svg {
@@ -53,15 +81,49 @@
                 }
             }
         }
+
+        &.btn.inverted {
+            background-color: $blue;
+            color: $white;
+            border-color: $white;
+            
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $white;
+                color: $blue;
+    
+                .btn__icon {
+                    svg {
+                        fill: $blue;
+                    }
+                }
+            }
+        }
     }
 
     &--tertiary {
         background-color: #000;
         color: $white;
-        font-size: 18px;
+        font-size: 16px;
         border: 1px solid #000;
         padding: 4px 16px;
         min-height: 20px;
+
+        @media(min-width: 768px){
+            font-size: 18px;
+        }
+
+        
+        .btn__icon {
+            svg {
+                fill: $white;
+            }
+        }
 
         &:hover, &:focus {
             background-color: $white;
@@ -73,6 +135,31 @@
                 }
             }
             
+        }
+
+        &.btn.inverted {
+            background-color: $white;
+            color: $black;
+            border-color: $white;
+
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $black;
+                color: $white;
+    
+                .btn__icon {
+                    svg {
+                        fill: $white;
+                    }
+                }
+                
+            }
+
         }
     }
 
@@ -126,6 +213,44 @@
 
         svg {
             fill: $white;
+        }
+    }
+
+
+    /** Dark mode **/
+    &.dark-mode {
+        background: $white;
+        border: 1px solid $white;
+        color: $blue;
+
+        &:hover, &:focus {
+            background: $blue;
+            border-color: $white;
+            color: $white;
+        }
+
+        &.btn.inverted {
+            background: $blue;
+            color: $white;
+            border-color: $white;
+
+            .btn__icon {
+                svg {
+                    fill: $white;
+                }
+            }
+
+            &:hover, &:focus {
+                background-color: $white;
+                color: $blue;
+                border-color: $white;
+    
+                .btn__icon {
+                    svg {
+                        fill: $blue;
+                    }
+                }
+            }
         }
     }
 }

@@ -2,19 +2,21 @@ import React from "react"
 import Container from "./Container"
 import Logo from "./Logo"
 import { Link } from "gatsby"
-import { nav, navContainer, navLeft, navRight, navLogo, navMobileToggle, navMobileWrapper, navMobile, navMobileOpen } from "../styles/nav.module.scss"
+import "../styles/nav.scss"
 import Button from "./Button"
 import AccountProfileImage from "./AccountProfileImage"
 import {useAuth} from "../../../site/src/utils/auth"
+import {useTheme} from "../../../site/src/utils/theme"
 
 function AccountProfile(){
     const { currentUser } = useAuth()
+    const {darkMode} = useTheme()
 
     return (
         <>
             {!currentUser && (
                 <Link to="/account/signin">
-                    <Button>Sign In</Button>
+                    <Button inverted>Sign In</Button>
                 </Link>
             )}
             {currentUser && (
@@ -31,6 +33,7 @@ export default function Navigation(){
     const mql = typeof window !== 'undefined' && window.matchMedia("(max-width: 767px)")
     const [isMobile, setIsMobile] = React.useState(mql.matches)
     const [mobileMenuOpen, setMobileOpen] = React.useState(false)
+    const {darkMode} = useTheme()
 
     React.useEffect(() => {
         if(typeof window !== 'undefined'){
@@ -42,19 +45,19 @@ export default function Navigation(){
 
     if(isMobile){
         return (
-            <nav className={`${nav} ${navMobile} ${mobileMenuOpen ? navMobileOpen : ''}`}>
-                <Container className={navContainer}>
-                    <div className={navLogo}>
+            <nav className={`nav nav--mobile ${darkMode ? 'dark-mode': ''} ${mobileMenuOpen ? 'nav--mobile-open' : ''}`}>
+                <Container className="nav-container">
+                    <div className="nav-logo">
                         <Logo />
                     </div>
-                    <button className={navMobileToggle} aria-label="Open the menu" onClick={() => setMobileOpen(!mobileMenuOpen)}>
+                    <button className="nav-mobile-toggle" aria-label="Open the menu" onClick={() => setMobileOpen(!mobileMenuOpen)}>
                         <span aria-hidden={true}></span>
                     </button>
                     { mobileMenuOpen && (
-                            <div className={navMobileWrapper}>
+                            <div className="nav-mobile-wrapper">
                                 <Link to="/categories/art">Categories</Link>  
                                 <Link to="/popular">Popular</Link>
-                                <Link to="/">About us</Link>
+                                {/* <Link to="/">About us</Link> */}
                                 <AccountProfile />
                             </div>
                         )
@@ -65,17 +68,17 @@ export default function Navigation(){
 
     } else {
         return (
-            <nav className={nav}>
-                <Container className={navContainer}>
-                    <div className={navLeft}>
+            <nav className={`nav ${darkMode ? 'dark-mode': ''}`}>
+                <Container className="nav-container">
+                    <div className="nav-left">
                         <Link to="/categories/art">Categories</Link>  
                         <Link to="/popular">Popular</Link>
                     </div>
-                    <div className={navLogo}>
-                        <Logo />
+                    <div className="nav-logo">
+                        <Logo darkMode={darkMode}/>
                     </div>
-                    <div className={navRight}>
-                        <Link to="/">About us</Link>
+                    <div className="nav-right">
+                        {/* <Link to="/">About us</Link> */}
                         <AccountProfile />
                     </div>
                 </Container>

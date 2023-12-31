@@ -13,11 +13,27 @@
     }
 
     a {
-        background: #F2F2F2;
+        background: $light-grey-200;
         padding: 20px;
         font-size: 20px;
         color: $blue;
         text-decoration: none;
 
+        &.is-active {
+            background: $blue;
+            color: $white;
+        }
+    }
+
+    &.dark-mode {
+        a {
+            background: $blue;
+            color: $white;
+
+            &.is-active {
+                background: $light-grey-200;
+                color: $blue;
+            }
+        }
     }
 }

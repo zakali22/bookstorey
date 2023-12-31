@@ -19,6 +19,12 @@
     display: none;
 }
 
+.slick-prev, .slick-next {
+    &::before {
+        display: none;
+    }
+}
+
 .slick-dots {
     display: flex;
     justify-content: space-between;
@@ -38,6 +44,14 @@
         display: flex;
         align-items: center;
         margin-bottom: 6px;
+
+        &.dark-mode {
+            li button {
+                &::before {
+                    color: $white;
+                }
+            }
+        }
 
         li, li button {
             padding: 0;
@@ -136,5 +150,14 @@
 .slick-align-start {
     .slick-track {
         width: 100% !important;
+    }
+}
+
+
+// Misc. 
+.dark-mode.section--authors, .dark-mode.section--bestselling, .dark-mode.section--related-books {
+    .slick-dots {
+        margin: 0;
+        padding-bottom: 70px;
     }
 }

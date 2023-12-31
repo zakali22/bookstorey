@@ -7,6 +7,13 @@
     margin-right: 30px;
     text-decoration: none;
 
+    /** Dark mode **/
+    &.dark-mode {
+        @media(min-width: 992px){
+            margin-right: 0;
+        }
+    }
+
     @media(min-width: 600px){
         // padding: 0 30px;
         padding-left: 30px;

@@ -13,7 +13,7 @@ function NavLink({partial = true, ...props}){
   return (
     <Link {...props} getProps={({isCurrent, isPartiallyCurrent}) => {
       const isActive = partial ? isPartiallyCurrent : isCurrent;
-      return {style: { backgroundColor: isActive ? "#191177" : "#F2F2F2", color: isActive ? "#fff": "#191177"}}
+      return {className: isActive ? 'is-active' : ''}
     }} />
   )
 }

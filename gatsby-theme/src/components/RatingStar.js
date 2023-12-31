@@ -1,13 +1,15 @@
 import React from "react"
+import {useTheme} from "../../../site/src/utils/theme"
 
 export default function RatingStar({rating}){
     const ratingsRef = React.useRef(null)
+    const {darkMode} = useTheme()
 
     React.useEffect(() => {
         const starsList = ratingsRef.current.children
         const sliced = Array.from(starsList).slice(0, parseInt(rating))
         sliced.forEach((star) => {
-            star.querySelector("path").setAttribute("style", "fill:white");
+            star.querySelector("path").setAttribute("style", darkMode ? 'fill:#191177': 'fill:white');
         })
         {/** If its not an integer then add half star */}
     }, [])

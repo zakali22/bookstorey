@@ -2,11 +2,13 @@ import React from "react"
 import { Link } from "gatsby"
 import RatingStar from "./RatingStar"
 import "../styles/card.scss"
+import {useTheme} from "../../../site/src/utils/theme"
 
 export default function Card({book, image, hasImageDisplacement = true, layout = 'simple', roundedCorners = true}){
-    // console.log(book)
+    const {darkMode} = useTheme()
+
     return (
-        <Link className={`card ${!hasImageDisplacement ? 'card--no-displacement' : ''} ${layout === 'complex' ? 'card--complex' : ''} ${roundedCorners ? 'card--with-rounded-corners' : ''}`} to={`/books/${book.slug}`}>
+        <Link className={`card ${darkMode ? 'dark-mode': ''} ${!hasImageDisplacement ? 'card--no-displacement' : ''} ${layout === 'complex' ? 'card--complex' : ''} ${roundedCorners ? 'card--with-rounded-corners' : ''}`} to={`/books/${book.slug}`}>
             <div className="card__image">
                 {image}
             </div>
