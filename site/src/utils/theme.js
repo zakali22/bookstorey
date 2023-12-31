@@ -12,13 +12,15 @@ export default function ThemeContextWrapper({children}){
     function saveDarkMode(){
         setDarkMode(!darkMode)
         if(typeof window !== 'undefined'){
-            window.localStorage.setItem("darkMode", true)
+            console.log(darkMode)
+            window.localStorage.setItem("darkMode", !darkMode)
         }
     }
 
     useEffect(() => {
         if(typeof window !== 'undefined'){
-            setDarkMode(window.localStorage.getItem("darkMode"))
+            console.log(window.localStorage.getItem("darkMode") === "true" ? true : false)
+            setDarkMode(window.localStorage.getItem("darkMode") === "true" ? true : false)
         }
     }, [])
 

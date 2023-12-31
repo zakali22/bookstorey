@@ -125,6 +125,14 @@
                 }
             }
         }
+
+        &.dark-mode {
+            .nav-mobile-toggle {
+                &::before, &::after, span {
+                    background: $white;
+                }
+            }
+        }
     }
 
     &-mobile-toggle {

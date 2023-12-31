@@ -9,7 +9,9 @@
 
     /** Dark mode **/
     &.dark-mode {
-        margin-right: 0;
+        @media(min-width: 992px){
+            margin-right: 0;
+        }
     }
 
     @media(min-width: 600px){

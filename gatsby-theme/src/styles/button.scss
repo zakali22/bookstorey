@@ -33,9 +33,13 @@
         background-color: $white;
         color: $blue;
         border: 2px solid $blue;
-        font-size: 20px;
         border-radius: 7px;
         line-height: 1.2;
+        font-size: 16px;
+        
+        @media(min-width: 768px){
+            font-size: 20px;
+        }
 
         .btn__icon {
             svg {
@@ -58,10 +62,14 @@
     &--tertiary {
         background-color: #000;
         color: $white;
-        font-size: 18px;
+        font-size: 16px;
         border: 1px solid #000;
         padding: 4px 16px;
         min-height: 20px;
+
+        @media(min-width: 768px){
+            font-size: 18px;
+        }
 
         &:hover, &:focus {
             background-color: $white;
