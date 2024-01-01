@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "../styles/footer.scss"
 import Container from "./Container"
 import Button from "./Button"
@@ -8,7 +8,7 @@ import {useAuth} from "../../../site/src/utils/auth"
 import toast from "react-hot-toast"
 
 export default function Footer(){
-    const {darkMode} = useTheme()
+    const {darkMode, setDarkMode} = useTheme()
     const {currentUser} = useAuth()
     const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -34,7 +34,7 @@ export default function Footer(){
 
     useEffect(() => {
         if(typeof window !== 'undefined'){
-            setDarkMode(window.localStorage.getItem("formSubmitted") === "true" ? true : false)
+            setFormSubmitted(window.localStorage.getItem("formSubmitted") === "true" ? true : false)
         }
     }, [])
 
