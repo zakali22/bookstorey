@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "../styles/footer.scss"
 import Container from "./Container"
 import Button from "./Button"
